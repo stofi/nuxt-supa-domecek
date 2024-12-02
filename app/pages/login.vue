@@ -40,12 +40,7 @@ const form = ref<{ formRef?: Form<State> }>()
 const loading = ref(false)
 
 const providers = [
-  {
-    label: 'Continue with GitHub',
-    icon: 'i-simple-icons-github',
-    color: 'white' as const,
-    click: () => signInWithGitHub()
-  }
+
 ]
 
 async function onSubmit(event: FormSubmitEvent<State>) {
@@ -70,23 +65,6 @@ async function onSubmit(event: FormSubmitEvent<State>) {
       path: 'email'
     }
     form.value?.formRef?.setErrors([formError])
-  } finally {
-    loading.value = false
-  }
-}
-
-async function signInWithGitHub() {
-  try {
-    loading.value = true
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        redirectTo: 'https://beta.freshfiles.app/confirm'
-      }
-    })
-    if (error) throw error
-  } catch (error) {
-    console.error('Error signing in with GitHub:', error)
   } finally {
     loading.value = false
   }

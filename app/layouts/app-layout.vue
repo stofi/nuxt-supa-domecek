@@ -5,10 +5,8 @@ const client = useSupabaseClient()
 // const user = useSupabaseUser()
 const _appConfig = useAppConfig()
 const { isHelpSlideoverOpen } = useDashboard()
-// const { role, checkRole } = useUsers()
 
-// await checkRole()
-// watch(user, checkRole)
+client.auth.refreshSession()
 
 client.auth.onAuthStateChange(async (event, _session) => {
   if (event === 'SIGNED_IN') {
@@ -43,8 +41,6 @@ const footerLinks = [
   }
 ]
 
-// const { fetchEntries, query, notes: entries } = useEntries()
-
 const groups = [
   {
     key: 'links',
@@ -54,30 +50,6 @@ const groups = [
       shortcuts: link.tooltip?.shortcuts
     }))
   }
-  // {
-  //   key: 'notes',
-  //   label: (q: string) => q && `Notes matching "${q}"...`,
-  //   search: async (q: string) => {
-  //     if (!q) {
-  //       return []
-  //     }
-
-  //     query.value.q = q
-
-  //     await fetchEntries()
-
-  //     const notes = entries.value
-  //     if (!notes) {
-  //       return []
-  //     }
-  //     return notes.map(note => ({
-  //       id: note.id,
-  //       label: note.title,
-  //       suffix: note.body ? note.body.substring(0, 50) + '...' : '',
-  //       to: `/app/notes/${note.id}`
-  //     }))
-  //   }
-  // }
 ]
 </script>
 

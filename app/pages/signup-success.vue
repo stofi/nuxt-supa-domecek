@@ -3,6 +3,17 @@ definePageMeta({
   layout: 'auth'
 })
 
+const client = useSupabaseClient()
+const user = useSupabaseUser()
+
+await client.auth.refreshSession()
+
+console.log(user.value)
+
+if (user.value) {
+  navigateTo('/app')
+}
+
 useSeoMeta({
   title: 'Signup Success'
 })
