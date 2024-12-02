@@ -14,7 +14,7 @@ export class TeamService extends BaseService {
   async getTeams(userId: string) {
     const { data: teamIds, error } = await this.supabase
       .from('team_users')
-      .select('team_id')
+      .select('*')
       .eq('user_id', userId)
 
     if (error) throw this.handlePostgrestError(error, 'Error fetching teams')
@@ -26,7 +26,7 @@ export class TeamService extends BaseService {
 
     const { data: teams, error: teamError, count } = await this.supabase
       .from('team')
-      .select('*', { count: 'estimated' })
+      .select('*, owner:profiles!owner_id(*)', { count: 'estimated' })
       .in('id', teamIds.map(t => t.team_id))
 
     if (teamError) throw this.handlePostgrestError(teamError, 'Error fetching teams')

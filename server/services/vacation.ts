@@ -5,6 +5,8 @@ import type { Database } from '~~/types/supabase'
 import type { CreateVacation, UpdateVacation } from '~~/types/schemas/vacation'
 
 export class VacationService extends BaseService {
+  private selector = '*, employee(*)' as const
+
   static async create(event: H3Event): Promise<VacationService> {
     const supabase = await serverSupabaseClient<Database>(event)
     return new VacationService(supabase)
@@ -14,7 +16,7 @@ export class VacationService extends BaseService {
   async getVacations(teamId: number, employeeId?: number) {
     let query = this.supabase
       .from('vacation')
-      .select('*', { count: 'estimated' })
+      .select(this.selector, { count: 'estimated' })
       .eq('team_id', teamId)
 
     if (employeeId) {
@@ -32,7 +34,7 @@ export class VacationService extends BaseService {
   async getVacationById(id: number, teamId: number) {
     const { data, error } = await this.supabase
       .from('vacation')
-      .select('*')
+      .select(this.selector)
       .eq('id', id)
       .eq('team_id', teamId)
       .single()
@@ -51,7 +53,7 @@ export class VacationService extends BaseService {
         date: JSON.stringify(vacationData.date),
         team_id: teamId
       })
-      .select('*')
+      .select(this.selector)
       .single()
 
     if (error) throw this.handlePostgrestError(error, 'Error creating vacation')
@@ -66,7 +68,7 @@ export class VacationService extends BaseService {
       .update({ ...updateData, date: JSON.stringify(updateData.date) })
       .eq('id', id)
       .eq('team_id', teamId)
-      .select('*')
+      .select(this.selector)
       .single()
 
     if (error) throw this.handlePostgrestError(error, 'Error updating vacation')

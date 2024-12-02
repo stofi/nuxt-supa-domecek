@@ -46,7 +46,7 @@ export default async function getUserTeam(event: H3Event): Promise<number> {
   }
 
   // Fetch all teams for the user
-  const teams = await teamService.getTeams(user.id)
+  const { data: teams } = await teamService.getTeams(user.id)
   if (teams.length === 0) {
     console.error('Not a member of any team')
     throw createError({

@@ -6,12 +6,16 @@ definePageMeta({
 })
 
 const { data, status, error, refresh } = await useFetch(
-  '/api/employee', {
+  '/api/team', {
     headers: useRequestHeaders(['cookie'])
   }
 )
 
-type Row = NonNullable<typeof data['value']>['data'][number]
+// HACK: Bug in supabase types
+type RowX = NonNullable<typeof data['value']>['data'][number]
+type Row = Omit<RowX, 'owner'> & {
+  owner: RowX['owner'][number]
+}
 
 const columns: TableColumn[] = [
   {
@@ -19,14 +23,8 @@ const columns: TableColumn[] = [
     label: 'Name'
   },
   {
-    key: 'contract',
-    label: 'Contract',
-    class: 'w-12 text-right',
-    rowClass: 'text-right'
-  },
-  {
-    key: 'role',
-    label: 'Role',
+    key: 'owner',
+    label: 'Owner',
     class: 'w-32 text-right',
     rowClass: 'text-right'
   }
@@ -34,23 +32,18 @@ const columns: TableColumn[] = [
 </script>
 
 <template>
-  <UDashboardNavbar title="Employees" :badge="data?.count ?? 0">
+  <UDashboardNavbar title="Teams" :badge="data?.count ?? 0">
     <template #right>
       <UButton
 label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
         @click="refresh" />
-      <UButton label="New Employee" trailing-icon="i-heroicons-plus" color="gray" to="/app/employee/new" />
+      <UButton label="New Team" trailing-icon="i-heroicons-plus" color="gray" to="/app/settings/team/new" />
     </template>
   </UDashboardNavbar>
 
   <UTable :columns="columns" :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
-    <template #role-data="{ row }: { row: Row }">
-      <template v-if="row.role.length">
-        <ColorDot v-for="role in row.role" :key="role.id" :color="role.color" class="mr-1" />
-      </template>
-      <template v-else>
-        <span class="text-gray-400">No role</span>
-      </template>
+    <template #owner-data="{ row }: {row: Row}">
+      {{ row.owner.full_name }}
     </template>
   </UTable>
 

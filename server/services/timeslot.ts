@@ -5,6 +5,8 @@ import type { Database } from '~~/types/supabase'
 import type { CreateTimeslot, UpdateTimeslot } from '~~/types/schemas/timeslot'
 
 export class TimeslotService extends BaseService {
+  private selector = '*, shift(*), role(*), employee(*)' as const
+
   static async create(event: H3Event): Promise<TimeslotService> {
     const supabase = await serverSupabaseClient<Database>(event)
     return new TimeslotService(supabase)
@@ -14,7 +16,7 @@ export class TimeslotService extends BaseService {
   async getTimeslots(teamId: number, shiftId?: number) {
     let query = this.supabase
       .from('timeslot')
-      .select('*', { count: 'estimated' })
+      .select(this.selector, { count: 'estimated' })
       .eq('team_id', teamId)
 
     if (shiftId) {
@@ -32,7 +34,7 @@ export class TimeslotService extends BaseService {
   async getTimeslotById(id: number, teamId: number) {
     const { data, error } = await this.supabase
       .from('timeslot')
-      .select('*')
+      .select(this.selector)
       .eq('id', id)
       .eq('team_id', teamId)
       .single()
@@ -50,7 +52,7 @@ export class TimeslotService extends BaseService {
         ...timeslotData,
         team_id: teamId
       })
-      .select('*')
+      .select(this.selector)
       .single()
 
     if (error) throw this.handlePostgrestError(error, 'Error creating timeslot')
@@ -69,7 +71,7 @@ export class TimeslotService extends BaseService {
       .update(updateData)
       .eq('id', id)
       .eq('team_id', teamId)
-      .select('*')
+      .select(this.selector)
       .single()
 
     if (error) throw this.handlePostgrestError(error, 'Error updating timeslot')

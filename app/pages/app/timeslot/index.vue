@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { TableColumn } from '#ui/types'
+
 definePageMeta({
   layout: 'app-layout'
 })
@@ -8,6 +10,46 @@ const { data, status, error, refresh } = await useFetch(
     headers: useRequestHeaders(['cookie'])
   }
 )
+type Row = NonNullable<typeof data['value']>['data'][number]
+
+const columns: TableColumn[] = [
+  {
+    key: 'shift',
+    label: 'Shift Date',
+    class: 'w-28'
+  },
+  {
+    key: 'role',
+    label: 'Role',
+    class: 'w-12',
+    rowClass: 'text-center'
+  },
+  {
+    key: 'employee',
+    label: 'Employee'
+  },
+  {
+    key: 'end_time',
+    label: 'End Time',
+    class: 'w-28 text-right',
+    rowClass: 'text-right'
+  },
+
+  {
+    key: 'start_time',
+    label: 'Start Time',
+    class: 'w-28 text-right',
+    rowClass: 'text-right'
+  },
+
+  {
+    key: 'break',
+    label: 'Break',
+    class: 'w-12 text-right',
+    rowClass: 'text-right'
+  }
+]
+
 </script>
 
 <template>
@@ -29,15 +71,33 @@ const { data, status, error, refresh } = await useFetch(
   </UDashboardNavbar>
 
   <UTable
+    :columns="columns"
     :rows="data?.data"
     :loading="status === 'pending'"
     sort-mode="manual"
     class="w-full"
   >
+    <template #break-data="{row}: {row: Row}">
+      <template v-if="row.break">
+        <UIcon name="i-heroicons-check-circle-solid" class="w-4 h-4 text-green-500" />
+      </template>
+      <template v-else>
+        <UIcon name="i-heroicons-x-mark" class="w-4 h-4 text-red-500" />
+      </template>
+    </template>
+    <template #role-data="{ row }: { row: Row }">
+      <ColorDot :color="row.role?.color ?? null" />
+    </template>
+    <template #shift-data="{ row }: { row: Row }">
+      {{ row.shift?.date ? new Date(row.shift.date).toLocaleDateString('cs') : '' }}
+    </template>
+    <template #employee-data="{ row }: { row: Row }">
+      {{ row.employee?.name }}
+    </template>
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.message" />
+    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
   </UDashboardPanelContent>
 
 </template>

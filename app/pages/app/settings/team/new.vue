@@ -20,7 +20,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       method: 'POST',
       body: event.data
     })
-    navigateTo('/app/team')
+    navigateTo('/app/settings/team')
   } catch (err) {
     const wasZodError = handleZodError(err, form)
     if (!wasZodError) handleServerError(err, form, 'name')

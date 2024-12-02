@@ -36,7 +36,7 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
 
   <UTable :columns="columns" :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
     <template #date-data="{ row }: { row: Row }">
-      {{ new Date(row.date).toLocaleDateString('cz') }}
+      {{ new Date(row.date).toLocaleDateString('cs') }}
     </template>
     <template #valid-data="{ row }: { row: Row }">
       <UIcon v-if="row.valid" name="i-heroicons-check-circle-solid" class="w-4 h-4 text-green-500" />
@@ -48,6 +48,6 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.message" />
+    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
   </UDashboardPanelContent>
 </template>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { pageDefinitions } from '~/pageDefinitions'
+
 const client = useSupabaseClient()
 // const user = useSupabaseUser()
 const _appConfig = useAppConfig()
@@ -14,96 +16,19 @@ client.auth.onAuthStateChange(async (event, _session) => {
   }
 })
 
-const links = computed(() => [
-  {
-    id: 'home',
-    label: 'Dashboard',
-    icon: 'i-heroicons-home',
-    to: '/app',
+const links = computed(() =>
+  pageDefinitions.map(page => ({
+    id: page.id,
+    label: page.label,
+    icon: page.icon,
+    to: page.to,
     tooltip: {
-      text: 'Dashboard',
-      shortcuts: ['G', 'D']
-    }
-  },
-  // employee Employees
-  {
-    id: 'employee',
-    label: 'Employees',
-    icon: 'i-heroicons-user-group',
-    to: '/app/employee',
-    tooltip: {
-      text: 'Employee',
-      shortcuts: ['G', 'E']
-    }
-  },
-  // role Roles
-  {
-    id: 'role',
-    label: 'Roles',
-    icon: 'i-heroicons-shield-check',
-    to: '/app/role',
-    tooltip: {
-      text: 'Role',
-      shortcuts: ['G', 'R']
-    }
-  },
-  // shift Shifts
-  {
-    id: 'shift',
-    label: 'Shifts',
-    icon: 'i-heroicons-calendar',
-    to: '/app/shift',
-    tooltip: {
-      text: 'Shift',
-      shortcuts: ['G', 'S']
-    }
-  },
-  // vacation Vacations
-  {
-    id: 'vacation',
-    label: 'Vacations',
-    icon: 'i-heroicons-calendar',
-    to: '/app/vacation',
-    tooltip: {
-      text: 'Vacation',
-      shortcuts: ['G', 'V']
-    }
-  },
-  // timeslot Timeslots
-  {
-    id: 'timeslot',
-    label: 'Timeslots',
-    icon: 'i-heroicons-clock',
-    to: '/app/timeslot',
-    tooltip: {
-      text: 'Timeslot',
-      shortcuts: ['G', 'T']
-    }
-  },
-  // teams Teams
-  {
-    id: 'team',
-    label: 'Teams',
-    icon: 'i-heroicons-users',
-    to: '/app/team',
-    tooltip: {
-      text: 'Team',
-      shortcuts: ['G', 'T']
-    }
-  },
-  {
-    id: 'settings',
-    label: 'Settings',
-    to: '/app/settings',
-    icon: 'i-heroicons-cog-8-tooth',
-
-    tooltip: {
-      text: 'Settings',
-      shortcuts: ['G', 'S']
-    }
-  }
-
-])
+      text: page.label,
+      shortcuts: page.shortcuts
+    },
+    children: page.children
+  }))
+)
 
 const footerLinks = [
   //   {

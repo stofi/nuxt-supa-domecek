@@ -63,6 +63,6 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.message" />
+    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
   </UDashboardPanelContent>
 </template>

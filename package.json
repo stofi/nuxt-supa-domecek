@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "prettier": "prettier --write . && eslint --fix .",
     "typecheck": "nuxt typecheck",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "gen": "supabase gen types --lang=typescript --local --schema public > types/supabase.ts"
   },
   "dependencies": {
     "@iconify-json/heroicons": "^1.2.1",
