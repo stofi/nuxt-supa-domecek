@@ -48,7 +48,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       </UFormGroup>
 
       <UFormGroup label="Color" name="color">
-        <UInput v-model="state.color" />
+        <!-- <UInput v-model="state.color" /> -->
+         <ColorSelect v-model="state.color" />
       </UFormGroup>
 
       <UFormGroup label="Shortname" name="shortname">

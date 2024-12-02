@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { TableColumn } from '#ui/types'
+
 definePageMeta({
   layout: 'app-layout'
 })
@@ -8,6 +10,33 @@ const { data, status, error, refresh } = await useFetch(
     headers: useRequestHeaders(['cookie'])
   }
 )
+
+type Row = NonNullable<typeof data['value']>['data'][number]
+
+const columns: TableColumn[] = [
+  {
+    key: 'name',
+    label: 'Name'
+  },
+  {
+    key: 'color',
+    label: 'Color',
+    class: 'w-12',
+    rowClass: 'text-center'
+  },
+  {
+    key: 'shortname',
+    label: 'Shortname',
+    class: 'w-16',
+    rowClass: 'text-right'
+  },
+  {
+    key: 'priority',
+    label: 'Priority',
+    class: 'w-12 text-right',
+    rowClass: 'text-right'
+  }
+]
 </script>
 
 <template>
@@ -20,7 +49,17 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
     </template>
   </UDashboardNavbar>
 
-  <UTable :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
+  <UTable :columns="columns" :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
+    <template #color-data="{ row }: { row: Row }">
+      <ColorDot :color="row.color" />
+    </template>
+    <template #priority-data="{ row }: { row: Row }">
+      <UIcon v-if="row.priority" name="i-heroicons-check-circle-solid" class="w-4 h-4 text-green-500" />
+      <UIcon
+      v-else name="i-heroicons-x-mark"
+        class="w-4 h-4 text-red-500" />
+
+    </template>
   </UTable>
 
   <UDashboardPanelContent>
