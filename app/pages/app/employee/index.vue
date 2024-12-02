@@ -23,5 +23,7 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
   <UTable :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
   </UTable>
 
-  <UDashboardSection v-if="error" title="Error" :description="error.message" />
+  <UDashboardPanelContent>
+    <UDashboardSection v-if="error" title="Error" :description="error.message" />
+  </UDashboardPanelContent>
 </template>

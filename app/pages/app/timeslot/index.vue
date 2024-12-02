@@ -36,10 +36,8 @@ const { data, status, error, refresh } = await useFetch(
   >
   </UTable>
 
-  <UDashboardSection
-    v-if="error"
-    title="Error"
-    :description="error.message"
-  />
+  <UDashboardPanelContent>
+    <UDashboardSection v-if="error" title="Error" :description="error.message" />
+  </UDashboardPanelContent>
 
 </template>
