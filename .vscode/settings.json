@@ -1,0 +1,22 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.tslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "eslint.rules.customizations": [
+    {
+      "rule": "@stylistic/*",
+      "fixable": true,
+      "severity": "off"
+    }
+  ],
+  "editor.rulers": [80],
+  "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      ".nuxt": true,
+      ".output": true,
+      "**/node_modules": true
+  }
+}

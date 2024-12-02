@@ -1,0 +1,144 @@
+title: Směnobot
+description: Směnobot is a comprehensive solution for managing employee shifts, vacations, and roles efficiently.
+navigation: false
+hero:
+  title: Manage Your Workforce with Ease
+  description: This template showcases the features of the Směnobot. It's an excellent starting point to streamline your workforce management.
+  headline:
+    label: Powered by Směnobot
+    to: https://yourcompany.com/timesheet-manager
+    icon: i-heroicons-arrow-top-right-on-square-20-solid
+  links:
+    - label: Get started
+      to: '/signup'
+      size: xl
+      color: black
+      icon: i-heroicons-arrow-right-20-solid
+      trailing: true
+    - label: View on GitHub
+      icon: i-simple-icons-github
+      size: xl
+      color: gray
+      to: https://github.com/yourcompany/timesheet-manager
+      target: _blank
+sections:
+  - title: The power of our service
+    description: Efficiently manage employee shifts, roles, and vacations with our comprehensive timesheet manager.
+    id: features
+    align: left
+    features:
+      - name: Easy to use
+        description: User-friendly interface for quick and easy management.
+        icon: i-heroicons-cog
+      - name: Reliable
+        description: Ensure accurate tracking and reporting of employee hours.
+        icon: i-heroicons-check
+      - name: Secure
+        description: Protect sensitive employee data with top-notch security.
+        icon: i-heroicons-lock-closed
+    links:
+      - label: Explore features
+        to: /features
+        color: gray
+        icon: i-heroicons-arrow-right-20-solid
+        trailing: true
+        size: md
+        class: ml-8
+  - title: The speed of our service
+    description: Experience fast and efficient service with our timesheet manager.
+    align: right
+    features:
+      - name: Fast
+        description: Quickly manage and track employee hours.
+        icon: i-heroicons-rocket-launch
+      - name: Affordable
+        description: Cost-effective solution for all your workforce management needs.
+        icon: i-heroicons-currency-dollar
+      - name: Scalable
+        description: Easily scalable to fit the needs of your growing business.
+        icon: i-heroicons-chart-bar
+    links:
+      - label: Learn more
+        to: /pro/guide/content
+        color: gray
+        icon: i-heroicons-arrow-right-20-solid
+        trailing: true
+        size: md
+        class: ml-8
+features:
+  title: Why choose our service?
+  description: Discover the benefits of using our Směnobot.
+  items:
+    - title: Easy to use
+      description: User-friendly interface for quick and easy management.
+      icon: i-heroicons-cog
+    - title: Reliable
+      description: Ensure accurate tracking and reporting of employee hours.
+      icon: i-heroicons-check
+    - title: Secure
+      description: Protect sensitive employee data with top-notch security.
+      icon: i-heroicons-lock-closed
+    - title: Fast
+      description: Quickly manage and track employee hours.
+      icon: i-heroicons-rocket-launch
+    - title: Affordable
+      description: Cost-effective solution for all your workforce management needs.
+      icon: i-heroicons-currency-dollar
+    - title: Scalable
+      description: Easily scalable to fit the needs of your growing business.
+      icon: i-heroicons-chart-bar
+testimonials:
+  headline: Testimonials
+  title: What our customers are saying.
+  description: Hear from our satisfied customers.
+  items:
+    - quote: This timesheet manager has revolutionized our workforce management. It's easy to use and reliable.
+      author:
+        name: Rose Roberson
+        description: CEO at Company
+        avatar:
+          src: https://i.pravatar.cc/120?img=1
+          loading: lazy
+    - quote: The best tool we've used for managing employee shifts and vacations.
+      author:
+        name: Chace Rodgers
+        description: CEO at Company
+        avatar:
+          src: https://i.pravatar.cc/120?img=7
+          loading: lazy
+    - quote: Secure and efficient, this timesheet manager has made our operations smoother.
+      author:
+        name: Cornelius Sheppard
+        description: CEO at Company
+        avatar:
+          src: https://i.pravatar.cc/120?img=3
+          loading: lazy
+    - quote: A must-have for any business looking to streamline their workforce management.
+      author:
+        name: Destinee Woods
+        description: CEO at Company
+        avatar:
+          src: https://i.pravatar.cc/120?img=5
+          loading: lazy
+    - quote: Affordable and scalable, it fits perfectly with our growing business needs.
+      author:
+        name: Kaleb Mccormick
+        description: CEO at Company
+        avatar:
+          src: https://i.pravatar.cc/120?img=8
+          loading: lazy
+    - quote: The user-friendly interface makes managing employee hours a breeze.
+      author:
+        name: Jazmin Mccall
+        description: CEO at Company
+        avatar:
+          src: https://i.pravatar.cc/120?img=9
+          loading: lazy
+cta:
+  title: Get started today
+  description: Start managing your workforce efficiently with our Směnobot.
+  links:
+    - label: Buy now
+      size: xl
+      color: black
+
