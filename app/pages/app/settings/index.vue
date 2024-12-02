@@ -2,6 +2,10 @@
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'Settings'
+})
+
 const isDeleteAccountModalOpen = ref(false)
 
 const user = useSupabaseUser()

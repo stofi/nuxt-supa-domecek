@@ -5,6 +5,9 @@ import { type CreateRole, createRoleSchema } from '~~/types/schemas/role'
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'New role'
+})
 
 type Schema = Partial<CreateRole>
 

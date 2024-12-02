@@ -5,6 +5,9 @@ import { type CreateTeam, createTeamSchema } from '~~/types/schemas/team'
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'New team'
+})
 
 type Schema = Partial<CreateTeam>
 

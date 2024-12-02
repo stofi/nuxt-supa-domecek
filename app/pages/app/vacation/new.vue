@@ -5,6 +5,9 @@ import { type CreateVacationInput, createVacationSchema } from '~~/types/schemas
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'New vacation'
+})
 
 type Schema = Partial<CreateVacationInput>
 

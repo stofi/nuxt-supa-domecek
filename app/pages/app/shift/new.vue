@@ -5,6 +5,9 @@ import { type CreateShiftInput, createShiftSchema } from '~~/types/schemas/shift
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'New shift'
+})
 
 type Schema = Partial<CreateShiftInput>
 

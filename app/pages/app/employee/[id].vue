@@ -2,7 +2,9 @@
 definePageMeta({
   layout: 'app-layout'
 })
-
+useHead({
+  title: 'Employee'
+})
 const route = useRoute()
 
 const { data, status, error, refresh } = await useFetch(

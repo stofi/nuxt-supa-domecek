@@ -5,6 +5,9 @@ import { type CreateEmployee, createEmployeeSchema } from '~~/types/schemas/empl
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'New employee'
+})
 
 const state = reactive<CreateEmployee>({
   name: '',

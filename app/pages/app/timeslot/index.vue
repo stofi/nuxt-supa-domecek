@@ -4,6 +4,9 @@ import type { TableColumn } from '#ui/types'
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'Timeslots'
+})
 
 const { data, status, error, refresh } = await useFetch(
   '/api/timeslot', {

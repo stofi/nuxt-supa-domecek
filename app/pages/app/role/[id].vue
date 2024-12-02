@@ -2,6 +2,9 @@
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'Role'
+})
 
 const route = useRoute()
 

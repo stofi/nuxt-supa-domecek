@@ -1,11 +1,11 @@
-import type { SupabaseClient } from '@supabase/supabase-js'
 import type { H3Event } from 'h3'
+import { BaseService } from './base'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
 import type { CreateShift, UpdateShift } from '~~/types/schemas/shift'
 
-export class ShiftService {
-  private constructor(private supabase: SupabaseClient<Database>) {}
+export class ShiftService extends BaseService {
+  private selector = '*,timeslot(*,role(*),employee(*))' as const
 
   static async create(event: H3Event): Promise<ShiftService> {
     const supabase = await serverSupabaseClient<Database>(event)
@@ -16,16 +16,10 @@ export class ShiftService {
   async getShifts(teamId: number) {
     const { data, error, count } = await this.supabase
       .from('shift')
-      .select('*', { count: 'estimated' })
+      .select(this.selector, { count: 'estimated' })
       .eq('team_id', teamId)
 
-    if (error) {
-      console.error('Error fetching shifts:', error)
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Error fetching shifts'
-      })
-    }
+    if (error) throw this.handlePostgrestError(error, 'Error fetching shifts')
 
     return { data, count }
   }
@@ -34,18 +28,15 @@ export class ShiftService {
   async getShiftById(id: number, teamId: number) {
     const { data, error } = await this.supabase
       .from('shift')
-      .select('*')
+      .select(this.selector)
       .eq('id', id)
       .eq('team_id', teamId)
       .single()
 
-    if (error) {
-      console.error('Error fetching shift by ID:', error)
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Shift not found'
-      })
-    }
+    if (error) throw this.handlePostgrestError(
+      error,
+      'Error fetching shift by ID'
+    )
 
     return data
   }
@@ -59,16 +50,10 @@ export class ShiftService {
         date: JSON.stringify(shiftData.date),
         team_id: teamId
       })
-      .select('*')
+      .select(this.selector)
       .single()
 
-    if (error) {
-      console.error('Error creating shift:', error)
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Error creating shift'
-      })
-    }
+    if (error) throw this.handlePostgrestError(error, 'Error creating shift')
 
     return data
   }
@@ -83,16 +68,10 @@ export class ShiftService {
       })
       .eq('id', id)
       .eq('team_id', teamId)
-      .select('*')
+      .select(this.selector)
       .single()
 
-    if (error) {
-      console.error('Error updating shift:', error)
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Error updating shift'
-      })
-    }
+    if (error) throw this.handlePostgrestError(error, 'Error updating shift')
 
     return data
   }
@@ -105,13 +84,7 @@ export class ShiftService {
       .eq('id', id)
       .eq('team_id', teamId)
 
-    if (error) {
-      console.error('Error deleting shift:', error)
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Error deleting shift'
-      })
-    }
+    if (error) throw this.handlePostgrestError(error, 'Error deleting shift')
 
     return { success: true }
   }

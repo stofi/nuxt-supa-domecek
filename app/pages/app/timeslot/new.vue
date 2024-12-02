@@ -5,6 +5,9 @@ import { type CreateTimeslot, createTimeslotSchema } from '~~/types/schemas/time
 definePageMeta({
   layout: 'app-layout'
 })
+useHead({
+  title: 'New timeslot'
+})
 
 type Schema = Partial<CreateTimeslot>
 
