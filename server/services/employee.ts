@@ -60,12 +60,21 @@ export class EmployeeService extends BaseService {
       .from('employee')
       .insert({
         ...employeeData,
-        team_id: teamId
+        team_id: teamId,
+        roleIds: undefined
       })
       .select('*')
       .single()
 
     if (error) throw this.handlePostgrestError(error, 'Error creating employee')
+
+    if (employeeData.roleIds) {
+      const { error: roleError } = await this.supabase
+        .from('employee_roles')
+        .insert(employeeData.roleIds.map(roleId => ({ employee_id: data.id, role_id: roleId })))
+
+      if (roleError) throw this.handlePostgrestError(roleError, 'Error assigning roles to employee')
+    }
 
     return data
   }
@@ -77,13 +86,30 @@ export class EmployeeService extends BaseService {
   ) {
     const { data, error } = await this.supabase
       .from('employee')
-      .update(updateData)
+      .update({ ...updateData, roleIds: undefined })
       .eq('id', id)
       .eq('team_id', teamId)
       .select('*')
       .single()
 
     if (error) throw this.handlePostgrestError(error, 'Error updating employee')
+
+    if (updateData.roleIds) {
+      const { error: roleError } = await this.supabase
+        .from('employee_roles')
+        .delete()
+        .eq('employee_id', id)
+
+      if (roleError) throw this.handlePostgrestError(roleError, 'Error unassigning roles from employee')
+
+      const { error: roleInsertError } = await this.supabase
+        .from('employee_roles')
+        .insert(updateData.roleIds.map(roleId => ({ employee_id: id, role_id: roleId }))
+
+        )
+
+      if (roleInsertError) throw this.handlePostgrestError(roleInsertError, 'Error assigning roles to employee')
+    }
 
     return data
   }

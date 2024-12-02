@@ -8,7 +8,8 @@ definePageMeta({
 
 const state = reactive<CreateEmployee>({
   name: '',
-  contract: 100
+  contract: 100,
+  roleIds: []
 })
 
 const form = ref<Form<CreateEmployee>>()
@@ -46,6 +47,16 @@ async function onSubmit(event: FormSubmitEvent<CreateEmployee>) {
 
       <UFormGroup label="Contract" name="contract">
         <UInput v-model="state.contract" type="numeric" />
+      </UFormGroup>
+
+      <UFormGroup label="Role" name="roleIds">
+        <USelectMenu
+v-model="state.roleIds" multiple :value-attribute="'value'" :options="[
+          { label: 'Admin', value: 1 },
+          { label: 'Manager', value: 2 },
+          { label: 'Employee', value: 3 }
+        ]" />
+
       </UFormGroup>
 
       <UButton type="submit">

@@ -10,7 +10,8 @@ export const employeeQuerySchema = z.object({
 
 export const createEmployeeSchema = z.object({
   name: z.string().min(1),
-  contract: z.number().optional()
+  contract: z.number().optional(),
+  roleIds: z.array(z.number().int()).optional()
 })
 
 export const updateEmployeeSchema = createEmployeeSchema.partial()
