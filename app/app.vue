@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+import 'v-calendar/style.css'
+
 const colorMode = useColorMode()
 
 const color = computed(() => colorMode.value === 'dark' ? '#111827' : 'white')

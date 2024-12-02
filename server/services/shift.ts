@@ -2,7 +2,7 @@ import type { H3Event } from 'h3'
 import { BaseService } from './base'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
-import type { CreateShift, UpdateShift } from '~~/types/schemas/shift'
+import type { CreateShift, ShiftQuery, UpdateShift } from '~~/types/schemas/shift'
 
 export class ShiftService extends BaseService {
   private selector = '*,timeslot(*,role(*),employee(*))' as const
@@ -13,11 +13,21 @@ export class ShiftService extends BaseService {
   }
 
   // Get all shifts for a team
-  async getShifts(teamId: number) {
-    const { data, error, count } = await this.supabase
+  async getShifts(query: ShiftQuery, teamId: number) {
+    let shiftQuery = this.supabase
       .from('shift')
       .select(this.selector, { count: 'estimated' })
       .eq('team_id', teamId)
+
+    if (query.from) {
+      shiftQuery = shiftQuery.gte('date', query.from)
+    }
+
+    if (query.to) {
+      shiftQuery = shiftQuery.lte('date', query.to)
+    }
+
+    const { data, error, count } = await shiftQuery
 
     if (error) throw this.handlePostgrestError(error, 'Error fetching shifts')
 

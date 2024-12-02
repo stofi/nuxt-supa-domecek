@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { format } from 'date-fns'
 import type { FormSubmitEvent, Form } from '#ui/types'
 import { type CreateShiftInput, createShiftSchema } from '~~/types/schemas/shift'
 
@@ -19,10 +20,14 @@ const form = ref<Form<Schema>>()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   form.value!.clear()
+  console.log(event.data)
   try {
     await $fetch('/api/shift', {
       method: 'POST',
-      body: event.data
+      body: {
+        ...event.data,
+        date: event.data.date ? format(new Date(event.data.date), 'yyyy-MM-dd') : undefined
+      }
     })
     navigateTo('/app/shift')
   } catch (err) {
@@ -44,11 +49,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       Fill in the details of the new shift
     </p>
 
-    <UForm
-      ref="form"
-      :schema="createShiftSchema"
-      :state="state" class="space-y-4"
-      @submit="onSubmit">
+    <UForm ref="form" :schema="createShiftSchema" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormGroup label="Date" name="date">
         <DatePicker v-model="state.date" />
       </UFormGroup>

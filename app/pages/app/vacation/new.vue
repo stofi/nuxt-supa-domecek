@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { format } from 'date-fns'
 import type { FormSubmitEvent, Form } from '#ui/types'
 import { type CreateVacationInput, createVacationSchema } from '~~/types/schemas/vacation'
 
@@ -22,7 +23,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   try {
     await $fetch('/api/vacation', {
       method: 'POST',
-      body: event.data
+      body: {
+        ...event.data,
+        date: event.data.date ? format(new Date(event.data.date), 'yyyy-MM-dd') : undefined
+      }
     })
     navigateTo('/app/vacation')
   } catch (err) {
