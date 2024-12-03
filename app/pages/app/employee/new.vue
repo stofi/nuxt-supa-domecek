@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import type { FormSubmitEvent, Form } from '#ui/types'
-import { type CreateEmployee, createEmployeeSchema } from '~~/types/schemas/employee'
-
 definePageMeta({
   layout: 'app-layout'
 })
@@ -9,27 +6,6 @@ useHead({
   title: 'New employee'
 })
 
-const state = reactive<CreateEmployee>({
-  name: '',
-  contract: 100,
-  roleIds: []
-})
-
-const form = ref<Form<CreateEmployee>>()
-
-async function onSubmit(event: FormSubmitEvent<CreateEmployee>) {
-  form.value!.clear()
-  try {
-    await $fetch('/api/employee', {
-      method: 'POST',
-      body: event.data
-    })
-    navigateTo('/app/employee')
-  } catch (err) {
-    const wasZodError = handleZodError(err, form)
-    if (!wasZodError) handleServerError(err, form, 'name')
-  }
-}
 </script>
 
 <template>
@@ -43,23 +19,7 @@ async function onSubmit(event: FormSubmitEvent<CreateEmployee>) {
       Fill in the details of the new employee
     </p>
 
-    <UForm ref="form" :schema="createEmployeeSchema" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormGroup label="Name" name="name">
-        <UInput v-model="state.name" />
-      </UFormGroup>
-
-      <UFormGroup label="Contract" name="contract">
-        <UInput v-model="state.contract" type="numeric" />
-      </UFormGroup>
-
-      <UFormGroup label="Role" name="roleIds">
-        <RoleSelectMultiple v-model="state.roleIds" />
-      </UFormGroup>
-
-      <UButton type="submit">
-        Submit
-      </UButton>
-    </UForm>
+    <EmployeeForm @submit="navigateTo('/app/employee')" />
   </UDashboardPanelContent>
 
 </template>

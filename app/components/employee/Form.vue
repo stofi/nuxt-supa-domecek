@@ -1,0 +1,75 @@
+<script lang="ts" setup>
+import type { FormSubmitEvent, Form } from '#ui/types'
+import { type CreateEmployee, createEmployeeSchema } from '~~/types/schemas/employee'
+
+const props = defineProps<{
+  initialState?: CreateEmployee
+  id?: string | number
+}>()
+
+const emits = defineEmits<{
+  submit: []
+  error: []
+}>()
+
+const state = reactive<CreateEmployee>({
+  name: '',
+  contract: 100,
+  roleIds: []
+})
+
+const loading = ref(false)
+
+watchEffect(() => {
+  if (props.initialState) {
+    Object.assign(state, props.initialState)
+  }
+})
+
+const form = ref<Form<CreateEmployee>>()
+
+async function onSubmit(event: FormSubmitEvent<CreateEmployee>) {
+  form.value!.clear()
+  loading.value = true
+  try {
+    if (props.id) {
+      await $fetch(`/api/employee/${props.id}`, {
+        method: 'PUT',
+        body: event.data
+      })
+    } else {
+      await $fetch('/api/employee', {
+        method: 'POST',
+        body: event.data
+      })
+    }
+    emits('submit')
+  } catch (err) {
+    const wasZodError = handleZodError(err, form)
+    if (!wasZodError) handleServerError(err, form, 'name')
+    emits('error')
+  } finally {
+    loading.value = false
+  }
+}
+</script>
+
+<template>
+  <UForm ref="form" :schema="createEmployeeSchema" :state="state" class="space-y-4" @submit="onSubmit">
+    <UFormGroup label="Name" name="name">
+      <UInput v-model="state.name" />
+    </UFormGroup>
+
+    <UFormGroup label="Contract" name="contract">
+      <UInput v-model="state.contract" type="numeric" />
+    </UFormGroup>
+
+    <UFormGroup label="Role" name="roleIds">
+      <RoleSelectMultiple v-model="state.roleIds" />
+    </UFormGroup>
+
+    <UButton type="submit" :loading="loading">
+      Submit
+    </UButton>
+  </UForm>
+</template>

@@ -2,7 +2,7 @@ import type { H3Event } from 'h3'
 import { BaseService } from './base'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
-import type { CreateTeam } from '~~/types/schemas/team'
+import type { CreateTeam, UpdateTeam } from '~~/types/schemas/team'
 
 export class TeamService extends BaseService {
   private teamSelector = 'id, name, owner:profiles!team_owner_id_fkey1(*), users:team_users(...profiles(*))' as const
@@ -85,6 +85,21 @@ export class TeamService extends BaseService {
 
     // Add the owner as the first member of the team
     await this.addUserToTeam(data.id, ownerId)
+
+    return data
+  }
+
+  // Update a team (only if the authenticated user is the owner)
+  async updateTeam(id: number, teamData: UpdateTeam, ownerId: string) {
+    const { data, error } = await this.supabase
+      .from('team')
+      .update(teamData)
+      .eq('id', id)
+      .eq('owner_id', ownerId)
+      .select(this.teamSelector)
+      .single()
+
+    if (error) throw this.handlePostgrestError(error, 'Error updating team')
 
     return data
   }

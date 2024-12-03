@@ -16,14 +16,18 @@ const color = defineModel<string>('color')
 </script>
 
 <template>
-  <USelectMenu v-model="color" :options="options" >
+  <USelectMenu v-model="color" :options="options">
     <template #option="{ option }">
-      <ColorDot :color="option"/>
-      <span class="truncate">{{ option }}</span>
+      <div class="flex items-center gap-2">
+        <ColorDot :color="option" />
+        <span class="truncate">{{ option }}</span>
+      </div>
     </template>
     <template #label>
-      <ColorDot :color="color"/>
-      <span class="truncate">{{ color }}</span>
+      <div class="flex items-center gap-2 h-6">
+        <ColorDot :color="color" />
+        <span class="truncate">{{ color }}</span>
+      </div>
     </template>
   </USelectMenu>
 </template>
