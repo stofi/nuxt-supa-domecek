@@ -46,7 +46,7 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
       {{ row.employee?.name }}
     </template>
     <template #date-data="{ row }: { row: Row }">
-      {{ new Date(row.date).toLocaleDateString('cs') }}
+      {{ formatDate(row.date) }}
     </template>
   </UTable>
 

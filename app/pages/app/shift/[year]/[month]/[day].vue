@@ -7,7 +7,7 @@ const route = useRoute()
 
 const date = computed(() => new Date(`${route.params.year}-${route.params.month}-${route.params.day}`))
 
-const title = computed(() => `Shift - ${date.value.toLocaleDateString('cs')}`)
+const title = computed(() => `Shift - ${formatDate(date.value)}`)
 
 useHead({
   title

@@ -78,20 +78,20 @@ ref="form" :schema="createTimeslotSchema" :state="state" class="gap-2 grid md:gr
       <DatePickerPopover v-model:date="state.date" />
     </UFormGroup>
 
-    <UFormGroup label="Role ID" name="role_id">
+    <UFormGroup label="Role" name="role_id">
       <RoleSelect v-model:role="state.role_id" />
     </UFormGroup>
 
-    <UFormGroup label="Employee ID" name="employee_id">
+    <UFormGroup label="Employee" name="employee_id">
       <EmployeeSelect v-model:employee="state.employee_id" />
     </UFormGroup>
 
     <UFormGroup label="Start time" name="start_time" class="md:row-start-2">
-      <UInput v-model="state.start_time" type="time" />
+      <InputTime v-model="state.start_time" />
     </UFormGroup>
 
     <UFormGroup label="End time" name="end_time" class="md:row-start-2">
-      <UInput v-model="state.end_time" type="time" />
+      <InputTime v-model="state.end_time" />
     </UFormGroup>
 
     <UFormGroup label="Break" name="break" class="md:row-start-3">

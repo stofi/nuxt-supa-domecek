@@ -92,7 +92,7 @@ const columns: TableColumn[] = [
       <ColorDot :color="row.role?.color" />
     </template>
     <template #date-data="{ row }: { row: Row }">
-      {{ new Date(row.date).toLocaleDateString('cs') }}
+      {{ formatDate(row.date) }}
     </template>
     <template #employee-data="{ row }: { row: Row }">
       {{ row.employee?.name }}

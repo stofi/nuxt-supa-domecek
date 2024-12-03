@@ -19,7 +19,7 @@ const selectedEmployee = computed<Employee | undefined>(() =>
 </script>
 
 <template>
-  <USelectMenu v-model="employee" :loading="status === 'pending'" :options="data?.data" :value-attribute="'id'">
+  <USelectMenu v-model="employee" searchable :loading="status === 'pending'" :options="data?.data" :value-attribute="'id'">
     <template #option="{ option }">
       <span class="truncate">{{ option.name }}</span>
     </template>
