@@ -1,8 +1,20 @@
 <script setup lang="ts">
 import type { NavItem } from '@nuxt/content'
 
-const navigation = inject<Ref<NavItem[]>>('navigation', ref([]))
+const user = useSupabaseUser()
+const supabaseClient = useSupabaseClient()
 
+const navigation = inject<Ref<NavItem[]>>('navigation', ref([]))
+const isLoggedIn = computed(() => !!user.value)
+const logout = async () => {
+  const { error } = await supabaseClient.auth.signOut()
+  if (error) {
+    console.error('Error logging out:', error)
+  } else {
+    // Redirect to home page or login page after successful logout
+    navigateTo('/')
+  }
+}
 const links = [
 
 ]
@@ -17,21 +29,37 @@ const links = [
         class="mb-0.5"
       />
     </template>
-
     <template #right>
-      <UButton
-        label="Sign in"
-        color="gray"
-        to="/login"
-      />
-      <UButton
-        label="Sign up"
-        icon="i-heroicons-arrow-right-20-solid"
-        trailing
-        color="black"
-        to="/signup"
-        class="hidden lg:flex"
-      />
+      <!-- Show these buttons when the user is not logged in -->
+      <template v-if="!isLoggedIn">
+        <UButton
+          label="Sign in"
+          color="gray"
+          to="/login"
+        />
+        <UButton
+          label="Sign up"
+          icon="i-heroicons-arrow-right-20-solid"
+          trailing
+          color="black"
+          to="/signup"
+          class="hidden lg:flex"
+        />
+      </template>
+
+      <!-- Show these buttons when the user is logged in -->
+      <template v-else>
+        <UButton
+          label="Dashboard"
+          color="gray"
+          to="/app"
+        />
+        <UButton
+          label="Logout"
+          color="red"
+          @click="logout"
+        />
+      </template>
     </template>
 
     <template #panel>
