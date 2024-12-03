@@ -12,7 +12,7 @@ const options: ColorOption[] = [
   'pink'
 ]
 
-const color = defineModel<ColorOption>('color', { default: () => 'red' })
+const color = defineModel<string>('color')
 </script>
 
 <template>

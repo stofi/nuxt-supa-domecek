@@ -50,15 +50,15 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
     <UForm ref="form" :schema="createTimeslotSchema" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormGroup label="Shift ID" name="shift_id">
-        <UInput v-model.number="state.shift_id" type="numeric" />
+        <ShiftSelect v-model="state.shift_id" />
       </UFormGroup>
 
       <UFormGroup label="Role ID" name="role_id">
-        <UInput v-model.number="state.role_id" type="numeric" />
+        <RoleSelect v-model="state.role_id" />
       </UFormGroup>
 
       <UFormGroup label="Employee ID" name="employee_id">
-        <UInput v-model.number="state.employee_id" type="numeric" />
+        <EmployeeSelect v-model="state.employee_id" />
       </UFormGroup>
 
       <UFormGroup label="Start time" name="start_time">

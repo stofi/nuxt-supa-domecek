@@ -1,45 +1,44 @@
 <script setup lang="ts">
-type Team = {
-  label: string
-  avatar: {
-    src: string
-  }
-  click: () => void
-}
+import type { DropdownItem } from '#ui/types'
 
-const teams: Team[] = [
-  {
-    label: 'Personal',
-    avatar: {
-      src: 'https://avatars.githubusercontent.com/u/23360933?s=200&v=4'
-    },
-    click: () => {
-      team.value = teams[0]!
-    }
-  },
-  {
-    label: 'Team',
-    avatar: {
-      src: 'https://avatars.githubusercontent.com/u/62017400?s=200&v=4'
-    },
-    click: () => {
-      team.value = teams[1]!
-    }
+const { data, status, error, refresh } = await useFetch(
+  '/api/team', {
+    headers: useRequestHeaders(['cookie'])
   }
-]
+)
+const teamId = useCookie<number>('teamId')
+
+const teams = computed(() =>
+  data.value?.data.map((team) => {
+    const item: DropdownItem = ({
+      label: team.name,
+
+      click: () => {
+        teamId.value = team.id
+      }
+    })
+    return item
+  }) ?? []
+)
+
+const selectedTeam = computed(() => {
+  const team = data.value?.data.find(team => team.id === teamId.value)
+  return team?.name ?? 'Select team'
+})
 
 const actions = [
   {
     label: 'Create team',
-    icon: 'i-heroicons-plus-circle'
+    icon: 'i-heroicons-plus-circle',
+    to: '/app/settings/team/new'
   },
   {
     label: 'Manage teams',
-    icon: 'i-heroicons-cog-8-tooth'
+    icon: 'i-heroicons-cog-8-tooth',
+    to: '/app/settings/team'
   }
 ]
 
-const team = ref<Team>(teams[0]!)
 </script>
 
 <template>
@@ -57,13 +56,9 @@ const team = ref<Team>(teams[0]!)
       :class="[open && 'bg-gray-50 dark:bg-gray-800']"
       class="w-full"
     >
-      <UAvatar
-        :src="team.avatar.src"
-        size="2xs"
-      />
 
       <span class="truncate text-gray-900 dark:text-white font-semibold">{{
-        team.label
+        selectedTeam
       }}</span>
     </UButton>
   </UDropdown>

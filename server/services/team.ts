@@ -5,6 +5,9 @@ import type { Database } from '~~/types/supabase'
 import type { CreateTeam } from '~~/types/schemas/team'
 
 export class TeamService extends BaseService {
+  private teamSelector = 'id, name, owner:profiles!team_owner_id_fkey1(*), users:team_users(...profiles(*))' as const
+  // private teamUserSelector = '*, user:profiles!user_id(*)' as const
+
   static async create(event: H3Event): Promise<TeamService> {
     const supabase = await serverSupabaseClient<Database>(event)
     return new TeamService(supabase)
@@ -26,7 +29,7 @@ export class TeamService extends BaseService {
 
     const { data: teams, error: teamError, count } = await this.supabase
       .from('team')
-      .select('*, owner:profiles!owner_id(*)', { count: 'estimated' })
+      .select(this.teamSelector, { count: 'estimated' })
       .in('id', teamIds.map(t => t.team_id))
 
     if (teamError) throw this.handlePostgrestError(teamError, 'Error fetching teams')
@@ -54,7 +57,7 @@ export class TeamService extends BaseService {
     // Step 2: Fetch team details
     const { data: team, error: teamError } = await this.supabase
       .from('team')
-      .select('id, name, created_at, updated_at, owner_id')
+      .select(this.teamSelector)
       .eq('id', teamId)
       .single()
 
@@ -75,7 +78,7 @@ export class TeamService extends BaseService {
         ...teamData,
         owner_id: ownerId
       })
-      .select('*')
+      .select(this.teamSelector)
       .single()
 
     if (error) throw this.handlePostgrestError(error, 'Error creating team')

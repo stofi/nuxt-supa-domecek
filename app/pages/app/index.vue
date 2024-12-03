@@ -44,27 +44,37 @@ const handleUpdate = (pages) => {
 <template>
   <UDashboardNavbar title="Dashboard">
     <template #right>
-      <UButton label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status==='pending'" @click="refresh()" />
+      <UButton
+label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+        @click="refresh()" />
       <UButton label="Print" trailing-icon="i-heroicons-printer" color="gray" to="/app/shift/new" />
     </template>
   </UDashboardNavbar>
   <UDashboardPanelContent>
-    <ClientOnly >
+    <ClientOnly>
       <Calendar trim-weeks expanded :is-dark="isDark" show-weeknumbers locale="cs" @update:pages="handleUpdate">
         <template #day-content="x">
-          <div class="h-full p-1 ">
-            <div class="h-full px-2 py-1 border border-gray-200 rounded dark:border-gray-800">
+          <div
+class="h-full p-0.5" role="button"
+            @click="navigateTo(`/app/shift/${x.day.year}/${x.day.month}/${x.day.day}`)"
+          >
+            <UDashboardCard
+              :ui="{ base: 'h-full min-h-32', body: { padding: 'px-2 sm:px-2 sm:py-1 py-1' } }"
+              >
               <div class="font-semi mb-1">
                 {{ format(x.day.date, 'EEEE', { locale: cs }) }} {{ x.day.day }}.
               </div>
 
-              <div class="grid">
+              <div v-if="getShift(x.day)" class="grid">
                 <div v-for="slot in getShift(x.day)?.timeslot" :key="slot.id">
-                  <ColorDot :color="slot.role?.color ?? null" />
+                  <ColorDot :color="slot.role?.color" />
                   {{ slot.employee?.name }}
                 </div>
               </div>
-            </div>
+              <div v-else>
+                <div class="text-gray-400 text-sm">No shift</div>
+              </div>
+            </UDashboardCard>
           </div>
         </template>
       </Calendar>

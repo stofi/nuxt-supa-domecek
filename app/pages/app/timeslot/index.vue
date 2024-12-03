@@ -89,7 +89,7 @@ const columns: TableColumn[] = [
       </template>
     </template>
     <template #role-data="{ row }: { row: Row }">
-      <ColorDot :color="row.role?.color ?? null" />
+      <ColorDot :color="row.role?.color" />
     </template>
     <template #shift-data="{ row }: { row: Row }">
       {{ row.shift?.date ? new Date(row.shift.date).toLocaleDateString('cs') : '' }}

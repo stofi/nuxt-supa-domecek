@@ -53,13 +53,7 @@ async function onSubmit(event: FormSubmitEvent<CreateEmployee>) {
       </UFormGroup>
 
       <UFormGroup label="Role" name="roleIds">
-        <USelectMenu
-v-model="state.roleIds" multiple :value-attribute="'value'" :options="[
-          { label: 'Admin', value: 1 },
-          { label: 'Manager', value: 2 },
-          { label: 'Employee', value: 3 }
-        ]" />
-
+        <RoleSelectMultiple v-model="state.roleIds" />
       </UFormGroup>
 
       <UButton type="submit">

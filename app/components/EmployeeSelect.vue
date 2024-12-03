@@ -1,0 +1,35 @@
+<script lang="ts" setup>
+import type { Database } from '~~/types/supabase'
+
+type Employee = Database['public']['Tables']['employee']['Row']
+
+const { data, status, error, refresh } = await useFetch(
+  '/api/employee', {
+    headers: useRequestHeaders(['cookie']),
+    key: 'employeeSelect'
+  }
+)
+
+const employee = defineModel<number>('employee')
+
+const selectedEmployee = computed<Employee | undefined>(() =>
+  data.value?.data.find((r: Employee) => r.id === employee.value)
+)
+
+</script>
+
+<template>
+  <USelectMenu v-model="employee" :loading="status === 'pending'" :options="data?.data" :value-attribute="'id'">
+    <template #option="{ option }">
+      <span class="truncate">{{ option.name }}</span>
+    </template>
+    <template #label>
+      <template v-if="selectedEmployee">
+        <span class="truncate">{{ selectedEmployee.name }}</span>
+      </template>
+      <template v-else>
+        <span class="truncate">Select Employee</span>
+      </template>
+    </template>
+  </USelectMenu>
+</template>

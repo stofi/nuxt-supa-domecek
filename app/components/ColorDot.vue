@@ -2,7 +2,7 @@
 import type { ColorOption } from '~~/types/color'
 
 const props = defineProps<{
-  color: string | null
+  color?: string | null
 }>()
 
 const supportedColor = computed(() => {
