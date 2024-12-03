@@ -1,14 +1,11 @@
 import { z } from 'zod'
 
-export const timeslotQuerySchema = z.union([
-  z.object({
+export const timeslotQuerySchema
+  = z.object({
     from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-    to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional()
-  }),
-  z.object({
+    to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional()
   })
-])
 
 export const createTimeslotSchema = z.object({
   role_id: z.number().optional(),

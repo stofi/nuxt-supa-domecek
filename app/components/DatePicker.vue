@@ -8,14 +8,16 @@ defineOptions({
   inheritAttrs: false
 })
 
-const props = defineProps({
-  modelValue: {
-    type: [Date, Object] as PropType<DatePickerDate | DatePickerRangeObject | null>,
-    default: null
-  }
+const props = withDefaults(defineProps<{
+  modelValue: DatePickerDate | DatePickerRangeObject | null
+}>(), {
+  modelValue: null
 })
 
-const emit = defineEmits(['update:model-value', 'close'])
+const emit = defineEmits<{
+  'update:model-value': [value: DatePickerDate | DatePickerRangeObject]
+  'close': []
+}>()
 
 const date = computed({
   get: () => props.modelValue,

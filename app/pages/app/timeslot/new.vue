@@ -1,39 +1,10 @@
 <script lang="ts" setup>
-import type { FormSubmitEvent, Form } from '#ui/types'
-import { type CreateTimeslot, createTimeslotSchema } from '~~/types/schemas/timeslot'
-
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
   title: 'New timeslot'
 })
-
-type Schema = Partial<CreateTimeslot>
-
-const state = reactive<Schema>({
-  role_id: undefined,
-  employee_id: undefined,
-  start_time: undefined,
-  end_time: undefined,
-  break: false,
-  date: undefined
-})
-const form = ref<Form<Schema>>()
-
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  form.value!.clear()
-  try {
-    await $fetch('/api/timeslot', {
-      method: 'POST',
-      body: event.data
-    })
-    navigateTo('/app/timeslot')
-  } catch (err) {
-    const wasZodError = handleZodError(err, form)
-    if (!wasZodError) handleServerError(err, form, 'date')
-  }
-}
 
 </script>
 
@@ -48,34 +19,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       Fill in the details of the new timeslot
     </p>
 
-    <UForm ref="form" :schema="createTimeslotSchema" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormGroup label="Date" name="date">
-        <DatePicker v-model="state.date" />
-      </UFormGroup>
-
-      <UFormGroup label="Role ID" name="role_id">
-        <RoleSelect v-model="state.role_id" />
-      </UFormGroup>
-
-      <UFormGroup label="Employee ID" name="employee_id">
-        <EmployeeSelect v-model="state.employee_id" />
-      </UFormGroup>
-
-      <UFormGroup label="Start time" name="start_time">
-        <UInput v-model="state.start_time" type="time" />
-      </UFormGroup>
-
-      <UFormGroup label="End time" name="end_time">
-        <UInput v-model="state.end_time" type="time" />
-      </UFormGroup>
-
-      <UFormGroup label="Break" name="break">
-        <UCheckbox v-model="state.break" />
-      </UFormGroup>
-
-      <UButton type="submit">
-        Submit
-      </UButton>
-    </UForm>
+    <TimeslotForm @submit="navigateTo('/app/timeslot')"/>
   </UDashboardPanelContent>
 </template>

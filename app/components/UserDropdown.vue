@@ -74,10 +74,9 @@ const items = computed(() => [
     <template #default="{ open }">
       <UButton
         color="gray"
-        variant="ghost"
         class="w-full"
         :label="user?.user_metadata?.name ?? user?.email ?? 'User'"
-        :class="[open && 'bg-gray-50 dark:bg-gray-800']"
+        :class="[open && 'bg-white dark:bg-gray-800']"
       >
         <template #leading>
           <UAvatar

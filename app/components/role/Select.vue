@@ -25,13 +25,15 @@ const selectedRole = computed<Role | undefined>(() =>
       <span class="truncate">{{ option.name }}</span>
     </template>
     <template #label>
-      <template v-if="selectedRole">
-        <ColorDot :color="selectedRole.color" />
-        <span class="truncate">{{ selectedRole.name }}</span>
-      </template>
-      <template v-else>
-        <span class="truncate">Select Role</span>
-      </template>
+      <div class="flex items-center h-6 gap-2">
+        <template v-if="selectedRole">
+          <ColorDot :color="selectedRole.color" />
+          <span class="truncate">{{ selectedRole.name }}</span>
+        </template>
+        <template v-else>
+          <span class="truncate">Select Role</span>
+        </template>
+      </div>
     </template>
   </USelectMenu>
 </template>

@@ -24,15 +24,18 @@ const selectedRoles = computed<Role[]>(() =>
       <span class="truncate">{{ option.name }}</span>
     </template>
     <template #label>
-      <template v-if="selectedRoles.length">
-        <div v-for="role in selectedRoles" :key="role.id" class="flex items-center">
-          <ColorDot :color="role.color" />
-          <span class="mx-1 truncate">{{ role.name }}</span>
-        </div>
-      </template>
-      <template v-else>
-        <span class="truncate">Select Roles</span>
-      </template>
+
+      <div class="flex items-center h-6 gap-1 overflow-hidden">
+        <template v-if="selectedRoles.length">
+          <template v-for="role in selectedRoles" :key="role.id">
+            <ColorDot :color="role.color" />
+            <span class="mr-2 truncate">{{ role.name }}</span>
+          </template>
+        </template>
+        <template v-else>
+          <span class="truncate">Select Roles</span>
+        </template>
+      </div>
     </template>
   </USelectMenu>
 </template>

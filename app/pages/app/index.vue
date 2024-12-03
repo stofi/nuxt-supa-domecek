@@ -57,11 +57,14 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
       <Calendar trim-weeks expanded :is-dark="isDark" show-weeknumbers locale="cs" @update:pages="handleUpdate">
         <template #day-content="x">
           <div
-class="h-full p-0.5" role="button"
+class="h-full p-0.5 group" role="button"
+            tabindex="0"
             @click="navigateTo(`/app/shift/${x.day.year}/${x.day.month}/${x.day.day}`)"
           >
             <UDashboardCard
-              :ui="{ base: 'h-full min-h-32', body: { padding: 'px-2 sm:px-2 sm:py-1 py-1' } }"
+              :ui="{
+                background: 'group-hover:bg-gray-100 dark:group-hover:bg-gray-800',
+                ring:'dark:ring-0 group-focus:ring-2 group-focus:ring-primary-400', rounded: 'rounded-sm', base: 'h-full min-h-32', body: { padding: 'px-2 sm:px-2 sm:py-1 py-1' } }"
               >
               <div class="font-semi mb-1">
                 {{ format(x.day.date, 'EEEE', { locale: cs }) }} {{ x.day.day }}.

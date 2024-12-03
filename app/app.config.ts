@@ -14,7 +14,8 @@ export default defineAppConfig({
       }
     },
     card: {
-      rounded: 'rounded-xl'
+      rounded: 'rounded-xl',
+      background: 'bg-gray-50 dark:bg-gray-900'
     },
     footer: {
       top: {
@@ -28,6 +29,20 @@ export default defineAppConfig({
     page: {
       hero: {
         wrapper: 'lg:py-24'
+      }
+    },
+
+    variables: {
+      light: {
+        background: '255 255 255',
+        foreground: 'var(--color-gray-800)'
+      },
+      dark: {
+        background: 'var(--color-gray-950)',
+        foreground: 'var(--color-gray-200)'
+      },
+      header: {
+        height: '4rem'
       }
     }
   }

@@ -24,12 +24,14 @@ const selectedEmployee = computed<Employee | undefined>(() =>
       <span class="truncate">{{ option.name }}</span>
     </template>
     <template #label>
-      <template v-if="selectedEmployee">
-        <span class="truncate">{{ selectedEmployee.name }}</span>
-      </template>
-      <template v-else>
-        <span class="truncate">Select Employee</span>
-      </template>
+      <div class="flex items-center h-6 gap-2">
+        <template v-if="selectedEmployee">
+          <span class="truncate">{{ selectedEmployee.name }}</span>
+        </template>
+        <template v-else>
+          <span class="truncate">Select Employee</span>
+        </template>
+      </div>
     </template>
   </USelectMenu>
 </template>

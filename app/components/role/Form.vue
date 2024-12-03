@@ -2,8 +2,10 @@
 import type { FormSubmitEvent, Form } from '#ui/types'
 import { type CreateRole, createRoleSchema } from '~~/types/schemas/role'
 
+type Schema = Partial<CreateRole>
+
 const props = defineProps<{
-  initialState?: Partial<CreateRole>
+  initialState?: Schema
   id?: string | number
 }>()
 
@@ -11,8 +13,6 @@ const emits = defineEmits<{
   submit: []
   error: []
 }>()
-
-type Schema = Partial<CreateRole>
 
 const state = reactive<Schema>({
   name: undefined,

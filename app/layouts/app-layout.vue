@@ -51,11 +51,22 @@ const groups = [
     }))
   }
 ]
+
+const linksUi = {
+  active: 'text-gray-950 before:bg-white font-semibold',
+  inactive: 'text-gray-700',
+  icon: {
+    active: 'text-gray-950 dark:text-white',
+    inactive: 'text-gray-700'
+  }
+}
 </script>
 
 <template>
   <UDashboardLayout>
-    <UDashboardPanel :width="250" :resizable="{ min: 200, max: 300 }" collapsible>
+    <UDashboardPanel
+:width="250" :resizable="{ min: 200, max: 300 }" collapsible
+      :ui="{ wrapper: 'bg-gray-50 dark:bg-gray-950' }">
       <UDashboardNavbar class="!border-transparent" :ui="{ left: 'flex-1' }" title="">
         <template #left>
           <TeamDropdown />
@@ -67,11 +78,11 @@ const groups = [
           <UDashboardSearchButton />
         </template>
 
-        <UDashboardSidebarLinks :links="links" />
+        <UDashboardSidebarLinks :ui="linksUi" :links="links" />
 
         <UDivider />
 
-        <UDashboardSidebarLinks :links="footerLinks" />
+        <UDashboardSidebarLinks :ui="linksUi" :links="footerLinks" />
 
         <UDivider class="sticky bottom-0" />
 

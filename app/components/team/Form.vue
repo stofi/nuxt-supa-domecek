@@ -2,8 +2,9 @@
 import type { FormSubmitEvent, Form } from '#ui/types'
 import { type CreateTeam, createTeamSchema } from '~~/types/schemas/team'
 
+type Schema = Partial<CreateTeam>
 const props = defineProps<{
-  initialState?: Partial<CreateTeam>
+  initialState?: Schema
   id?: string | number
 }>()
 
@@ -11,8 +12,6 @@ const emits = defineEmits<{
   submit: []
   error: []
 }>()
-
-type Schema = Partial<CreateTeam>
 
 const state = reactive<Schema>({
   name: undefined

@@ -2,8 +2,10 @@
 import type { FormSubmitEvent, Form } from '#ui/types'
 import { type CreateEmployee, createEmployeeSchema } from '~~/types/schemas/employee'
 
+type Schema = Partial<CreateEmployee>
+
 const props = defineProps<{
-  initialState?: CreateEmployee
+  initialState?: Schema
   id?: string | number
 }>()
 
@@ -12,7 +14,7 @@ const emits = defineEmits<{
   error: []
 }>()
 
-const state = reactive<CreateEmployee>({
+const state = reactive<Schema>({
   name: '',
   contract: 100,
   roleIds: []
@@ -26,9 +28,9 @@ watchEffect(() => {
   }
 })
 
-const form = ref<Form<CreateEmployee>>()
+const form = ref<Form<Schema>>()
 
-async function onSubmit(event: FormSubmitEvent<CreateEmployee>) {
+async function onSubmit(event: FormSubmitEvent<Schema>) {
   form.value!.clear()
   loading.value = true
   try {
@@ -65,7 +67,7 @@ async function onSubmit(event: FormSubmitEvent<CreateEmployee>) {
     </UFormGroup>
 
     <UFormGroup label="Role" name="roleIds">
-      <RoleSelectMultiple v-model="state.roleIds" />
+      <RoleSelectMultiple v-model:roles="state.roleIds" />
     </UFormGroup>
 
     <UButton type="submit" :loading="loading">

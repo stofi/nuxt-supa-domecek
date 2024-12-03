@@ -50,8 +50,8 @@ useSeoMeta({
   --vc-gray-500: rgb(var(--color-gray-500));
   --vc-gray-600: rgb(var(--color-gray-600));
   --vc-gray-700: rgb(var(--color-gray-700));
-  --vc-gray-800: rgb(var(--color-gray-800));
-  --vc-gray-900: rgb(var(--color-gray-900));
+  --vc-gray-800: rgb(var(--color-gray-900));
+  --vc-gray-900: rgb(var(--color-gray-950));
 }
 
 .vc-primary {
