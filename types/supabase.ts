@@ -133,41 +133,6 @@ export type Database = {
           },
         ]
       }
-      shift: {
-        Row: {
-          created_at: string
-          date: string
-          id: number
-          team_id: number
-          updated_at: string
-          valid: boolean
-        }
-        Insert: {
-          created_at?: string
-          date: string
-          id?: number
-          team_id: number
-          updated_at?: string
-          valid?: boolean
-        }
-        Update: {
-          created_at?: string
-          date?: string
-          id?: number
-          team_id?: number
-          updated_at?: string
-          valid?: boolean
-        }
-        Relationships: [
-          {
-            foreignKeyName: "shift_team_id_fkey"
-            columns: ["team_id"]
-            isOneToOne: false
-            referencedRelation: "team"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       team: {
         Row: {
           created_at: string
@@ -234,11 +199,11 @@ export type Database = {
         Row: {
           break: boolean
           created_at: string
+          date: string
           employee_id: number | null
           end_time: string
           id: number
           role_id: number | null
-          shift_id: number
           start_time: string
           team_id: number
           updated_at: string
@@ -246,11 +211,11 @@ export type Database = {
         Insert: {
           break?: boolean
           created_at?: string
+          date: string
           employee_id?: number | null
           end_time: string
           id?: number
           role_id?: number | null
-          shift_id: number
           start_time: string
           team_id: number
           updated_at?: string
@@ -258,11 +223,11 @@ export type Database = {
         Update: {
           break?: boolean
           created_at?: string
+          date?: string
           employee_id?: number | null
           end_time?: string
           id?: number
           role_id?: number | null
-          shift_id?: number
           start_time?: string
           team_id?: number
           updated_at?: string
@@ -280,13 +245,6 @@ export type Database = {
             columns: ["role_id"]
             isOneToOne: false
             referencedRelation: "role"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "timeslot_shift_id_fkey"
-            columns: ["shift_id"]
-            isOneToOne: false
-            referencedRelation: "shift"
             referencedColumns: ["id"]
           },
           {

@@ -159,7 +159,3 @@ CREATE policy "Enable read access for all users" ON "public"."team_users" AS per
 SELECT
   TO public USING (TRUE);
 
-ALTER TABLE
-  public.shift
-ADD
-  CONSTRAINT unique_date_team UNIQUE (date, team_id);

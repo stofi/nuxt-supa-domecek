@@ -12,12 +12,12 @@ useHead({
 type Schema = Partial<CreateTimeslot>
 
 const state = reactive<Schema>({
-  shift_id: undefined,
   role_id: undefined,
   employee_id: undefined,
   start_time: undefined,
   end_time: undefined,
-  break: false
+  break: false,
+  date: undefined
 })
 const form = ref<Form<Schema>>()
 
@@ -31,7 +31,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     navigateTo('/app/timeslot')
   } catch (err) {
     const wasZodError = handleZodError(err, form)
-    if (!wasZodError) handleServerError(err, form, 'shift_id')
+    if (!wasZodError) handleServerError(err, form, 'date')
   }
 }
 
@@ -49,8 +49,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     </p>
 
     <UForm ref="form" :schema="createTimeslotSchema" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormGroup label="Shift ID" name="shift_id">
-        <ShiftSelect v-model="state.shift_id" />
+      <UFormGroup label="Date" name="date">
+        <DatePicker v-model="state.date" />
       </UFormGroup>
 
       <UFormGroup label="Role ID" name="role_id">

@@ -2,39 +2,23 @@
 definePageMeta({
   layout: 'app-layout'
 })
-useHead({
-  title: 'Shift'
-})
 
 const route = useRoute()
 
-const date = new Date(`${route.params.year}-${route.params.month}-${route.params.day}`).toISOString().split('T')[0]
+const date = computed(() => new Date(`${route.params.year}-${route.params.month}-${route.params.day}`))
+
+useHead({
+  title: date.value.toLocaleDateString('cs')
+})
 
 const { data, status, error, refresh } = await useFetch(
-  '/api/shift', {
+  '/api/timeslot', {
     query: {
-      from: date,
-      to: date
+      date: date.value.toISOString().split('T')[0]
     },
     headers: useRequestHeaders(['cookie'])
   }
 )
-
-if (data.value?.data[0]) {
-  navigateTo(`/app/shift/${data.value.data[0].id}`, {
-    replace: true
-  })
-} else {
-  const { id } = await $fetch('/api/shift', {
-    method: 'POST',
-    body: {
-      date
-    }
-  })
-  navigateTo(`/app/shift/${id}`, {
-    replace: true
-  })
-}
 
 </script>
 

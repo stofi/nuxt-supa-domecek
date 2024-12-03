@@ -17,8 +17,8 @@ type Row = NonNullable<typeof data['value']>['data'][number]
 
 const columns: TableColumn[] = [
   {
-    key: 'shift',
-    label: 'Shift Date',
+    key: 'date',
+    label: 'Date',
     class: 'w-28'
   },
   {
@@ -91,8 +91,8 @@ const columns: TableColumn[] = [
     <template #role-data="{ row }: { row: Row }">
       <ColorDot :color="row.role?.color" />
     </template>
-    <template #shift-data="{ row }: { row: Row }">
-      {{ row.shift?.date ? new Date(row.shift.date).toLocaleDateString('cs') : '' }}
+    <template #date-data="{ row }: { row: Row }">
+      {{ new Date(row.date).toLocaleDateString('cs') }}
     </template>
     <template #employee-data="{ row }: { row: Row }">
       {{ row.employee?.name }}

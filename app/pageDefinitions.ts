@@ -21,13 +21,6 @@ export const pageDefinitions = [
     shortcuts: ['G', 'U']
   },
   {
-    id: 'shift',
-    label: 'Shifts',
-    icon: 'i-heroicons-calendar',
-    to: '/app/shift',
-    shortcuts: ['G', 'S']
-  },
-  {
     id: 'vacation',
     label: 'Vacations',
     icon: 'i-heroicons-calendar',

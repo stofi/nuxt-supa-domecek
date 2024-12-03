@@ -13,7 +13,7 @@ const startDate = ref(startOfMonth(today).toISOString().split('T')[0])
 const endDate = ref(endOfMonth(today).toISOString().split('T')[0])
 
 const { data, status, error, refresh } = await useFetch(
-  '/api/shift', {
+  '/api/timeslot', {
     headers: useRequestHeaders(['cookie']),
     query: {
       from: startDate,
@@ -30,9 +30,11 @@ useHead({
   title: 'Dashboard'
 })
 
-const getShift = ({ day, month, year }: { day: string, month: string, year: string }) => {
+const getTimeslotsPerDay = ({ day, month, year }: { day: string, month: string, year: string }) => {
   const date = new Date(`${year}-${month}-${day}`).toISOString().split('T')[0]
-  return data.value?.data.find(shift => shift.date === date)
+  return {
+    timeslots: data.value?.data.filter(slot => slot.date === date)
+  }
 }
 
 const handleUpdate = (pages) => {
@@ -47,7 +49,7 @@ const handleUpdate = (pages) => {
       <UButton
 label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
         @click="refresh()" />
-      <UButton label="Print" trailing-icon="i-heroicons-printer" color="gray" to="/app/shift/new" />
+      <UButton label="Print" trailing-icon="i-heroicons-printer" color="gray" to="/app" />
     </template>
   </UDashboardNavbar>
   <UDashboardPanelContent>
@@ -65,8 +67,8 @@ class="h-full p-0.5" role="button"
                 {{ format(x.day.date, 'EEEE', { locale: cs }) }} {{ x.day.day }}.
               </div>
 
-              <div v-if="getShift(x.day)" class="grid">
-                <div v-for="slot in getShift(x.day)?.timeslot" :key="slot.id">
+              <div v-if="getTimeslotsPerDay(x.day)" class="grid">
+                <div v-for="slot in getTimeslotsPerDay(x.day)?.timeslots" :key="slot.id">
                   <ColorDot :color="slot.role?.color" />
                   {{ slot.employee?.name }}
                 </div>

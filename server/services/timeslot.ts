@@ -2,10 +2,10 @@ import type { H3Event } from 'h3'
 import { BaseService } from './base'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
-import type { CreateTimeslot, UpdateTimeslot } from '~~/types/schemas/timeslot'
+import type { CreateTimeslot, TimeslotQuery, UpdateTimeslot } from '~~/types/schemas/timeslot'
 
 export class TimeslotService extends BaseService {
-  private selector = '*, shift(*), role(*), employee(*)' as const
+  private selector = '*, role(*), employee(*)' as const
 
   static async create(event: H3Event): Promise<TimeslotService> {
     const supabase = await serverSupabaseClient<Database>(event)
@@ -13,17 +13,25 @@ export class TimeslotService extends BaseService {
   }
 
   // Fetch all timeslots for a team
-  async getTimeslots(teamId: number, shiftId?: number) {
-    let query = this.supabase
+  async getTimeslots(query: TimeslotQuery, teamId: number) {
+    let timeslotQuery = this.supabase
       .from('timeslot')
       .select(this.selector, { count: 'estimated' })
       .eq('team_id', teamId)
 
-    if (shiftId) {
-      query = query.eq('shift_id', shiftId)
+    if ('date' in query && query.date) {
+      timeslotQuery = timeslotQuery.eq('date', query.date)
+    } else {
+      if ('from' in query && query.from) {
+        timeslotQuery = timeslotQuery.gte('date', query.from)
+      }
+
+      if ('from' in query && query.to) {
+        timeslotQuery = timeslotQuery.lte('date', query.to)
+      }
     }
 
-    const { data, error, count } = await query
+    const { data, error, count } = await timeslotQuery
 
     if (error) throw this.handlePostgrestError(error, 'Error fetching timeslots')
 
@@ -50,6 +58,7 @@ export class TimeslotService extends BaseService {
       .from('timeslot')
       .insert({
         ...timeslotData,
+        date: JSON.stringify(timeslotData.date),
         team_id: teamId
       })
       .select(this.selector)
@@ -68,7 +77,9 @@ export class TimeslotService extends BaseService {
   ) {
     const { data, error } = await this.supabase
       .from('timeslot')
-      .update(updateData)
+      .update({ ...updateData,
+        date: JSON.stringify(updateData.date)
+      })
       .eq('id', id)
       .eq('team_id', teamId)
       .select(this.selector)
