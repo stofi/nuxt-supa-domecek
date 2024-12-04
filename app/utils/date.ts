@@ -1,6 +1,6 @@
-export function formatDate(date: string) {
+export function formatDate(date: string | Date, locale = 'cs') {
   const parsedDate = new Date(date)
-  const formattedDate = parsedDate.toLocaleDateString('cs', {
+  const formattedDate = parsedDate.toLocaleDateString(locale, {
     month: 'long',
     day: 'numeric',
     year: 'numeric'

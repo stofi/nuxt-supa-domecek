@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Calendar } from 'v-calendar'
 import { format, startOfMonth, endOfMonth } from 'date-fns'
-import { cs } from 'date-fns/locale'
+import { cs, enUS } from 'date-fns/locale'
 
 format(new Date(2020, 1, 10), 'EEEE')
 
@@ -57,17 +57,15 @@ const handleUpdate = (pages) => {
       <Calendar trim-weeks expanded :is-dark="isDark" show-weeknumbers :locale="locale" @update:pages="handleUpdate">
         <template #day-content="x">
           <div
-class="h-full p-0.5 group" role="button"
-            tabindex="0"
-            @click="navigateTo(`/app/shift/${x.day.year}/${x.day.month}/${x.day.day}`)"
-          >
+class="h-full p-0.5 group" role="button" tabindex="0"
+            @click="navigateTo(`/app/shift/${x.day.year}/${x.day.month}/${x.day.day}`)">
             <UDashboardCard
               :ui="{
                 background: 'group-hover:bg-gray-100 dark:group-hover:bg-gray-800',
-                ring:'dark:ring-0 group-focus:ring-2 group-focus:ring-primary-400', rounded: 'rounded-sm', base: 'h-full min-h-32', body: { padding: 'px-2 sm:px-2 sm:py-1 py-1' } }"
-              >
+                ring: 'dark:ring-0 group-focus:ring-2 group-focus:ring-primary-400', rounded: 'rounded-sm', base: 'h-full min-h-32', body: { padding: 'px-2 sm:px-2 sm:py-1 py-1' }
+              }">
               <div class="font-semi mb-1">
-                {{ format(x.day.date, 'EEEE', { locale: cs }) }} {{ x.day.day }}.
+                {{ format(x.day.date, 'EEEE', { locale: locale === 'cs' ? cs : enUS }) }} {{ x.day.day }}.
               </div>
 
               <div v-if="getTimeslotsPerDay(x.day)" class="grid">

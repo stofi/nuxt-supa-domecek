@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { TableColumn } from '#ui/types'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 definePageMeta({
   layout: 'app-layout'
@@ -48,7 +48,7 @@ const columns = computed<TableColumn[]>(() => [
       {{ row.employee?.name }}
     </template>
     <template #date-data="{ row }: { row: Row }">
-      {{ formatDate(row.date) }}
+      {{ formatDate(row.date, locale) }}
     </template>
   </UTable>
 

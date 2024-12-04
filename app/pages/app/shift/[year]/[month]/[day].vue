@@ -3,12 +3,12 @@ definePageMeta({
   layout: 'app-layout'
 })
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 
 const date = computed(() => new Date(`${route.params.year}-${route.params.month}-${route.params.day}`))
 
-const title = computed(() => `${t('page.shift.label')} - ${date.value ? formatDate(date.value) : ''}`)
+const title = computed(() => `${t('page.shift.label')} - ${date.value ? formatDate(date.value, locale.value) : ''}`)
 
 useHead({
   title

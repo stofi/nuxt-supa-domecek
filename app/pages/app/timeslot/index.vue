@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { TableColumn } from '#ui/types'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 definePageMeta({
   layout: 'app-layout'
@@ -94,7 +94,7 @@ const columns = computed<TableColumn[]>(() => [
       <ColorDot :color="row.role?.color" />
     </template>
     <template #date-data="{ row }: { row: Row }">
-      {{ formatDate(row.date) }}
+      {{ formatDate(row.date, locale) }}
     </template>
     <template #employee-data="{ row }: { row: Row }">
       {{ row.employee?.name }}
