@@ -1,7 +1,11 @@
 <script setup lang="ts">
+// TODO: i18n
+const { t } = useI18n()
 const { data: page } = await useAsyncData('index', () => queryContent('/').findOne())
 if (!page.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
+  throw createError({ statusCode: 404,
+    statusMessage: t('errors.pageNotFound'),
+    fatal: true })
 }
 
 const showTestimonials = false
@@ -17,39 +21,21 @@ useSeoMeta({
 
 <template>
   <div v-if="page">
-    <ULandingHero
-      :title="page.hero.title"
-      :description="page.hero.description"
-      :links="page.hero.links"
-    >
-      <div class="absolute inset-0 landing-grid z-[-1] [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" />
+    <ULandingHero :title="page.hero.title" :description="page.hero.description" :links="page.hero.links">
+      <div
+        class="absolute inset-0 landing-grid z-[-1] [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" />
 
       <template #headline>
-        <UBadge
-          v-if="page.hero.headline"
-          variant="subtle"
-          size="lg"
-          class="relative font-semibold rounded-full"
-        >
-          <NuxtLink
-            :to="page.hero.headline.to"
-            target="_blank"
-            class="focus:outline-none"
-            tabindex="-1"
-          >
-            <span
-              class="absolute inset-0"
-              aria-hidden="true"
-            />
+        <UBadge v-if="page.hero.headline" variant="subtle" size="lg" class="relative font-semibold rounded-full">
+          <NuxtLink :to="page.hero.headline.to" target="_blank" class="focus:outline-none" tabindex="-1">
+            <span class="absolute inset-0" aria-hidden="true" />
           </NuxtLink>
 
           {{ page.hero.headline.label }}
 
           <UIcon
-            v-if="page.hero.headline.icon"
-            :name="page.hero.headline.icon"
-            class="w-4 h-4 ml-1 pointer-events-none"
-          />
+v-if="page.hero.headline.icon" :name="page.hero.headline.icon"
+            class="w-4 h-4 ml-1 pointer-events-none" />
         </UBadge>
       </template>
     </ULandingHero>
@@ -59,54 +45,29 @@ useSeoMeta({
     </ULandingSection>
 
     <ULandingSection
-      v-for="(section, index) in page.sections"
-      :key="index"
-      :title="section.title"
-      :description="section.description"
-      :align="section.align"
-      :features="section.features"
-    >
+v-for="(section, index) in page.sections" :key="index" :title="section.title"
+      :description="section.description" :align="section.align" :features="section.features">
       <!-- <ImagePlaceholder /> -->
     </ULandingSection>
 
-    <ULandingSection
-      :title="page.features.title"
-      :description="page.features.description"
-    >
+    <ULandingSection :title="page.features.title" :description="page.features.description">
       <UPageGrid>
-        <ULandingCard
-          v-for="(item, index) in page.features.items"
-          :key="index"
-          v-bind="item"
-        />
+        <ULandingCard v-for="(item, index) in page.features.items" :key="index" v-bind="item" />
       </UPageGrid>
     </ULandingSection>
 
     <ULandingSection
-      v-if="showTestimonials"
-      :headline="page.testimonials.headline"
-      :title="page.testimonials.title"
-      :description="page.testimonials.description"
-    >
+v-if="showTestimonials" :headline="page.testimonials.headline" :title="page.testimonials.title"
+      :description="page.testimonials.description">
       <UPageColumns class="xl:columns-4">
-        <div
-          v-for="(testimonial, index) in page.testimonials.items"
-          :key="index"
-          class="break-inside-avoid"
-        >
-          <ULandingTestimonial
-            v-bind="testimonial"
-            class="bg-gray-100/50 dark:bg-gray-800/50"
-          />
+        <div v-for="(testimonial, index) in page.testimonials.items" :key="index" class="break-inside-avoid">
+          <ULandingTestimonial v-bind="testimonial" class="bg-gray-100/50 dark:bg-gray-800/50" />
         </div>
       </UPageColumns>
     </ULandingSection>
 
     <ULandingSection>
-      <ULandingCTA
-        v-bind="page.cta"
-        class="bg-gray-100/50 dark:bg-gray-800/50"
-      />
+      <ULandingCTA v-bind="page.cta" class="bg-gray-100/50 dark:bg-gray-800/50" />
     </ULandingSection>
   </div>
 </template>
@@ -118,6 +79,7 @@ useSeoMeta({
     linear-gradient(to right, rgb(var(--color-gray-200)) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(var(--color-gray-200)) 1px, transparent 1px);
 }
+
 .dark {
   .landing-grid {
     background-image:

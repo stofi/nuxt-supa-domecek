@@ -7,12 +7,12 @@ format(new Date(2020, 1, 10), 'EEEE')
 
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
-
+const { locale, t } = useI18n()
 const today = new Date()
 const startDate = ref(startOfMonth(today).toISOString().split('T')[0])
 const endDate = ref(endOfMonth(today).toISOString().split('T')[0])
 
-const { data, status, error, refresh } = await useFetch(
+const { data, status, refresh } = await useFetch(
   '/api/timeslot', {
     headers: useRequestHeaders(['cookie']),
     query: {
@@ -27,7 +27,7 @@ definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'Dashboard'
+  title: t('page.dashboard.label')
 })
 
 const getTimeslotsPerDay = ({ day, month, year }: { day: string, month: string, year: string }) => {
@@ -44,17 +44,17 @@ const handleUpdate = (pages) => {
 </script>
 
 <template>
-  <UDashboardNavbar title="Dashboard">
+  <UDashboardNavbar :title="$t('page.dashboard.label')">
     <template #right>
       <UButton
-label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
         @click="refresh()" />
-      <UButton label="Print" trailing-icon="i-heroicons-printer" color="gray" to="/app" />
+      <UButton :label="$t('buttons.print')" trailing-icon="i-heroicons-printer" color="gray" to="/app" />
     </template>
   </UDashboardNavbar>
   <UDashboardPanelContent>
     <ClientOnly>
-      <Calendar trim-weeks expanded :is-dark="isDark" show-weeknumbers locale="cs" @update:pages="handleUpdate">
+      <Calendar trim-weeks expanded :is-dark="isDark" show-weeknumbers :locale="locale" @update:pages="handleUpdate">
         <template #day-content="x">
           <div
 class="h-full p-0.5 group" role="button"
@@ -75,9 +75,6 @@ class="h-full p-0.5 group" role="button"
                   <ColorDot :color="slot.role?.color" />
                   {{ slot.employee?.name }}
                 </div>
-              </div>
-              <div v-else>
-                <div class="text-gray-400 text-sm">No shift</div>
               </div>
             </UDashboardCard>
           </div>

@@ -6,6 +6,14 @@ const colorMode = useColorMode()
 
 const color = computed(() => colorMode.value === 'dark' ? '#111827' : 'white')
 
+const { getLocaleCookie, setLocale } = useI18n()
+
+// onMounted(() => {
+//   console.log(getLocaleCookie())
+// })
+
+setLocale((getLocaleCookie() ?? 'cs') as 'cs' | 'en')
+
 useHead({
   meta: [
     { charset: 'utf-8' },

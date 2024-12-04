@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
-
+const { t } = useI18n()
 definePageMeta({
   layout: 'auth'
 })
 
 useSeoMeta({
-  title: 'Authentication Confirmation Redirect'
+  title: t('page.confirmRedirect.label')
 })
 
 const cookieName = useRuntimeConfig().public.supabase.cookieName
@@ -48,5 +48,5 @@ watch(
 </script>
 
 <template>
-  <div>Waiting for login...</div>
+  <div>{{ $t('errors.waitingForLogin') }}</div>
 </template>

@@ -4,16 +4,18 @@ import type { Database } from '~~/types/supabase'
 
 type Profile = Database['public']['Tables']['profiles']['Row']
 
+const { t } = useI18n()
+
 defineProps<{
   data: Profile[]
 }>()
 
-const columns: TableColumn[] = [
+const columns = computed<TableColumn[]>(() => [
   {
     key: 'full_name',
-    label: 'Name'
+    label: t('form.common.nameLabel')
   }
-]
+])
 
 </script>
 

@@ -8,6 +8,8 @@ useHead({
   title: 'Roles'
 })
 
+const { t } = useI18n()
+
 const { data, status, error, refresh } = await useFetch(
   '/api/role', {
     headers: useRequestHeaders(['cookie'])
@@ -16,39 +18,39 @@ const { data, status, error, refresh } = await useFetch(
 
 type Row = NonNullable<typeof data['value']>['data'][number]
 
-const columns: TableColumn[] = [
+const columns = computed<TableColumn[]>(() => [
   {
     key: 'name',
-    label: 'Name'
+    label: t('form.common.nameLabel')
   },
   {
     key: 'color',
-    label: 'Color',
+    label: t('form.role.colorLabel'),
     class: 'w-12',
     rowClass: 'text-center'
   },
   {
     key: 'shortname',
-    label: 'Shortname',
+    label: t('form.role.shortnameLabel'),
     class: 'w-16',
     rowClass: 'text-right'
   },
   {
     key: 'priority',
-    label: 'Priority',
+    label: t('form.role.priorityLabel'),
     class: 'w-12 text-right',
     rowClass: 'text-right'
   }
-]
+])
 </script>
 
 <template>
-  <UDashboardNavbar title="Roles" :badge="data?.count ?? 0">
+  <UDashboardNavbar :title="$t('page.roles.label')" :badge="data?.count ?? 0">
     <template #right>
       <UButton
-label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
         @click="refresh" />
-      <UButton label="New Role" trailing-icon="i-heroicons-plus" color="gray" to="/app/role/new" />
+      <UButton :label="$t('buttons.newRole')" trailing-icon="i-heroicons-plus" color="gray" to="/app/role/new" />
     </template>
   </UDashboardNavbar>
 
@@ -66,6 +68,6 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
+    <UDashboardSection v-if="error" :title="$t('errors.error')" :description="error.statusMessage" />
   </UDashboardPanelContent>
 </template>

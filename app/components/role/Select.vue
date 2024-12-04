@@ -3,6 +3,10 @@ import type { Database } from '~~/types/supabase'
 
 type Role = Database['public']['Tables']['role']['Row']
 
+defineExpose({
+  refresh: () => refresh()
+})
+
 const { data, status, error, refresh } = await useFetch(
   '/api/role', {
     headers: useRequestHeaders(['cookie']),
@@ -19,19 +23,28 @@ const selectedRole = computed<Role | undefined>(() =>
 </script>
 
 <template>
-  <USelectMenu v-model="role" searchable :loading="status === 'pending'" :options="data?.data" :value-attribute="'id'">
+  <USelectMenu
+    v-model="role"
+    searchable
+    :loading="status === 'pending'"
+    :options="data?.data"
+    :value-attribute="'id'"
+  >
     <template #option="{ option }">
       <ColorDot :color="option.color" />
       <span class="truncate">{{ option.name }}</span>
     </template>
     <template #label>
       <div class="flex items-center h-6 gap-2">
-        <template v-if="selectedRole">
+        <template v-if="error">
+          {{ error.statusMessage }}
+        </template>
+        <template v-else-if="selectedRole">
           <ColorDot :color="selectedRole.color" />
           <span class="truncate">{{ selectedRole.name }}</span>
         </template>
         <template v-else>
-          <span class="truncate">Select Role</span>
+          <span class="truncate">{{ $t('form.role.selectRole') }}</span>
         </template>
       </div>
     </template>

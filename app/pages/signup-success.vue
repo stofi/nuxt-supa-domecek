@@ -3,6 +3,7 @@ definePageMeta({
   layout: 'auth'
 })
 
+const { t } = useI18n()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 
@@ -15,7 +16,7 @@ if (user.value) {
 }
 
 useSeoMeta({
-  title: 'Signup Success'
+  title: t('page.signupSuccess.label')
 })
 </script>
 
@@ -24,9 +25,8 @@ useSeoMeta({
 <template>
   <UCard class="max-w-sm w-full bg-white/75 dark:bg-white/5 backdrop-blur">
     <div class="text-center">
-      <h1 class="text-2xl font-bold">Signup Success</h1>
-      <p>You have successfully signed up for an account.</p>
-      <p>Please check your email for a verification link.</p>
+      <h1 class="text-2xl font-bold">{{ $t('auth.signupSuccess') }}</h1>
+       <p>{{ $t('auth.checkEmailVerification') }}</p>
     </div>
   </UCard>
 </template>

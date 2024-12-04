@@ -1,9 +1,12 @@
 <script setup lang="ts">
+
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'Settings'
+  title: t('page.settings.label')
 })
 
 const isDeleteAccountModalOpen = ref(false)
@@ -75,7 +78,7 @@ const state = reactive({
     <!--   <template #links> -->
     <!--     <UButton -->
     <!--       color="red" -->
-    <!--       label="Delete account" -->
+    <!--       :label="$t('buttons.deleteAccount')" -->
     <!--       size="md" -->
     <!--       @click="isDeleteAccountModalOpen = true" -->
     <!--     /> -->

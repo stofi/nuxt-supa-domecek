@@ -1,22 +1,24 @@
 <script lang="ts" setup>
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'New team'
+  title: t('page.settings.team.new.label')
 })
 
 </script>
 
 <template>
-  <UDashboardNavbar title="New team">
+  <UDashboardNavbar :title="$t('page.settings.team.new.label')">
     <template #right>
 
     </template>
   </UDashboardNavbar>
-  <UDashboardPanelContent title="Vacation details">
+  <UDashboardPanelContent :title="$t('page.settings.team.new.details')">
     <p class="mb-4 text-sm text-gray-500">
-      Fill in the details of the new team
+      {{ $t('page.settings.team.new.fillTeamDetails') }}
     </p>
     <TeamForm @submit="navigateTo('/app/settings/team')"/>
   </UDashboardPanelContent>

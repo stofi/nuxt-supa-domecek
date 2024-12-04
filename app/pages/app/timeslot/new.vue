@@ -1,24 +1,26 @@
 <script lang="ts" setup>
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'New timeslot'
+  title: t('page.timeslot.new.label')
 })
 
 </script>
 
 <template>
-  <UDashboardNavbar title="New timeslot">
+  <UDashboardNavbar :title="$t('page.timeslot.new.label')">
     <template #right>
 
     </template>
   </UDashboardNavbar>
-  <UDashboardPanelContent title="Timeslot details">
+  <UDashboardPanelContent :title="$t('page.timeslot.new.details')">
     <p class="mb-4 text-sm text-gray-500">
-      Fill in the details of the new timeslot
+      {{ $t('page.timeslot.new.fillTimeslotDetails') }}
     </p>
 
-    <TimeslotForm @submit="navigateTo('/app/timeslot')"/>
+    <TimeslotForm @submit="navigateTo('/app/timeslot')" />
   </UDashboardPanelContent>
 </template>

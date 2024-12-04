@@ -66,24 +66,24 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     class="space-y-4"
     @submit="onSubmit"
   >
-    <UFormGroup label="Name" name="name">
+    <UFormGroup :label="$t('form.common.nameLabel')" name="name">
       <UInput v-model="state.name" />
     </UFormGroup>
 
-    <UFormGroup label="Color" name="color">
+    <UFormGroup :label="$t('form.role.colorLabel')" name="color">
       <ColorSelect v-model="state.color" />
     </UFormGroup>
 
-    <UFormGroup label="Shortname" name="shortname">
+    <UFormGroup :label="$t('form.role.shortnameLabel')" name="shortname">
       <UInput v-model="state.shortname" />
     </UFormGroup>
 
-    <UFormGroup label="Priority" name="priority">
+    <UFormGroup :label="$t('form.role.priorityLabel')" name="priority">
       <UCheckbox v-model="state.priority" />
     </UFormGroup>
 
     <UButton type="submit" :loading="loading">
-      Submit
+      {{ $t('form.common.submitButton') }}
     </UButton>
   </UForm>
 </template>

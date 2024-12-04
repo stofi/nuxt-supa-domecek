@@ -58,20 +58,20 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <UForm ref="form" :schema="createEmployeeSchema" :state="state" class="space-y-4" @submit="onSubmit">
-    <UFormGroup label="Name" name="name">
+    <UFormGroup :label="$t('form.common.nameLabel')" name="name">
       <UInput v-model="state.name" />
     </UFormGroup>
 
-    <UFormGroup label="Contract" name="contract">
+    <UFormGroup :label="$t('form.employee.contractLabel')" name="contract">
       <UInput v-model="state.contract" type="numeric" />
     </UFormGroup>
 
-    <UFormGroup label="Role" name="roleIds">
+    <UFormGroup :label="$t('form.employee.roleLabel')" name="roleIds">
       <RoleSelectMultiple v-model:roles="state.roleIds" />
     </UFormGroup>
 
     <UButton type="submit" :loading="loading">
-      Submit
+      {{ $t('form.common.submitButton') }}
     </UButton>
   </UForm>
 </template>

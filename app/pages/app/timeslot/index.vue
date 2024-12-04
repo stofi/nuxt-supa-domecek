@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type { TableColumn } from '#ui/types'
 
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'Timeslots'
+  title: t('page.timeslot.label')
 })
 
 const { data, status, error, refresh } = await useFetch(
@@ -15,57 +17,57 @@ const { data, status, error, refresh } = await useFetch(
 )
 type Row = NonNullable<typeof data['value']>['data'][number]
 
-const columns: TableColumn[] = [
+const columns = computed<TableColumn[]>(() => [
   {
     key: 'date',
-    label: 'Date',
+    label: t('form.timeslot.dateLabel'),
     class: 'w-28'
   },
   {
     key: 'role',
-    label: 'Role',
+    label: t('form.timeslot.roleLabel'),
     class: 'w-12',
     rowClass: 'text-center'
   },
   {
     key: 'employee',
-    label: 'Employee'
+    label: t('form.timeslot.employeeLabel')
   },
   {
     key: 'end_time',
-    label: 'End Time',
+    label: t('form.timeslot.endTimeLabel'),
     class: 'w-28 text-right',
     rowClass: 'text-right'
   },
 
   {
     key: 'start_time',
-    label: 'Start Time',
+    label: t('form.timeslot.startTimeLabel'),
     class: 'w-28 text-right',
     rowClass: 'text-right'
   },
 
   {
     key: 'break',
-    label: 'Break',
+    label: t('form.timeslot.breakLabel'),
     class: 'w-12 text-right',
     rowClass: 'text-right'
   }
-]
+])
 
 </script>
 
 <template>
-  <UDashboardNavbar title="Timeslots" :badge="data?.count ?? 0">
+  <UDashboardNavbar :title="$t('page.timeslots.label')" :badge="data?.count ?? 0">
     <template #right>
       <UButton
-        label="Refresh"
+        :label="$t('buttons.refresh')"
         icon="i-heroicons-arrow-path"
         color="gray"
         :loading="status === 'pending'"
         @click="refresh"/>
       <UButton
-        label="New Timeslot"
+        :label="$t('buttons.newTimeslot')"
         trailing-icon="i-heroicons-plus"
         color="gray"
         to="/app/timeslot/new"
@@ -97,10 +99,17 @@ const columns: TableColumn[] = [
     <template #employee-data="{ row }: { row: Row }">
       {{ row.employee?.name }}
     </template>
+    <template #start_time-data="{ row }: { row: Row }">
+      {{ row.start_time.split(':').slice(0, 2).join(':') }}
+    </template>
+    <template #end_time-data="{ row }: { row: Row }">
+      {{ row.end_time.split(':').slice(0, 2).join(':') }}
+    </template>
+
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
+    <UDashboardSection v-if="error" :title="$t('errors.error')" :description="error.statusMessage" />
   </UDashboardPanelContent>
 
 </template>

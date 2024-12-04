@@ -9,7 +9,7 @@ const date = defineModel<Date | string>('date')
 
 <template>
   <UPopover :popper="{ placement: 'bottom-start' }">
-    <UButton icon="i-heroicons-calendar-days-20-solid" :label="date ? format(new Date(date), 'd MMM, yyy'): 'Not selected'" />
+    <UButton icon="i-heroicons-calendar-days-20-solid" :label="date ? format(new Date(date), 'd MMM, yyy'): $t('misc.notSelected')" />
 
     <template #panel="{ close }">
       <DatePicker v-model="date" is-required @close="close" />

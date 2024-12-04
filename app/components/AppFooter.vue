@@ -7,14 +7,15 @@ const toast = useToast()
 
 const email = ref('')
 const loading = ref(false)
+const { t } = useI18n()
 
 function onSubmit() {
   loading.value = true
 
   setTimeout(() => {
     toast.add({
-      title: 'Subscribed!',
-      description: 'You\'ve been subscribed to our newsletter.'
+      title: t('app.footer.subscribed'),
+      description: t('app.footer.subscribedMessage')
     })
 
     loading.value = false
@@ -29,13 +30,13 @@ function onSubmit() {
         <template #right>
           <form @submit.prevent="onSubmit">
             <UFormGroup
-              label="Subscribe to our newsletter"
+              :label="$t('app.footer.subscribeToNewsletter')"
               :ui="{ container: 'mt-3' }"
             >
               <UInput
                 v-model="email"
                 type="email"
-                placeholder="Enter your email"
+                :placeholder="$t('app.footer.enterYourEmail')"
                 :ui="{ icon: { trailing: { pointer: '' } } }"
                 required
                 size="xl"
@@ -48,7 +49,7 @@ function onSubmit() {
                     type="submit"
                     size="xs"
                     color="primary"
-                    :label="loading ? 'Subscribing' : 'Subscribe'"
+                    :label="loading ? $t('app.footer.subscribing') : $t('app.footer.subscribe')"
                     :loading="loading"
                   />
                 </template>
@@ -61,21 +62,13 @@ function onSubmit() {
 
     <template #left>
       <p class="text-sm text-gray-500 dark:text-gray-400">
-        Copyright © {{ new Date().getFullYear() }}. All rights reserved.
+        <!-- Copyright © {{ new Date().getFullYear() }}. All rights reserved. -->
+         {{$t('app.footer.copyright', { year: new Date().getFullYear() })}}
       </p>
     </template>
 
     <template #right>
       <UColorModeButton size="sm" />
-
-      <UButton
-        to="https://github.com/nuxt-ui-pro/saas"
-        target="_blank"
-        icon="i-simple-icons-github"
-        aria-label="GitHub"
-        color="gray"
-        variant="ghost"
-      />
     </template>
   </UFooter>
 </template>

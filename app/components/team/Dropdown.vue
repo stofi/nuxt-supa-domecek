@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { DropdownItem } from '#ui/types'
 
+defineExpose({
+  refresh: () => refresh()
+})
+
+const { t } = useI18n()
 const { data, status, error, refresh } = await useFetch(
   '/api/team', {
     headers: useRequestHeaders(['cookie'])
@@ -8,8 +13,13 @@ const { data, status, error, refresh } = await useFetch(
 )
 const teamId = useCookie<number>('teamId')
 
-const teams = computed(() =>
-  data.value?.data.map((team) => {
+const teams = computed<DropdownItem[]>(() => {
+  if (status.value === 'pending')
+    return [{ label: t('errors.loading') }]
+  if (error.value)
+    return [{ label: error.value.statusMessage ?? t('errors.error') }]
+
+  return data.value?.data.map((team) => {
     const item: DropdownItem = ({
       label: team.name,
 
@@ -18,26 +28,26 @@ const teams = computed(() =>
       }
     })
     return item
-  }) ?? []
-)
+  }) ?? [{ label: t('form.team.selectTeam') }]
+})
 
 const selectedTeam = computed(() => {
   const team = data.value?.data.find(team => team.id === teamId.value)
-  return team?.name ?? 'Select team'
+  return team?.name ?? t('form.team.selectTeam')
 })
 
-const actions = [
+const actions = computed(() => [
   {
-    label: 'Create team',
+    label: t('team.createTeam'),
     icon: 'i-heroicons-plus-circle',
     to: '/app/settings/team/new'
   },
   {
-    label: 'Manage teams',
+    label: t('team.manageTeams'),
     icon: 'i-heroicons-cog-8-tooth',
     to: '/app/settings/team'
   }
-]
+])
 
 </script>
 

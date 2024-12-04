@@ -3,11 +3,12 @@ definePageMeta({
   layout: 'app-layout'
 })
 
+const { t } = useI18n()
 const route = useRoute()
 
 const date = computed(() => new Date(`${route.params.year}-${route.params.month}-${route.params.day}`))
 
-const title = computed(() => `Shift - ${formatDate(date.value)}`)
+const title = computed(() => `${t('page.shift.label')} - ${date.value ? formatDate(date.value) : ''}`)
 
 useHead({
   title
@@ -30,12 +31,6 @@ const { data, status, error, refresh } = await useFetch(
     </template>
   </UDashboardNavbar>
   <UDashboardPanelContent>
-    <!-- <p v-if="status === 'pending'">Loading...</p>
-    <p v-else-if="error">Error: {{ error.message }}</p>
-    <pre v-else>{{ JSON.stringify(data?.data, null, 2) }}</pre>
-
-    <button @click="refresh()">Refresh</button> -->
-
     <div class="grid grid-cols-1 gap-6">
       <UDashboardCard
       v-for="slot in data?.data" :key="`timeslot-id-${slot.id}`">
@@ -49,7 +44,7 @@ const { data, status, error, refresh } = await useFetch(
         }" :date="date" @submit="refresh" />
       </UDashboardCard>
       <UDashboardCard
-        title="Create Timeslot"
+        :title="$t('page.shift.addTimeslot')"
       >
         <TimeslotForm :key="`timeslot-${data?.count ?? 0}`" :date="date" @submit="refresh" />
       </UDashboardCard>

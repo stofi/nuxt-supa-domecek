@@ -74,33 +74,33 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   <UForm
 ref="form" :schema="createTimeslotSchema" :state="state" class="gap-2 grid md:grid-cols-3"
     :validate-on="['submit']" @submit="onSubmit">
-    <UFormGroup v-if="!date" label="Date" name="date" class="md:row-start-3 md:col-start-2">
+    <UFormGroup v-if="!date" :label="$t('form.timeslot.dateLabel')" name="date" class="md:row-start-3 md:col-start-2">
       <DatePickerPopover v-model:date="state.date" />
     </UFormGroup>
 
-    <UFormGroup label="Role" name="role_id">
+    <UFormGroup :label="$t('form.timeslot.roleLabel')" name="role_id">
       <RoleSelect v-model:role="state.role_id" />
     </UFormGroup>
 
-    <UFormGroup label="Employee" name="employee_id">
+    <UFormGroup :label="$t('form.timeslot.employeeLabel')" name="employee_id">
       <EmployeeSelect v-model:employee="state.employee_id" />
     </UFormGroup>
 
-    <UFormGroup label="Start time" name="start_time" class="md:row-start-2">
+    <UFormGroup :label="$t('form.timeslot.startTimeLabel')" name="start_time" class="md:row-start-2">
       <InputTime v-model="state.start_time" />
     </UFormGroup>
 
-    <UFormGroup label="End time" name="end_time" class="md:row-start-2">
+    <UFormGroup :label="$t('form.timeslot.endTimeLabel')" name="end_time" class="md:row-start-2">
       <InputTime v-model="state.end_time" />
     </UFormGroup>
 
-    <UFormGroup label="Break" name="break" class="md:row-start-3">
+    <UFormGroup :label="$t('form.timeslot.breakLabel')" name="break" class="md:row-start-3">
       <UCheckbox v-model="state.break" />
     </UFormGroup>
 
     <div class="md:col-end-4 md:row-start-3 place-self-end">
       <UButton type="submit" :loading="loading" >
-        Submit
+        {{ $t('form.common.submitButton') }}
       </UButton>
     </div>
   </UForm>

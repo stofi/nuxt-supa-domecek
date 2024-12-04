@@ -1,13 +1,15 @@
 <script setup lang="ts">
+// TODO: i18n
 import { z } from 'zod'
 import type { FormSubmitEvent, Form, FormError } from '#ui/types'
 
+const { t } = useI18n()
 definePageMeta({
   layout: 'auth'
 })
 
 useSeoMeta({
-  title: 'Sign up'
+  title: t('page.signup.label')
 })
 
 const schema = z.object({
@@ -126,21 +128,21 @@ async function signUpWithGitHub() {
       @submit="onSubmit"
     >
       <template #description>
-        Already have an account?
+        {{ $t('auth.alreadyHaveAccount') }}
         <ULink
           to="/login"
           class="text-primary font-medium"
         >
-          Login
+          {{ $t('auth.login') }}
         </ULink>.
       </template>
 
       <template #footer>
-        By signing up, you agree to our
+        {{ $t('auth.bySigningIn') }}
         <ULink
           to="/terms"
           class="text-primary font-medium"
-        >Terms of Service</ULink>.
+        >{{ $t('auth.termsOfService') }}</ULink>.
       </template>
     </UAuthForm>
   </UCard>

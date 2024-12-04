@@ -1,21 +1,23 @@
 <script lang="ts" setup>
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'New vacation'
+  title: t('page.vacation.new.label')
 })
 </script>
 
 <template>
-  <UDashboardNavbar title="New vacation">
+  <UDashboardNavbar :title="$t('page.vacation.new.label')">
     <template #right>
 
     </template>
   </UDashboardNavbar>
-  <UDashboardPanelContent title="Vacation details">
+  <UDashboardPanelContent :title="$t('page.vacation.new.details')">
     <p class="mb-4 text-sm text-gray-500">
-      Fill in the details of the new vacation
+        {{ $t('page.vacation.new.fillVacationDetails') }}
     </p>
 
     <VactionForm @submit="navigateTo('/app/vacation')" />

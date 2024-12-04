@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     '@nuxthq/studio',
     '@vueuse/nuxt',
     'nuxt-og-image',
-    '@nuxt/test-utils/module'
+    '@nuxt/test-utils/module',
+    '@nuxtjs/i18n'
   ],
 
   devtools: { enabled: true },
@@ -58,6 +59,12 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  i18n: {
+    strategy: 'no_prefix',
+    locales: ['en', 'cs'],
+    vueI18n: './app/i18n.config.ts'
   },
 
   // site: {

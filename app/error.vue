@@ -2,6 +2,7 @@
 import type { ParsedContent } from '@nuxt/content'
 import type { NuxtError } from '#app'
 
+const { t } = useI18n()
 defineProps({
   error: {
     type: Object as PropType<NuxtError>,
@@ -16,8 +17,8 @@ useHead({
 })
 
 useSeoMeta({
-  title: 'Page not found',
-  description: 'We are sorry but this page could not be found.'
+  title: t('errors.error'),
+  description: t('errors.pageNotFoundMessage')
 })
 
 const { data: navigation } = await useAsyncData('navigation', () => fetchContentNavigation(), { default: () => [] })

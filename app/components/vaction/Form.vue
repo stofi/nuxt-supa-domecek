@@ -67,23 +67,17 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UForm
-    ref="form"
-    :schema="createVacationSchema"
-    :state="state"
-    class="space-y-4"
-    @submit="onSubmit"
-  >
-    <UFormGroup label="Employee" name="employee_id">
-       <EmployeeSelect v-model="state.employee_id" />
+  <UForm ref="form" :schema="createVacationSchema" :state="state" class="space-y-4" @submit="onSubmit">
+    <UFormGroup :label="$t('form.vacation.employeeLabel')" name="employee_id">
+      <EmployeeSelect v-model="state.employee_id" />
     </UFormGroup>
 
-    <UFormGroup label="Date" name="date">
+    <UFormGroup :label="$t('form.vacation.dateLabel')" name="date">
       <DatePickerPopover v-model:date="state.date" />
     </UFormGroup>
 
     <UButton type="submit" :loading="loading">
-      Submit
+      {{ $t('form.common.submitButton') }}
     </UButton>
   </UForm>
 </template>

@@ -6,15 +6,14 @@ const { metaSymbol } = useShortcuts()
 const user = useSupabaseUser()
 const supabaseClient = useSupabaseClient()
 
-// const { roleString, roleIcon } = useUsers()
+const { t } = useI18n()
+
 const logout = async () => {
   const { error } = await supabaseClient.auth.signOut()
   if (error) {
     console.error('Error logging out:', error)
-  } else {
-    // Redirect to home page or login page after successful logout
-    navigateTo('/')
   }
+  navigateTo('/')
 }
 
 const items = computed(() => [
@@ -27,12 +26,12 @@ const items = computed(() => [
   ],
   [
     {
-      label: 'Settings',
+      label: t('user.dropdown.accountSettings'),
       icon: 'i-heroicons-cog-8-tooth',
       to: '/app/settings'
     },
     {
-      label: 'Command menu',
+      label: t('user.dropdown.commandMenu'),
       icon: 'i-heroicons-command-line',
       shortcuts: [metaSymbol.value, 'K'],
       click: () => {
@@ -40,22 +39,15 @@ const items = computed(() => [
       }
     },
     {
-      label: 'Shortcuts',
+      label: t('user.dropdown.shortcuts'),
       icon: 'i-heroicons-question-mark-circle',
       shortcuts: ['?'],
       click: () => (isHelpSlideoverOpen.value = true)
     }
   ],
-  // [{
-  //
-  //   label: 'Documentation',
-  //   icon: 'i-heroicons-book-open',
-  //   to: '/docs',
-  //   target: '_blank'
-  // }],
   [
     {
-      label: 'Sign out',
+      label: t('user.dropdown.signOut'),
       icon: 'i-heroicons-arrow-left-on-rectangle',
       click: logout
     }
@@ -95,7 +87,7 @@ const items = computed(() => [
     <template #account>
       <div class="text-left">
         <div>
-          <p>Signed in as</p>
+          <p>{{$t('user.dropdown.signedInAs')}}</p>
           <p class="font-medium text-gray-900 truncate dark:text-white">
             {{ user?.email }}
           </p>

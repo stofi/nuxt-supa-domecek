@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type { TableColumn } from '#ui/types'
 
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'Vacations'
+  title: t('page.vacations.label')
 })
 
 const { data, status, error, refresh } = await useFetch(
@@ -16,27 +18,27 @@ const { data, status, error, refresh } = await useFetch(
 
 type Row = NonNullable<typeof data['value']>['data'][number]
 
-const columns: TableColumn[] = [
+const columns = computed<TableColumn[]>(() => [
   {
     key: 'date',
-    label: 'Date',
+    label: t('form.vacation.dateLabel'),
     class: 'w-32'
   },
   {
     key: 'employee',
-    label: 'Employee'
+    label: t('form.vacation.employeeLabel')
   }
-]
+])
 
 </script>
 
 <template>
-  <UDashboardNavbar title="Vacations" :badge="data?.count ?? 0">
+  <UDashboardNavbar :title="$t('page.vacations.label')" :badge="data?.count ?? 0">
     <template #right>
       <UButton
-label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
         @click="refresh" />
-      <UButton label="New Vacation" trailing-icon="i-heroicons-plus" color="gray" to="/app/vacation/new" />
+      <UButton :label="$t('buttons.newVacation')" trailing-icon="i-heroicons-plus" color="gray" to="/app/vacation/new" />
     </template>
   </UDashboardNavbar>
 
@@ -51,7 +53,7 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
+    <UDashboardSection v-if="error" :title="$t('errors.error')" :description="error.statusMessage" />
   </UDashboardPanelContent>
 
 </template>

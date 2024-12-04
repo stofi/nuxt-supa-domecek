@@ -7,7 +7,7 @@ import 'v-calendar/dist/style.css'
 defineOptions({
   inheritAttrs: false
 })
-
+const { locale } = useI18n()
 const props = withDefaults(defineProps<{
   modelValue: DatePickerDate | DatePickerRangeObject | null
 }>(), {
@@ -43,8 +43,9 @@ function onDayClick(_, event: MouseEvent): void {
 
 <template>
   <VCalendarDatePicker
-    v-if="date && (date as DatePickerRangeObject)?.start && (date as DatePickerRangeObject)?.end"
+  v-if="date && (date as DatePickerRangeObject)?.start && (date as DatePickerRangeObject)?.end"
     v-model.range="date"
+    :locale="locale"
     :columns="2"
     v-bind="{ ...attrs, ...$attrs }"
     @dayclick="onDayClick"
@@ -52,6 +53,7 @@ function onDayClick(_, event: MouseEvent): void {
   <VCalendarDatePicker
     v-else
     v-model="date"
+    :locale="locale"
     v-bind="{ ...attrs, ...$attrs }"
     @dayclick="onDayClick"
   />

@@ -24,7 +24,7 @@ const links = [
   <UHeader :links="links">
     <template #logo>
       Směnobot <UBadge
-        label="New"
+        :label="$t('app.header.newBadge')"
         variant="subtle"
         class="mb-0.5"
       />
@@ -33,12 +33,12 @@ const links = [
       <!-- Show these buttons when the user is not logged in -->
       <template v-if="!isLoggedIn">
         <UButton
-          label="Sign in"
+          :label="$t('app.header.signIn')"
           color="gray"
           to="/login"
         />
         <UButton
-          label="Sign up"
+          :label="$t('app.header.signUp')"
           icon="i-heroicons-arrow-right-20-solid"
           trailing
           color="black"
@@ -50,12 +50,12 @@ const links = [
       <!-- Show these buttons when the user is logged in -->
       <template v-else>
         <UButton
-          label="Dashboard"
+          :label="$t('app.header.dashboard')"
           color="gray"
           to="/app"
         />
         <UButton
-          label="Logout"
+          :label="$t('app.header.logout')"
           color="red"
           @click="logout"
         />

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { pageDefinitions } from '~/pageDefinitions'
 
+const { locale, t, setLocale, locales } = useI18n()
+
 const client = useSupabaseClient()
 // const user = useSupabaseUser()
 const _appConfig = useAppConfig()
@@ -17,40 +19,40 @@ client.auth.onAuthStateChange(async (event, _session) => {
 const links = computed(() =>
   pageDefinitions.map(page => ({
     id: page.id,
-    label: page.label,
+    label: t(page.label),
     icon: page.icon,
     to: page.to,
     tooltip: {
-      text: page.label,
+      text: t(page.label),
       shortcuts: page.shortcuts
     },
-    children: page.children
+    children: page.children?.map(c => ({ ...c, label: t(c.label) })) ?? []
   }))
 )
 
-const footerLinks = [
-  //   {
+const footerLinks = computed(() => [
+  // {
   //   label: 'Invite people',
   //   icon: 'i-heroicons-plus',
   //   to: '/app/settings/members'
   // },
   {
-    label: 'Shortcuts',
+    label: t('app.layout.shortcuts'),
     icon: 'i-heroicons-question-mark-circle',
     click: () => (isHelpSlideoverOpen.value = true)
   }
-]
+])
 
-const groups = [
+const groups = computed(() => [
   {
     key: 'links',
-    label: 'Go to',
+    label: t('app.layout.goTo'),
     commands: links.value.map(link => ({
       ...link,
       shortcuts: link.tooltip?.shortcuts
     }))
   }
-]
+])
 
 const linksUi = {
   active: 'text-gray-950 before:bg-white font-semibold',
@@ -75,7 +77,7 @@ const linksUi = {
       </UDashboardNavbar>
       <UDashboardSidebar>
         <template #header>
-          <UDashboardSearchButton />
+          <UDashboardSearchButton :label="$t('app.layout.search')" />
         </template>
 
         <UDashboardSidebarLinks :ui="linksUi" :links="links" />
@@ -87,8 +89,17 @@ const linksUi = {
         <UDivider class="sticky bottom-0" />
 
         <template #footer>
-          <!-- ~/components/UserDropdown.vue -->
-          <UserDropdown />
+          <div class="flex flex-col justify-stretch w-full gap-2">
+            <UButtonGroup class="self-center" size="sm">
+              <UButton
+v-for="l in locales" :key="l" :variant="l === locale ? 'solid' : 'ghost'"
+                :disabled="l === locale" square @click="setLocale(l)">
+                <span class="px-1">{{ $t(`locale.${l}`) }}</span>
+
+              </UButton>
+            </UButtonGroup>
+            <UserDropdown />
+          </div>
         </template>
       </UDashboardSidebar>
     </UDashboardPanel>
@@ -104,7 +115,8 @@ const linksUi = {
     <!-- <NotificationsSlideover /> -->
 
     <ClientOnly>
-      <LazyUDashboardSearch :groups="groups" />
+      <LazyUDashboardSearch
+      :groups="groups" />
     </ClientOnly>
   </UDashboardLayout>
 </template>

@@ -62,12 +62,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     class="space-y-4"
     @submit="onSubmit"
   >
-    <UFormGroup label="Name" name="name">
+    <UFormGroup :label="$t('form.common.nameLabel')" name="name">
       <UInput v-model="state.name" />
     </UFormGroup>
 
     <UButton type="submit" :loading="loading">
-      Submit
+      {{ $t('form.common.submitButton') }}
     </UButton>
   </UForm>
 </template>

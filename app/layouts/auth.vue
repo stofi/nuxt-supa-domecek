@@ -12,7 +12,7 @@ useHead({
 
     <UButton
       icon="i-heroicons-home"
-      label="Home"
+      :label="$t('buttons.home')"
       to="/"
       color="black"
       class="absolute top-4"

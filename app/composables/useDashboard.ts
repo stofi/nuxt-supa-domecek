@@ -13,7 +13,7 @@ const _useDashboard = () => {
     }
     if (page.children) {
       page.children.forEach((child) => {
-        if (child.shortcuts) {
+        if ('shortcuts' in child && child.shortcuts && Array.isArray(child.shortcuts)) {
           acc[child.shortcuts.join('-').toLowerCase()] = () => router.push(child.to)
         }
       })

@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type { TableColumn } from '#ui/types'
 
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'Teams'
+  title: t('page.settings.teams.label')
 })
 
 const { data, status, error, refresh } = await useFetch(
@@ -16,18 +18,18 @@ const { data, status, error, refresh } = await useFetch(
 
 type Row = NonNullable<typeof data['value']>['data'][number]
 
-const columns: TableColumn[] = [
+const columns = computed<TableColumn[]>(() => [
   {
     key: 'name',
-    label: 'Name'
+    label: t('form.common.nameLabel')
   },
   {
     key: 'owner',
-    label: 'Owner',
+    label: t('form.team.ownerLabel'),
     class: 'w-32 text-right',
     rowClass: 'text-right'
   }
-]
+])
 
 const expand = ref({
   openedRows: [],
@@ -36,12 +38,12 @@ const expand = ref({
 </script>
 
 <template>
-  <UDashboardNavbar title="Teams" :badge="data?.count ?? 0">
+  <UDashboardNavbar :title="$t('page.settings.teams.label')" :badge="data?.count ?? 0">
     <template #right>
       <UButton
-label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
         @click="refresh" />
-      <UButton label="New Team" trailing-icon="i-heroicons-plus" color="gray" to="/app/settings/team/new" />
+      <UButton :label="$t('buttons.newTeam')" trailing-icon="i-heroicons-plus" color="gray" to="/app/settings/team/new" />
     </template>
   </UDashboardNavbar>
 
@@ -60,6 +62,6 @@ v-model:expand="expand" :ui="{ td: { base: 'first-of-type:w-0' } }" :columns="co
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
+    <UDashboardSection v-if="error" :title="$t('errors.error')" :description="error.statusMessage" />
   </UDashboardPanelContent>
 </template>

@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import type { TableColumn } from '#ui/types'
 
+const { t } = useI18n()
+
 definePageMeta({
   layout: 'app-layout'
 })
 useHead({
-  title: 'Employees'
+  title: t('page.employees.label')
 })
 
 const { data, status, error, refresh } = await useFetch(
@@ -16,33 +18,33 @@ const { data, status, error, refresh } = await useFetch(
 
 type Row = NonNullable<typeof data['value']>['data'][number]
 
-const columns: TableColumn[] = [
+const columns = computed<TableColumn[]>(() => [
   {
     key: 'name',
-    label: 'Name'
+    label: t('form.common.nameLabel')
   },
   {
     key: 'contract',
-    label: 'Contract',
+    label: t('form.employee.contractLabel'),
     class: 'w-12 text-right',
     rowClass: 'text-right'
   },
   {
     key: 'role',
-    label: 'Role',
+    label: t('form.employee.roleLabel'),
     class: 'w-32 text-right',
     rowClass: 'text-right'
   }
-]
+])
 </script>
 
 <template>
-  <UDashboardNavbar title="Employees" :badge="data?.count ?? 0">
+  <UDashboardNavbar :title="$t('page.employees.label')" :badge="data?.count ?? 0">
     <template #right>
       <UButton
-label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
         @click="refresh" />
-      <UButton label="New Employee" trailing-icon="i-heroicons-plus" color="gray" to="/app/employee/new" />
+      <UButton :label="$t('buttons.newEmployee')" trailing-icon="i-heroicons-plus" color="gray" to="/app/employee/new" />
     </template>
   </UDashboardNavbar>
 
@@ -52,12 +54,14 @@ label="Refresh" icon="i-heroicons-arrow-path" color="gray" :loading="status === 
         <ColorDot v-for="role in row.role" :key="role.id" :color="role.color" class="mr-1" />
       </template>
       <template v-else>
-        <span class="text-gray-400">No role</span>
+        <span>
+          <!-- There must be something here to prevent showing '[]' -->
+        </span>
       </template>
     </template>
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" title="Error" :description="error.statusMessage" />
+    <UDashboardSection v-if="error" :title="$t('errors.error')" :description="error.statusMessage" />
   </UDashboardPanelContent>
 </template>

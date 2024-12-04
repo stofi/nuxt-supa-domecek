@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: i18n
 import { z } from 'zod'
 import type { FormSubmitEvent, Form, FormError } from '#ui/types'
 
@@ -8,13 +9,14 @@ const schema = z.object({
 })
 
 type State = z.infer<typeof schema>
+const { t } = useI18n()
 
 definePageMeta({
   layout: 'auth'
 })
 
 useSeoMeta({
-  title: 'Login'
+  title: t('page.login.label')
 })
 
 const fields = [
@@ -85,7 +87,7 @@ watchEffect(() => {
       :fields="fields"
       :schema="schema"
       :providers="providers"
-      title="Welcome back"
+      :title="$t('auth.welcomeBack')"
       align="top"
       icon="i-heroicons-lock-closed"
       :ui="{ base: 'text-center', footer: 'text-center' }"
@@ -94,19 +96,20 @@ watchEffect(() => {
       @submit="onSubmit"
     >
       <template #description>
-        Don't have an account?
-        <ULink to="/signup" class="text-primary font-medium">Sign up</ULink>.
+        {{ $t('auth.dontHaveAccount') }}
+        <ULink to="/signup" class="text-primary font-medium">{{ $t('auth.signUp') }}</ULink>.
       </template>
 
       <template #password-hint>
         <ULink to="/forgot-password" class="text-primary font-medium"
-          >Forgot password?</ULink
+          >{{  $t('auth.forgotPassword')  }}</ULink
         >
       </template>
 
       <template #footer>
-        By signing in, you agree to our
-        <ULink to="/" class="text-primary font-medium">Terms of Service</ULink>.
+        <!-- By signing in, you agree to our -->
+         {{ $t('auth.bySigningIn') }}
+        <ULink to="/" class="text-primary font-medium">{{  $t('auth.termsOfService') }}</ULink>.
       </template>
     </UAuthForm>
   </UCard>
