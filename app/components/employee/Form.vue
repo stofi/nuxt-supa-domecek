@@ -60,6 +60,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   <UForm ref="form" :schema="createEmployeeSchema" :state="state" class="space-y-4" @submit="onSubmit">
     <UFormGroup :label="$t('form.common.nameLabel')" name="name">
       <UInput v-model="state.name" />
+      <template #error="{ error }">
+      <span :class="[error ? 'text-red-500 dark:text-red-400' : 'text-primary-500 dark:text-primary-400']">
+        {{ handleErrorMessageI8n(error) }}
+      </span>
+    </template>
     </UFormGroup>
 
     <UFormGroup :label="$t('form.employee.contractLabel')" name="contract">

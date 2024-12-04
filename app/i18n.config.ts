@@ -22,7 +22,7 @@ const en = {
     role: 'Role',
     team: 'Team',
     vacation: 'Vacation',
-    timeslot: 'Timeslot',
+    timeslot: 'Shift',
     home: 'Home',
     refresh: 'Refresh',
     print: 'Print',
@@ -108,19 +108,19 @@ const en = {
       }
     },
     timeslots: {
-      label: 'Timeslots'
+      label: 'Shifts'
     },
     timeslot: {
       label: '@:general.timeslot',
       new: {
         label: '@:general.new @:general.timeslot',
-        timeslotDetails: 'Timeslot details',
-        fillTimeslotDetails: 'Fill in the details of the new timeslot'
+        timeslotDetails: 'Shift details',
+        fillTimeslotDetails: 'Fill in the details of the new shift'
       }
     },
     shift: {
       label: 'Shift',
-      addTimeslot: 'Add Timeslot'
+      addTimeslot: 'Add shift'
     },
     settings: {
       label: '@:general.settings',
@@ -164,7 +164,11 @@ const en = {
     employee: {
       contractLabel: 'Contract',
       roleLabel: '@:general.role',
-      selectEmployee: 'Select Employee'
+      selectEmployee: 'Select Employee',
+      validation: {
+        nameMin: 'Name must be at least 1 character long',
+        nameMax: 'Name must be at most 255 characters long'
+      }
     },
     role: {
       colorLabel: 'Color',
@@ -200,7 +204,7 @@ const en = {
     newRole: 'New Role',
     newTeam: 'New Team',
     newVacation: 'New Vacation',
-    newTimeslot: 'New Timeslot',
+    newTimeslot: 'New Shift',
     print: '@:general.print',
     deleteAccount: '@:general.deleteAccount',
     home: '@:general.home',
@@ -288,10 +292,10 @@ const cs: Translations = {
     select: 'Vybrat',
     date: 'Datum',
     employee: 'Zaměstnanec',
-    role: 'Role',
+    role: 'Úloha',
     team: 'Tým',
     vacation: 'Dovolená',
-    timeslot: 'Časový slot',
+    timeslot: 'Směna',
     home: 'Domů',
     refresh: 'Obnovit',
     print: 'Tisk',
@@ -355,14 +359,14 @@ const cs: Translations = {
       }
     },
     roles: {
-      label: 'Role'
+      label: 'Úlohy'
     },
     role: {
       label: '@:general.role',
       new: {
         label: '@:general.new @:general.role',
-        roleDetails: 'Detaily role',
-        fillRoleDetails: 'Vyplňte detaily nové role'
+        roleDetails: 'Detaily úlohy',
+        fillRoleDetails: 'Vyplňte detaily nové úlohy'
       }
     },
     vacations: {
@@ -377,19 +381,19 @@ const cs: Translations = {
       }
     },
     timeslots: {
-      label: 'Časové sloty'
+      label: 'Směny'
     },
     timeslot: {
       label: '@:general.timeslot',
       new: {
         label: '@:general.new @:general.timeslot',
-        timeslotDetails: 'Detaily časového slotu',
-        fillTimeslotDetails: 'Vyplňte detaily nového časového slotu'
+        timeslotDetails: 'Detaily směny',
+        fillTimeslotDetails: 'Vyplňte detaily nové směny'
       }
     },
     shift: {
       label: 'Směna',
-      addTimeslot: 'Přidat časový slot'
+      addTimeslot: 'Přidat směnu'
     },
     settings: {
       label: '@:general.settings',
@@ -433,14 +437,18 @@ const cs: Translations = {
     employee: {
       contractLabel: 'Úvazek',
       roleLabel: '@:general.role',
-      selectEmployee: 'Vyberte zaměstnance'
+      selectEmployee: 'Vyberte zaměstnance',
+      validation: {
+        nameMin: 'Jméno musí být alespoň 1 znak dlouhé',
+        nameMax: 'Jméno musí být nejvíce 255 znaků dlouhé'
+      }
     },
     role: {
       colorLabel: 'Barva',
       shortnameLabel: 'Zkratka',
       priorityLabel: 'Priorita',
-      selectRole: 'Vyberte roli',
-      selectRoles: 'Vyberte role'
+      selectRole: 'Vyberte úlohu',
+      selectRoles: 'Vyberte úlohy'
     },
     timeslot: {
       dateLabel: '@:general.date',
@@ -466,10 +474,10 @@ const cs: Translations = {
   buttons: {
     refresh: '@:general.refresh',
     newEmployee: 'Nový zaměstnanec',
-    newRole: 'Nová role',
+    newRole: 'Nová úloha',
     newTeam: 'Nový tým',
     newVacation: 'Nová dovolená',
-    newTimeslot: 'Nový časový slot',
+    newTimeslot: 'Nová směna',
     print: '@:general.print',
     deleteAccount: '@:general.deleteAccount',
     home: '@:general.home',

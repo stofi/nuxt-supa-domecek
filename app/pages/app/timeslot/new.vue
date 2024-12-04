@@ -16,7 +16,7 @@ useHead({
 
     </template>
   </UDashboardNavbar>
-  <UDashboardPanelContent :title="$t('page.timeslot.new.details')">
+  <UDashboardPanelContent :title="$t('page.timeslot.new.timeslotDetails')">
     <p class="mb-4 text-sm text-gray-500">
       {{ $t('page.timeslot.new.fillTimeslotDetails') }}
     </p>

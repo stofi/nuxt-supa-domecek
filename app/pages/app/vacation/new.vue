@@ -15,7 +15,7 @@ useHead({
 
     </template>
   </UDashboardNavbar>
-  <UDashboardPanelContent :title="$t('page.vacation.new.details')">
+  <UDashboardPanelContent :title="$t('page.vacation.new.vacationDetails')">
     <p class="mb-4 text-sm text-gray-500">
         {{ $t('page.vacation.new.fillVacationDetails') }}
     </p>

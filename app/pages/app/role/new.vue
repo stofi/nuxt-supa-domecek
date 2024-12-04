@@ -16,7 +16,7 @@ useHead({
 
     </template>
   </UDashboardNavbar>
-  <UDashboardPanelContent :title="$t('page.role.new.details')">
+  <UDashboardPanelContent :title="$t('page.role.new.roleDetails')">
     <p class="mb-4 text-sm text-gray-500">
       {{ $t('page.role.new.fillRoleDetails') }}
     </p>

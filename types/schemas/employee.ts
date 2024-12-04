@@ -9,7 +9,7 @@ export const employeeQuerySchema = z.object({
 })
 
 export const createEmployeeSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().min(1, 'i18n:form.employee.validation.nameMin').max(255, 'i18n:form.employee.validation.nameMax'),
   contract: z.number().optional(),
   roleIds: z.array(z.number().int()).optional()
 })
