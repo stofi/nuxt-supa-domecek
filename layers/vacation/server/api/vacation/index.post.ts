@@ -1,5 +1,5 @@
-import { VacationService } from '~vacation/server/VacationService'
-import { createVacationSchema } from '~~/types/schemas/vacation'
+import { VacationService } from '~vacation/server/service'
+import { createVacationSchema } from '~vacation/schemas'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

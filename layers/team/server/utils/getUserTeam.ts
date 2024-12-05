@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 
-import { TeamService } from '~team/server/TeamService'
+import { TeamService } from '~team/server/service'
 import { serverSupabaseUser } from '#supabase/server'
 
 export default async function getUserTeam(event: H3Event): Promise<number> {

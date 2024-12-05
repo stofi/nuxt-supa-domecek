@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormSubmitEvent, Form } from '#ui/types'
-import { type CreateRole, createRoleSchema } from '~~/types/schemas/role'
+import { type CreateRole, createRoleSchema } from '~/layers/role/schemas'
 
 type Schema = Partial<CreateRole>
 

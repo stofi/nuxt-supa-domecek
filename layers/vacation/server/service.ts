@@ -1,8 +1,8 @@
 import type { H3Event } from 'h3'
-import { BaseService } from '~base/server/BaseService'
+import { BaseService } from '~base/server/service'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
-import type { CreateVacation, UpdateVacation } from '~~/types/schemas/vacation'
+import type { CreateVacation, UpdateVacation } from '~vacation/schemas'
 
 export class VacationService extends BaseService {
   private selector = '*, employee(*)' as const

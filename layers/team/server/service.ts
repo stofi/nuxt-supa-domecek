@@ -1,8 +1,8 @@
 import type { H3Event } from 'h3'
-import { BaseService } from '~base/server/BaseService'
+import { BaseService } from '~base/server/service'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
-import type { CreateTeam, UpdateTeam } from '~~/types/schemas/team'
+import type { CreateTeam, UpdateTeam } from '~team/schemas'
 
 export class TeamService extends BaseService {
   private teamSelector = 'id, name, owner:profiles!team_owner_id_fkey1(*), users:team_users(...profiles(*))' as const

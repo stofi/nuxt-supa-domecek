@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormSubmitEvent, Form } from '#ui/types'
-import { type CreateEmployee, createEmployeeSchema } from '~~/types/schemas/employee'
+import { type CreateEmployee, createEmployeeSchema } from '~employee/employeeSchemas'
 
 type Schema = Partial<CreateEmployee>
 

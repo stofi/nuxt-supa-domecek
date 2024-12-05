@@ -1,8 +1,8 @@
 import type { H3Event } from 'h3'
-import { BaseService } from '~base/server/BaseService'
+import { BaseService } from '~base/server/service'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
-import type { CreateTimeslot, TimeslotQuery, UpdateTimeslot } from '~~/types/schemas/timeslot'
+import type { CreateTimeslot, TimeslotQuery, UpdateTimeslot } from '~timeslot/schemas'
 
 export class TimeslotService extends BaseService {
   private selector = '*, role(*), employee(*)' as const

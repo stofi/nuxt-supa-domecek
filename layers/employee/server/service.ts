@@ -1,8 +1,8 @@
 import type { H3Event } from 'h3'
-import { BaseService } from '~base/server/BaseService'
+import { BaseService } from '~base/server/service'
 import { serverSupabaseClient } from '#supabase/server'
 import type { Database } from '~~/types/supabase'
-import type { CreateEmployee, EmployeeQuery, UpdateEmployee } from '~~/types/schemas/employee'
+import type { CreateEmployee, EmployeeQuery, UpdateEmployee } from '~employee/schemas'
 
 export class EmployeeService extends BaseService {
   static async create(event: H3Event): Promise<EmployeeService> {

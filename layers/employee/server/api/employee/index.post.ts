@@ -1,5 +1,5 @@
-import { EmployeeService } from '~employee/server/EmployeeService'
-import { createEmployeeSchema } from '~~/types/schemas/employee'
+import { EmployeeService } from '~employee/server/service'
+import { createEmployeeSchema } from '~employee/schemas'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

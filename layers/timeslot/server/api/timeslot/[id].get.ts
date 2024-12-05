@@ -1,4 +1,4 @@
-import { TimeslotService } from '~timeslot/server/TimeslotService'
+import { TimeslotService } from '~timeslot/server/service'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

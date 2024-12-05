@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormSubmitEvent, Form } from '#ui/types'
-import { type CreateTimeslot, createTimeslotSchema } from '~~/types/schemas/timeslot'
+import { type CreateTimeslot, createTimeslotSchema } from '~timeslot/schemas'
 
 type Schema = Partial<CreateTimeslot>
 

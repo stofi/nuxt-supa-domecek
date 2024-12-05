@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { FormSubmitEvent, Form } from '#ui/types'
-import { type CreateTeam, createTeamSchema } from '~~/types/schemas/team'
+import { type CreateTeam, createTeamSchema } from '~team/schemas'
 
 type Schema = Partial<CreateTeam>
 const props = defineProps<{

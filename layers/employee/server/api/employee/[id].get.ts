@@ -1,4 +1,4 @@
-import { EmployeeService } from '~employee/server/EmployeeService'
+import { EmployeeService } from '~employee/server/service'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

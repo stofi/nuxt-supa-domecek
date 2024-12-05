@@ -1,4 +1,4 @@
-import { VacationService } from '~vacation/server/VacationService'
+import { VacationService } from '~vacation/server/service'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

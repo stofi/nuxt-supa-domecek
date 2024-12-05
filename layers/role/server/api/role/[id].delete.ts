@@ -1,4 +1,4 @@
-import { RoleService } from '~role/server/RoleService'
+import { RoleService } from '~role/server/service'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

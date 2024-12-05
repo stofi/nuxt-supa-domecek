@@ -1,5 +1,5 @@
-import { RoleService } from '~role/server/RoleService'
-import { createRoleSchema } from '~~/types/schemas/role'
+import { RoleService } from '~role/server/service'
+import { createRoleSchema } from '~role/schemas'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

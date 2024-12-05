@@ -1,5 +1,5 @@
-import { TimeslotService } from '~timeslot/server/TimeslotService'
-import { updateTimeslotSchema } from '~~/types/schemas/timeslot'
+import { TimeslotService } from '~timeslot/server/service'
+import { updateTimeslotSchema } from '~timeslot/schemas'
 
 export default defineEventHandler(async (event) => {
   await userGuard(event)

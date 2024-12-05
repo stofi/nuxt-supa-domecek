@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { format } from 'date-fns'
 import type { FormSubmitEvent, Form } from '#ui/types'
-import { type CreateVacationInput, createVacationSchema } from '~~/types/schemas/vacation'
+import { type CreateVacationInput, createVacationSchema } from '~vacation/schemas'
 
 type Schema = Partial<CreateVacationInput>
 
