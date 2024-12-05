@@ -18,6 +18,13 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
+  site: {
+    // url: 'https://beta.freshfiles.app',
+    name: 'Smenobot',
+    description: 'Manage Your Workforce with Ease',
+    defaultLocale: 'cs'
+  },
+
   colorMode: {
     disableTransition: true
   },
@@ -25,7 +32,6 @@ export default defineNuxtConfig({
   routeRules: {
     // Temporary workaround for prerender regression. see https://github.com/nuxt/nuxt/issues/27490
     '/': { prerender: true },
-    '/api/search.json': { prerender: false },
     '/docs': { redirect: '/docs/getting-started', prerender: false },
     '/app': { ssr: true },
     '/app/**': { ssr: true }
@@ -64,15 +70,8 @@ export default defineNuxtConfig({
   i18n: {
     strategy: 'no_prefix',
     locales: ['en', 'cs'],
-    vueI18n: './app/i18n.config.ts'
+    vueI18n: './i18n.config.ts'
   },
-
-  // site: {
-  //   url: 'https://beta.freshfiles.app',
-  //   name: 'FreshFiles',
-  //   description: 'FreshFiles',
-  //   defaultLocale: 'en'
-  // },
 
   supabase: {
     // redirect: false,
