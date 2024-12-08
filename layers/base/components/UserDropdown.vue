@@ -7,6 +7,7 @@ const user = useSupabaseUser()
 const supabaseClient = useSupabaseClient()
 
 const { t } = useI18n()
+const teamId = useCookie<number | undefined>('teamId')
 
 const logout = async () => {
   const { error } = await supabaseClient.auth.signOut()
@@ -14,6 +15,7 @@ const logout = async () => {
     console.error('Error logging out:', error)
   }
   navigateTo('/')
+  teamId.value = undefined
 }
 
 const items = computed(() => [

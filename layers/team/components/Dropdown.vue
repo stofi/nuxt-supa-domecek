@@ -11,7 +11,7 @@ const { data, status, error, refresh } = await useFetch(
     headers: useRequestHeaders(['cookie'])
   }
 )
-const teamId = useCookie<number>('teamId')
+const teamId = useCookie<number | undefined>('teamId')
 
 const teams = computed<DropdownItem[]>(() => {
   if (status.value === 'pending')
@@ -48,6 +48,12 @@ const actions = computed(() => [
     to: '/app/settings/team'
   }
 ])
+
+onMounted(() => {
+  // if no teamId cookie and first team is available, set it
+  if (!teamId.value && data.value?.data.length && data.value?.data[0]?.id)
+    teamId.value = data.value.data[0].id
+})
 
 </script>
 

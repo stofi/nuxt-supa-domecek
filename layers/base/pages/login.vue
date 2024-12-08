@@ -3,6 +3,7 @@ import { z } from 'zod'
 import type { FormSubmitEvent, Form, FormError } from '#ui/types'
 
 const { t } = useI18n()
+const teamId = useCookie<number | undefined>('teamId')
 const schema = computed(() => z.object({
   email: z.string({
     message: t('form.auth.validation.emailRequired')
@@ -70,6 +71,7 @@ async function onSubmit(event: FormSubmitEvent<State>) {
     form.value?.formRef?.setErrors([formError])
   } finally {
     loading.value = false
+    teamId.value = undefined
   }
 }
 

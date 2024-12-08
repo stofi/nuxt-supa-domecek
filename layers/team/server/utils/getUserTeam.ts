@@ -32,7 +32,7 @@ export default async function getUserTeam(event: H3Event): Promise<number> {
       })
     }
 
-    const team = await teamService.getTeamById(teamId, user.id)
+    const team = await teamService.getTeamById(teamId, user.id).catch(() => null)
     if (!team) {
       // Clear invalid cookie and throw error
       deleteCookie(event, 'teamId')
