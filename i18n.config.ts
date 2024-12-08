@@ -119,6 +119,9 @@ const en = {
         fillTimeslotDetails: 'Fill in the details of the new shift'
       }
     },
+    print: {
+      label: '@:general.print'
+    },
     shift: {
       label: 'Shift',
       addTimeslot: 'Add shift',
@@ -412,6 +415,9 @@ const cs: Translations = {
         timeslotDetails: 'Detaily směny',
         fillTimeslotDetails: 'Vyplňte detaily nové směny'
       }
+    },
+    print: {
+      label: '@:general.print'
     },
     shift: {
       label: 'Směna',

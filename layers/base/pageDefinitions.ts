@@ -34,7 +34,13 @@ export const pageDefinitions = [
     to: '/app/timeslot',
     shortcuts: ['G', 'T']
   },
-
+  {
+    id: 'print',
+    label: 'page.print.label',
+    icon: 'i-heroicons-printer',
+    to: '/app/print',
+    shortcuts: ['G', 'P']
+  },
   {
     id: 'settings',
     label: 'page.settings.label',
