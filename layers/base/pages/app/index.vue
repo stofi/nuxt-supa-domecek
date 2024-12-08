@@ -31,9 +31,12 @@ useHead({
 })
 
 const getTimeslotsPerDay = ({ day, month, year }: { day: string, month: string, year: string }) => {
-  const date = new Date(`${year}-${month}-${day}`).toISOString().split('T')[0]
+  month = `${month}`.padStart(2, '0')
+  day = `${day}`.padStart(2, '0')
+  const date = new Date(`${year}-${month}-${day}`)
+  const dateString = date.toISOString().split('T')[0]
   return {
-    timeslots: data.value?.data.filter(slot => slot.date === date)
+    timeslots: data.value?.data.filter(slot => slot.date === dateString)
   }
 }
 
@@ -54,7 +57,7 @@ const handleUpdate = (pages) => {
   </UDashboardNavbar>
   <UDashboardPanelContent>
     <ClientOnly>
-      <Calendar trim-weeks expanded :is-dark="isDark" show-weeknumbers :locale="locale" @update:pages="handleUpdate">
+      <Calendar disable-page-swipe expanded :is-dark="isDark" show-weeknumbers :locale="locale" @update:pages="handleUpdate">
         <template #day-content="x">
           <div
 class="h-full p-0.5 group" role="button" tabindex="0"
