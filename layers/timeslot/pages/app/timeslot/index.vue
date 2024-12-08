@@ -61,28 +61,16 @@ const columns = computed<TableColumn[]>(() => [
   <UDashboardNavbar :title="$t('page.timeslots.label')" :badge="data?.count ?? 0">
     <template #right>
       <UButton
-        :label="$t('buttons.refresh')"
-        icon="i-heroicons-arrow-path"
-        color="gray"
-        :loading="status === 'pending'"
-        @click="refresh"/>
+:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+        @click="refresh" />
       <UButton
-        :label="$t('buttons.newTimeslot')"
-        trailing-icon="i-heroicons-plus"
-        color="gray"
-        to="/app/timeslot/new"
-        />
+:label="$t('buttons.newTimeslot')" trailing-icon="i-heroicons-plus" color="gray"
+        to="/app/timeslot/new" />
     </template>
   </UDashboardNavbar>
 
-  <UTable
-    :columns="columns"
-    :rows="data?.data"
-    :loading="status === 'pending'"
-    sort-mode="manual"
-    class="w-full"
-  >
-    <template #break-data="{row}: {row: Row}">
+  <UTable :columns="columns" :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
+    <template #break-data="{ row }: { row: Row }">
       <template v-if="row.break">
         <UIcon name="i-heroicons-check-circle-solid" class="w-4 h-4 text-green-500" />
       </template>
@@ -100,10 +88,10 @@ const columns = computed<TableColumn[]>(() => [
       {{ row.employee?.name }}
     </template>
     <template #start_time-data="{ row }: { row: Row }">
-      {{ row.start_time.split(':').slice(0, 2).join(':') }}
+      {{ formatTime(row.start_time) }}
     </template>
     <template #end_time-data="{ row }: { row: Row }">
-      {{ row.end_time.split(':').slice(0, 2).join(':') }}
+      {{ formatTime(row.end_time) }}
     </template>
 
   </UTable>

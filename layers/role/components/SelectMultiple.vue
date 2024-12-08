@@ -34,7 +34,7 @@ const selectedRoles = computed<Role[]>(() =>
       <span class="truncate">{{ option.name }}</span>
     </template>
     <template #label>
-      <div class="flex items-center h-6 gap-1 overflow-hidden">
+      <div class="flex items-center h-6 gap-1 overflow-hidden max-w-full">
         <template v-if="error">
           {{ error.statusMessage }}
         </template>

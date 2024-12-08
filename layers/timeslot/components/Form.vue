@@ -27,18 +27,14 @@ const state = reactive<Schema>({
 const form = ref<Form<Schema>>()
 const loading = ref(false)
 
-watchEffect(() => {
+watch(() => props.initialState, () => {
   if (props.initialState) {
     Object.assign(state, props.initialState)
 
-    if (state.start_time && state.start_time.split(':').length === 3) {
-      state.start_time = state.start_time.split(':').slice(0, 2).join(':')
-    }
-    if (state.end_time && state.end_time.split(':').length === 3) {
-      state.end_time = state.end_time.split(':').slice(0, 2).join(':')
-    }
+    state.start_time = formatTime(state.start_time)
+    state.end_time = formatTime(state.end_time)
   }
-})
+}, { immediate: true })
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   form.value!.clear()
