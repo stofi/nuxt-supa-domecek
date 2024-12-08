@@ -8,7 +8,14 @@ const route = useRoute()
 
 const changeKey = ref(0)
 
-const date = computed(() => new Date(`${route.params.year}-${route.params.month}-${route.params.day}`))
+const date = computed(() => {
+  const year = route.params.year
+  let { month, day } = route.params
+  month = `${month}`.padStart(2, '0')
+  day = `${day}`.padStart(2, '0')
+  const date = new Date(`${year}-${month}-${day}`)
+  return isNaN(date.getTime()) ? null : date
+})
 
 const title = computed(() => `${t('page.shift.label')} - ${date.value ? formatDate(date.value, locale.value) : ''}`)
 
