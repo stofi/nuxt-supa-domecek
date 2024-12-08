@@ -14,7 +14,6 @@ useHead({
       icon="i-heroicons-home"
       :label="$t('buttons.home')"
       to="/"
-      color="black"
       class="absolute top-4"
     />
 

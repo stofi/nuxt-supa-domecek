@@ -1,0 +1,41 @@
+title: Směnobot
+description: Směnobot je komplexní řešení pro efektivní správu směn, dovolených a rolí zaměstnanců.
+navigation: false
+hero:
+  title: Spravujte svůj tým snadno
+  description: Jednoduché řešení pro správu směn, dovolených a rolí zaměstnanců.
+  links:
+    - label: Začněte ještě dnes
+      to: '/signup'
+      size: xl
+      icon: i-heroicons-arrow-right-20-solid
+      trailing: true
+features:
+  title: Proč si vybrat naše řešení?
+  description: Objevte výhody používání Směnobotu.
+  items:
+    - title: Jednoduché použití
+      description: Uživatelsky přívětivé rozhraní pro rychlou a snadnou správu.
+      icon: i-heroicons-cog
+    - title: Spolehlivé
+      description: Zajišťuje přesné plánování zaměstnanců a směn.
+      icon: i-heroicons-check
+    - title: Bezpečné
+      description: Chraňte citlivá data zaměstnanců díky špičkovému zabezpečení.
+      icon: i-heroicons-lock-closed
+    - title: Rychlé
+      description: Rychle spravujte a sledujte odpracované hodiny.
+      icon: i-heroicons-rocket-launch
+    - title: Cenově dostupné
+      description: Nákladově efektivní řešení pro správu vašeho týmu.
+      icon: i-heroicons-currency-dollar
+    - title: Škálovatelné
+      description: Jednoduše škálovatelné podle potřeb vašeho rostoucího podniku.
+      icon: i-heroicons-chart-bar
+cta:
+  title: Začněte ještě dnes
+  description: Začněte efektivně spravovat svůj tým s naším Směnobotem.
+  links:
+    - label: Koupit
+      size: xl
+      to: '/signup'

@@ -1,0 +1,41 @@
+title: Smenobot
+description: Smenobot is a comprehensive solution for efficient management of employee shifts, vacations, and roles.
+navigation: false
+hero:
+  title: Manage Your Team with Ease
+  description: A simple solution for managing employee shifts, vacations, and roles.
+  links:
+    - label: Get Started Today
+      to: '/signup'
+      size: xl
+      icon: i-heroicons-arrow-right-20-solid
+      trailing: true
+features:
+  title: Why Choose Our Solution?
+  description: Discover the benefits of using Smenobot.
+  items:
+    - title: Easy to Use
+      description: User-friendly interface for quick and effortless management.
+      icon: i-heroicons-cog
+    - title: Reliable
+      description: Ensures accurate employee scheduling and shift planning.
+      icon: i-heroicons-check
+    - title: Secure
+      description: Protect sensitive employee data with top-tier security.
+      icon: i-heroicons-lock-closed
+    - title: Fast
+      description: Quickly manage and track employee hours.
+      icon: i-heroicons-rocket-launch
+    - title: Affordable
+      description: Cost-effective solution for managing your team.
+      icon: i-heroicons-currency-dollar
+    - title: Scalable
+      description: Easily scalable to meet the needs of your growing business.
+      icon: i-heroicons-chart-bar
+cta:
+  title: Get Started Today
+  description: Start managing your team efficiently with Smenobot.
+  links:
+    - label: Buy Now
+      size: xl
+      to: '/signup'

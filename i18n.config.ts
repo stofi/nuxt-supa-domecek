@@ -35,7 +35,8 @@ const en = {
     new: 'New',
     owner: 'Owner',
     nameLabel: 'Name',
-    termsOfService: 'Terms of Service'
+    termsOfService: 'Terms of Service',
+    continue: 'Continue'
   },
   app: {
     layout: {
@@ -149,7 +150,8 @@ const en = {
       label: 'Confirm Redirect'
     },
     forgotPassword: {
-      label: 'Forgot Password'
+      label: 'Forgot Password',
+      goBackTo: 'Go back to'
     },
     signupSuccess: {
       label: 'Signup Success'
@@ -192,6 +194,22 @@ const en = {
     team: {
       selectTeam: 'Select team',
       ownerLabel: '@:general.owner'
+    },
+    auth: {
+      emailLabel: 'Email',
+      emailPlaceholder: 'Enter your email',
+      passwordLabel: 'Password',
+      passwordPlaceholder: 'Enter your password',
+      submitButton: '@:general.continue',
+      nameLabel: '@:general.nameLabel',
+      namePlaceholder: 'Enter your name',
+      validation: {
+        emailRequired: 'Email is required',
+        emailInvalid: 'Email is invalid',
+        passwordRequired: 'Password is required',
+        passwordMin: 'Password must be at least 6 characters long',
+        nameRequired: 'Name is required'
+      }
     }
   },
   team: {
@@ -234,7 +252,8 @@ const en = {
     pageNotFoundMessage: 'We are sorry but this page could not be found.',
     loading: 'Loading...',
     error: '@:general.error',
-    waitingForLogin: 'Waiting for login...'
+    waitingForLogin: 'Waiting for login...',
+    passwordResetError: 'Error resetting password'
   },
   user: {
     dropdown: {
@@ -308,7 +327,8 @@ const cs: Translations = {
     new: 'Nové',
     owner: 'Vlastník',
     nameLabel: 'Jméno',
-    termsOfService: 'Podmínkami služby'
+    termsOfService: 'Podmínkami služby',
+    continue: 'Pokračovat'
   },
   app: {
     layout: {
@@ -422,7 +442,8 @@ const cs: Translations = {
       label: 'Potvrzení přesměrování'
     },
     forgotPassword: {
-      label: 'Zapomenuté heslo'
+      label: 'Zapomenuté heslo',
+      goBackTo: 'Zpět na'
     },
     signupSuccess: {
       label: 'Registrace úspěšná'
@@ -465,6 +486,22 @@ const cs: Translations = {
     team: {
       selectTeam: 'Vybrat tým',
       ownerLabel: '@:general.owner'
+    },
+    auth: {
+      emailLabel: 'E-mail',
+      emailPlaceholder: 'Zadejte svůj e-mail',
+      passwordLabel: 'Heslo',
+      passwordPlaceholder: 'Zadejte své heslo',
+      submitButton: '@:general.continue',
+      nameLabel: '@:general.nameLabel',
+      namePlaceholder: 'Zadejte své jméno',
+      validation: {
+        emailRequired: 'E-mail je povinný',
+        emailInvalid: 'E-mail je neplatný',
+        passwordRequired: 'Heslo je povinné',
+        passwordMin: 'Heslo musí být alespoň 6 znaků dlouhé',
+        nameRequired: 'Jméno je povinné'
+      }
     }
   },
   team: {
@@ -507,7 +544,8 @@ const cs: Translations = {
     pageNotFoundMessage: 'Je nám líto, ale tato stránka nebyla nalezena.',
     loading: 'Načítání...',
     error: '@:general.error',
-    waitingForLogin: 'Čeká se na přihlášení...'
+    waitingForLogin: 'Čeká se na přihlášení...',
+    passwordResetError: 'Chyba při resetování hesla'
   },
   user: {
     dropdown: {

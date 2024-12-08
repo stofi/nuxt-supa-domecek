@@ -1,9 +1,8 @@
 <script setup lang="ts">
-// TODO: i18n
 import { z } from 'zod'
 import type { FormSubmitEvent, Form, FormError } from '#ui/types'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 definePageMeta({
   layout: 'auth'
 })
@@ -12,13 +11,22 @@ useSeoMeta({
   title: t('page.signup.label')
 })
 
-const schema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters long')
-})
+const schema = computed(() => z.object({
+  name: z.string({
+    message: t('form.auth.validation.nameRequired')
+  }).min(1, { message: t('form.auth.validation.nameRequired') }),
 
-type State = z.infer<typeof schema>
+  email: z.string({
+    message: t('form.auth.validation.emailRequired')
+  })
+    .email(t('form.auth.validation.emailInvalid')),
+  password: z.string({
+    message: t('form.auth.validation.passwordRequired')
+  })
+    .min(8, t('form.auth.validation.passwordMin'))
+}))
+
+type State = z.infer<typeof schema['value']>
 
 const supabaseClient = useSupabaseClient()
 const router = useRouter()
@@ -26,39 +34,30 @@ const form = ref<{ formRef?: Form<State> }>()
 
 const loading = ref(false)
 
-const fields = [
+const fields = computed(() => [
   {
     name: 'name',
     type: 'text',
-    label: 'Name',
-    placeholder: 'Enter your name'
+    label: t('form.auth.nameLabel'),
+    placeholder: t('form.auth.namePlaceholder')
   },
   {
     name: 'email',
     type: 'email',
-    label: 'Email',
-    placeholder: 'Enter your email'
+    label: t('form.auth.emailLabel'),
+    placeholder: t('form.auth.emailPlaceholder')
   },
   {
     name: 'password',
-    label: 'Password',
+    label: t('form.auth.passwordLabel'),
     type: 'password',
-    placeholder: 'Enter your password'
+    placeholder: t('form.auth.passwordPlaceholder')
   }
-]
-
-const providers = [
-  {
-    label: 'Continue with GitHub',
-    icon: 'i-simple-icons-github',
-    color: 'gray' as const,
-    click: () => signUpWithGitHub()
-  }
-]
+])
 
 async function onSubmit(event: FormSubmitEvent<State>) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const state = event as any as (typeof event)['data']
+  // NuxtUI Pro UAuthForm wraps UFrom but doesn't export it's type.
+  const state = event as unknown as (typeof event)['data']
   try {
     form.value?.formRef?.clear()
     loading.value = true
@@ -67,7 +66,7 @@ async function onSubmit(event: FormSubmitEvent<State>) {
       email: state.email,
       password: state.password,
       options: {
-        data: { name: state.name },
+        data: { name: state.name, locale: locale.value },
         emailRedirectTo: `${window.location.origin}/app/`
       }
     })
@@ -98,19 +97,6 @@ async function onSubmit(event: FormSubmitEvent<State>) {
   }
 }
 
-async function signUpWithGitHub() {
-  try {
-    loading.value = true
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-      provider: 'github'
-    })
-    if (error) throw error
-  } catch (error) {
-    console.error('Error signing up with GitHub:', error)
-  } finally {
-    loading.value = false
-  }
-}
 </script>
 
 <template>
@@ -119,11 +105,10 @@ async function signUpWithGitHub() {
       ref="form"
       :fields="fields"
       :schema="schema"
-      :providers="providers"
       align="top"
-      title="Create an account"
+      :title="$t('page.signup.label')"
       :ui="{ base: 'text-center', footer: 'text-center' }"
-      :submit-button="{ label: 'Create account' }"
+      :submit-button="{ label: $t('buttons.createAccount') }"
       :loading="loading"
       @submit="onSubmit"
     >

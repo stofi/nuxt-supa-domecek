@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { pageDefinitions } from '~base/pageDefinitions'
 
-const { locale, t, setLocale, locales } = useI18n()
+const { t } = useI18n()
 
 const client = useSupabaseClient()
 // const user = useSupabaseUser()
@@ -90,14 +90,7 @@ const linksUi = {
 
         <template #footer>
           <div class="flex flex-col justify-stretch w-full gap-2">
-            <UButtonGroup class="self-center" size="sm">
-              <UButton
-v-for="l in locales" :key="l" :variant="l === locale ? 'solid' : 'ghost'"
-                :disabled="l === locale" square @click="setLocale(l)">
-                <span class="px-1">{{ $t(`locale.${l}`) }}</span>
-
-              </UButton>
-            </UButtonGroup>
+            <LanguageToggle />
             <UserDropdown />
           </div>
         </template>
