@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   site: {
-    // url: 'https://beta.freshfiles.app',
+    url: 'https://smenobot.com',
     name: 'Smenobot',
     description: 'Manage Your Workforce with Ease',
     defaultLocale: 'cs'
