@@ -68,10 +68,12 @@ class="h-full p-0.5 group" role="button" tabindex="0"
                 {{ format(x.day.date, 'EEEE', { locale: locale === 'cs' ? cs : enUS }) }} {{ x.day.day }}.
               </div>
 
-              <div v-if="getTimeslotsPerDay(x.day)" class="grid">
-                <div v-for="slot in getTimeslotsPerDay(x.day)?.timeslots" :key="slot.id">
+              <div v-if="getTimeslotsPerDay(x.day)" class="space-y-1">
+                <div
+                v-for="slot in getTimeslotsPerDay(x.day)?.timeslots"
+                :key="slot.id" class="flex gap-1 items-center">
                   <ColorDot :color="slot.role?.color" />
-                  {{ slot.employee?.name }}
+                  <div :title="slot.employee?.name" class="truncate max-w-28 text-sm">{{ slot.employee?.name }}</div>
                 </div>
               </div>
             </UDashboardCard>

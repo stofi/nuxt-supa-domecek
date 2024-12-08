@@ -18,6 +18,7 @@ export class TimeslotService extends BaseService {
       .from('timeslot')
       .select(this.selector, { count: 'estimated' })
       .eq('team_id', teamId)
+      .order('created_at', { ascending: true })
 
     if ('date' in query && query.date) {
       timeslotQuery = timeslotQuery.eq('date', query.date)

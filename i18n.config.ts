@@ -121,7 +121,9 @@ const en = {
     },
     shift: {
       label: 'Shift',
-      addTimeslot: 'Add shift'
+      addTimeslot: 'Add shift',
+      timeslotsLabel: 'Shifts',
+      timelineLabel: 'Timeline'
     },
     settings: {
       label: '@:general.settings',
@@ -413,7 +415,9 @@ const cs: Translations = {
     },
     shift: {
       label: 'Směna',
-      addTimeslot: 'Přidat směnu'
+      addTimeslot: 'Přidat směnu',
+      timeslotsLabel: 'Směny',
+      timelineLabel: 'Časová osa'
     },
     settings: {
       label: '@:general.settings',

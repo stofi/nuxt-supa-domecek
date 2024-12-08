@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+import {
+  DEFAULT_START,
+  DEFAULT_END,
+  DEFAULT_STEP
+} from '~~/consts'
 
 const time = defineModel<string>()
 
@@ -7,9 +12,9 @@ const props = withDefaults(defineProps<{
   endTime?: string
   step?: number
 }>(), {
-  startTime: '06:00',
-  endTime: '23:00',
-  step: 60
+  startTime: DEFAULT_START,
+  endTime: DEFAULT_END,
+  step: DEFAULT_STEP
 })
 
 const timeOptions = computed(() => buildTimeArray(props.startTime, props.endTime, props.step))

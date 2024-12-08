@@ -25,3 +25,9 @@ export function buildTimeArray(startTime: string, endTime: string, step: number)
 
   return times
 }
+
+export const formatTime = (time?: string): string => time
+  ? (time && time.split(':').length === 3)
+      ? time.split(':').slice(0, 2).join(':')
+      : time
+  : ''
