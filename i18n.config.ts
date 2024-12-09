@@ -235,7 +235,10 @@ const en = {
     signOut: '@:general.signOut',
     submit: '@:general.submit',
     login: '@:general.login',
-    createAccount: '@:general.createAccount'
+    createAccount: '@:general.createAccount',
+    archive: 'Archive',
+    delete: 'Delete',
+    cancel: 'Cancel'
   },
   auth: {
     welcomeBack: 'Welcome back',
@@ -532,7 +535,10 @@ const cs: Translations = {
     signOut: '@:general.signOut',
     submit: '@:general.submit',
     login: '@:general.login',
-    createAccount: '@:general.createAccount'
+    createAccount: '@:general.createAccount',
+    archive: 'Archivovat',
+    delete: 'Smazat',
+    cancel: 'Zrušit'
   },
   auth: {
     welcomeBack: 'Vítejte zpět',
