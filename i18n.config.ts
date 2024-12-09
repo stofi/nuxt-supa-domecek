@@ -104,7 +104,7 @@ const en = {
       new: {
         label: '@:general.new @:general.role',
         roleDetails: 'Role details',
-        fillRoleDetails: 'Fill in the details of the new role'
+        fillRoleDetails: 'Fill in the details of the role'
       }
     },
     vacations: {
@@ -115,7 +115,7 @@ const en = {
       new: {
         label: '@:general.new @:general.vacation',
         vacationDetails: 'Vacation details',
-        fillVacationDetails: 'Fill in the details of the new vacation'
+        fillVacationDetails: 'Fill in the details of the vacation'
       }
     },
     timeslots: {
@@ -126,7 +126,7 @@ const en = {
       new: {
         label: '@:general.new @:general.timeslot',
         timeslotDetails: 'Shift details',
-        fillTimeslotDetails: 'Fill in the details of the new shift'
+        fillTimeslotDetails: 'Fill in the details of the shift'
       }
     },
     print: {
@@ -151,7 +151,7 @@ const en = {
         new: {
           label: '@:general.new @:general.team',
           teamDetails: 'Team details',
-          fillTeamDetails: 'Fill in the details of the new team'
+          fillTeamDetails: 'Fill in the details of the team'
         }
       }
     },
@@ -414,7 +414,7 @@ const cs: Translations = {
       new: {
         label: '@:general.new @:general.role',
         roleDetails: 'Detaily úlohy',
-        fillRoleDetails: 'Vyplňte detaily nové úlohy'
+        fillRoleDetails: 'Vyplňte detaily úlohy'
       }
     },
     vacations: {
@@ -425,7 +425,7 @@ const cs: Translations = {
       new: {
         label: '@:general.new @:general.vacation',
         vacationDetails: 'Detaily dovolené',
-        fillVacationDetails: 'Vyplňte detaily nové dovolené'
+        fillVacationDetails: 'Vyplňte detaily dovolené'
       }
     },
     timeslots: {
@@ -436,7 +436,7 @@ const cs: Translations = {
       new: {
         label: '@:general.new @:general.timeslot',
         timeslotDetails: 'Detaily směny',
-        fillTimeslotDetails: 'Vyplňte detaily nové směny'
+        fillTimeslotDetails: 'Vyplňte detaily směny'
       }
     },
     print: {
@@ -461,7 +461,7 @@ const cs: Translations = {
         new: {
           label: '@:general.new @:general.team',
           teamDetails: 'Detaily týmu',
-          fillTeamDetails: 'Vyplňte detaily nového týmu'
+          fillTeamDetails: 'Vyplňte detaily týmu'
         }
       }
     },

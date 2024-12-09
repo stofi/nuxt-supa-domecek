@@ -16,6 +16,7 @@ export class RoleService extends BaseService {
       .from('role')
       .select('*', { count: 'estimated' })
       .eq('team_id', teamId)
+      .eq('archived', false)
 
     if (error) throw this.handlePostgrestError(error, 'Error fetching roles')
 
@@ -78,6 +79,21 @@ export class RoleService extends BaseService {
     if (error) throw this.handlePostgrestError(error, 'Error deleting role')
 
     return { success: true }
+  }
+
+  // Archive a role
+  async archiveRole(id: number, teamId: number) {
+    const { data, error } = await this.supabase
+      .from('role')
+      .update({ archived: true })
+      .eq('id', id)
+      .eq('team_id', teamId)
+      .select('*')
+      .single()
+
+    if (error) throw this.handlePostgrestError(error, 'Error archiving role')
+
+    return data
   }
 }
 
