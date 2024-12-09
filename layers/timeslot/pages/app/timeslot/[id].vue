@@ -17,10 +17,16 @@ const { data, status, error, refresh } = await useFetch(
 
 <template>
   <div>
-    <p v-if="status === 'pending'">{{ $t('errors.loading') }}</p>
-    <p v-else-if="error">{{ $t('errors.error') }}: {{ error.message }}</p>
+    <p v-if="status === 'pending'">
+      {{ $t('errors.loading') }}
+    </p>
+    <p v-else-if="error">
+      {{ $t('errors.error') }}: {{ error.message }}
+    </p>
     <pre v-else>{{ JSON.stringify(data, null, 2) }}</pre>
 
-    <button @click="refresh()">{{ $t('buttons.refresh') }}</button>
+    <button @click="refresh()">
+      {{ $t('buttons.refresh') }}
+    </button>
   </div>
 </template>

@@ -18,7 +18,6 @@ const roles = defineModel<number[]>('roles')
 const selectedRoles = computed<Role[]>(() =>
   data.value?.data.filter((r: Role) => roles.value?.includes(r.id)) ?? []
 )
-
 </script>
 
 <template>
@@ -39,7 +38,10 @@ const selectedRoles = computed<Role[]>(() =>
           {{ error.statusMessage }}
         </template>
         <template v-else-if="selectedRoles.length">
-          <template v-for="role in selectedRoles" :key="role.id">
+          <template
+            v-for="role in selectedRoles"
+            :key="role.id"
+          >
             <ColorDot :color="role.color" />
             <span class="mr-2 truncate">{{ role.name }}</span>
           </template>

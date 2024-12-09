@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import 'v-calendar/style.css'
 
 const colorMode = useColorMode()

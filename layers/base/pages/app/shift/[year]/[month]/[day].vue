@@ -36,22 +36,32 @@ const handleUpdate = async () => {
   await refresh()
   changeKey.value++
 }
-
 </script>
 
 <template>
   <UDashboardNavbar :title="title">
     <template #right>
-      <UButton :label="$t('buttons.print')" trailing-icon="i-heroicons-printer" color="gray" to="/app" />
+      <UButton
+        :label="$t('buttons.print')"
+        trailing-icon="i-heroicons-printer"
+        color="gray"
+        to="/app"
+      />
     </template>
   </UDashboardNavbar>
   <UDashboardPanelContent>
     <UDashboardSection :title="$t('page.shift.timelineLabel')">
-      <ShiftTimeline :key="changeKey" :timeslots="data?.data" />
+      <ShiftTimeline
+        :key="changeKey"
+        :timeslots="data?.data"
+      />
     </UDashboardSection>
     <UDashboardSection :title="$t('page.shift.timeslotsLabel')">
       <div class="flex flex-col gap-6">
-        <UDashboardCard v-for="slot in data?.data" :key="`timeslot-id-${slot.id}`">
+        <UDashboardCard
+          v-for="slot in data?.data"
+          :key="`timeslot-id-${slot.id}`"
+        >
           <TimeslotForm
             :id="slot.id"
             :initial-state="{
@@ -62,13 +72,18 @@ const handleUpdate = async () => {
               break: slot.break
             }"
             :date="date"
-            @submit="handleUpdate" />
+            @submit="handleUpdate"
+          />
         </UDashboardCard>
       </div>
     </UDashboardSection>
     <UDashboardSection :title="$t('page.shift.addTimeslot')">
       <UDashboardCard>
-        <TimeslotForm :key="`timeslot-${changeKey}`" :date="date" @submit="handleUpdate" />
+        <TimeslotForm
+          :key="`timeslot-${changeKey}`"
+          :date="date"
+          @submit="handleUpdate"
+        />
       </UDashboardCard>
     </UDashboardSection>
   </UDashboardPanelContent>

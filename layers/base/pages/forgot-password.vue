@@ -74,13 +74,25 @@ watchEffect(() => {
 <template>
   <UCard class="max-w-sm w-full bg-white/75 dark:bg-white/5 backdrop-blur">
     <UAuthForm
-ref="form" :fields="fields" :schema="schema" :title="$t('page.forgotPassword.label')" align="top"
-      icon="i-heroicons-lock-closed" :ui="{ base: 'text-center', footer: 'text-center' }"
+      ref="form"
+      :fields="fields"
+      :schema="schema"
+      :title="$t('page.forgotPassword.label')"
+      align="top"
+      icon="i-heroicons-lock-closed"
+      :ui="{ base: 'text-center', footer: 'text-center' }"
       :submit-button="{ trailingIcon: 'i-heroicons-arrow-right-20-solid', label: $t('form.auth.submitButton') }"
-      :loading="loading" @submit="onSubmit">
+      :loading="loading"
+      @submit="onSubmit"
+    >
       <template #description>
         {{ $t('auth.dontHaveAccount') }}
-        <ULink to="/signup" class="text-primary font-medium">{{ $t('auth.signUp') }}</ULink>.
+        <ULink
+          to="/signup"
+          class="text-primary font-medium"
+        >
+          {{ $t('auth.signUp') }}
+        </ULink>.
       </template>
 
       <!-- <template #password-hint> -->
@@ -92,7 +104,12 @@ ref="form" :fields="fields" :schema="schema" :title="$t('page.forgotPassword.lab
 
       <template #footer>
         {{ $t('page.forgotPassword.goBackTo') }}
-        <ULink to="/login" class="text-primary font-medium">{{ $t('page.login.label') }}</ULink>.
+        <ULink
+          to="/login"
+          class="text-primary font-medium"
+        >
+          {{ $t('page.login.label') }}
+        </ULink>.
       </template>
     </UAuthForm>
   </UCard>

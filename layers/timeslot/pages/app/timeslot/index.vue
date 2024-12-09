@@ -54,28 +54,49 @@ const columns = computed<TableColumn[]>(() => [
     rowClass: 'text-right'
   }
 ])
-
 </script>
 
 <template>
-  <UDashboardNavbar :title="$t('page.timeslots.label')" :badge="data?.count ?? 0">
+  <UDashboardNavbar
+    :title="$t('page.timeslots.label')"
+    :badge="data?.count ?? 0"
+  >
     <template #right>
       <UButton
-:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
-        @click="refresh" />
+        :label="$t('buttons.refresh')"
+        icon="i-heroicons-arrow-path"
+        color="gray"
+        :loading="status === 'pending'"
+        @click="refresh"
+      />
       <UButton
-:label="$t('buttons.newTimeslot')" trailing-icon="i-heroicons-plus" color="gray"
-        to="/app/timeslot/new" />
+        :label="$t('buttons.newTimeslot')"
+        trailing-icon="i-heroicons-plus"
+        color="gray"
+        to="/app/timeslot/new"
+      />
     </template>
   </UDashboardNavbar>
 
-  <UTable :columns="columns" :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
+  <UTable
+    :columns="columns"
+    :rows="data?.data"
+    :loading="status === 'pending'"
+    sort-mode="manual"
+    class="w-full"
+  >
     <template #break-data="{ row }: { row: Row }">
       <template v-if="row.break">
-        <UIcon name="i-heroicons-check-circle-solid" class="w-4 h-4 text-green-500" />
+        <UIcon
+          name="i-heroicons-check-circle-solid"
+          class="w-4 h-4 text-green-500"
+        />
       </template>
       <template v-else>
-        <UIcon name="i-heroicons-x-mark" class="w-4 h-4 text-red-500" />
+        <UIcon
+          name="i-heroicons-x-mark"
+          class="w-4 h-4 text-red-500"
+        />
       </template>
     </template>
     <template #role-data="{ row }: { row: Row }">
@@ -93,11 +114,13 @@ const columns = computed<TableColumn[]>(() => [
     <template #end_time-data="{ row }: { row: Row }">
       {{ formatTime(row.end_time) }}
     </template>
-
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" :title="$t('errors.error')" :description="error.statusMessage" />
+    <UDashboardSection
+      v-if="error"
+      :title="$t('errors.error')"
+      :description="error.statusMessage"
+    />
   </UDashboardPanelContent>
-
 </template>

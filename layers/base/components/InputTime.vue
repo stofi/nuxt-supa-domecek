@@ -18,9 +18,12 @@ const props = withDefaults(defineProps<{
 })
 
 const timeOptions = computed(() => buildTimeArray(props.startTime, props.endTime, props.step))
-
 </script>
 
 <template>
-  <USelectMenu v-model="time" searchable :options="timeOptions" />
+  <USelectMenu
+    v-model="time"
+    searchable
+    :options="timeOptions"
+  />
 </template>

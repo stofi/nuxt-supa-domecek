@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { t } = useI18n()
 
 definePageMeta({
@@ -32,7 +31,10 @@ const state = reactive({
 
     <UDivider class="mb-4" />
 
-    <UForm :state="state" :validate-on="['submit']">
+    <UForm
+      :state="state"
+      :validate-on="['submit']"
+    >
       <UDashboardSection title="Profile">
         <UFormGroup
           name="name"

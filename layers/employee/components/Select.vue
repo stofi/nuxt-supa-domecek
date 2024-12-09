@@ -19,7 +19,6 @@ const employee = defineModel<number>('employee')
 const selectedEmployee = computed<Employee | undefined>(() =>
   data.value?.data.find((r: Employee) => r.id === employee.value)
 )
-
 </script>
 
 <template>

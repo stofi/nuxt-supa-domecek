@@ -96,7 +96,6 @@ async function onSubmit(event: FormSubmitEvent<State>) {
     loading.value = false
   }
 }
-
 </script>
 
 <template>

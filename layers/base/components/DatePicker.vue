@@ -43,7 +43,7 @@ function onDayClick(_, event: MouseEvent): void {
 
 <template>
   <VCalendarDatePicker
-  v-if="date && (date as DatePickerRangeObject)?.start && (date as DatePickerRangeObject)?.end"
+    v-if="date && (date as DatePickerRangeObject)?.start && (date as DatePickerRangeObject)?.end"
     v-model.range="date"
     :locale="locale"
     :columns="2"

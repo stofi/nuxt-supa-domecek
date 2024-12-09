@@ -23,8 +23,10 @@ useSeoMeta({
 <template>
   <UCard class="max-w-sm w-full bg-white/75 dark:bg-white/5 backdrop-blur">
     <div class="text-center">
-      <h1 class="text-2xl font-bold">{{ $t('auth.signupSuccess') }}</h1>
-       <p>{{ $t('auth.checkEmailVerification') }}</p>
+      <h1 class="text-2xl font-bold">
+        {{ $t('auth.signupSuccess') }}
+      </h1>
+      <p>{{ $t('auth.checkEmailVerification') }}</p>
     </div>
   </UCard>
 </template>

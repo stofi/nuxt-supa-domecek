@@ -17,7 +17,12 @@ const onDelete = () => {
 </script>
 
 <template>
-  <UButton color="red" @click="open = true">{{ $t('buttons.delete') }}</UButton>
+  <UButton
+    color="red"
+    @click="open = true"
+  >
+    {{ $t('buttons.delete') }}
+  </UButton>
   <UDashboardModal
     v-model="open"
     :title="title"
@@ -32,11 +37,13 @@ const onDelete = () => {
       <UButton
         color="red"
         :label="$t('buttons.delete')"
-        @click="onDelete" />
+        @click="onDelete"
+      />
       <UButton
         color="white"
         :label="$t('buttons.cancel')"
-        @click="open = false" />
+        @click="open = false"
+      />
     </template>
   </UDashboardModal>
 </template>

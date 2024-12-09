@@ -7,14 +7,11 @@ definePageMeta({
 useHead({
   title: t('page.role.new.label')
 })
-
 </script>
 
 <template>
   <UDashboardNavbar :title="$t('page.role.new.label')">
-    <template #right>
-
-    </template>
+    <template #right />
   </UDashboardNavbar>
   <UDashboardPanelContent :title="$t('page.role.new.roleDetails')">
     <p class="mb-4 text-sm text-gray-500">

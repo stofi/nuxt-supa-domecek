@@ -86,22 +86,45 @@ watchEffect(() => {
 <template>
   <UCard class="max-w-sm w-full bg-white/75 dark:bg-white/5 backdrop-blur">
     <UAuthForm
-ref="form" :fields="fields" :schema="schema" :title="$t('auth.welcomeBack')"
-      align="top" icon="i-heroicons-lock-closed" :ui="{ base: 'text-center', footer: 'text-center' }"
-      :submit-button="{ trailingIcon: 'i-heroicons-arrow-right-20-solid', label: $t('form.auth.submitButton') }" :loading="loading" @submit="onSubmit">
+      ref="form"
+      :fields="fields"
+      :schema="schema"
+      :title="$t('auth.welcomeBack')"
+      align="top"
+      icon="i-heroicons-lock-closed"
+      :ui="{ base: 'text-center', footer: 'text-center' }"
+      :submit-button="{ trailingIcon: 'i-heroicons-arrow-right-20-solid', label: $t('form.auth.submitButton') }"
+      :loading="loading"
+      @submit="onSubmit"
+    >
       <template #description>
         {{ $t('auth.dontHaveAccount') }}
-        <ULink to="/signup" class="text-primary font-medium">{{ $t('auth.signUp') }}</ULink>.
+        <ULink
+          to="/signup"
+          class="text-primary font-medium"
+        >
+          {{ $t('auth.signUp') }}
+        </ULink>.
       </template>
 
       <template #password-hint>
-        <ULink to="/forgot-password" class="text-primary font-medium">{{ $t('auth.forgotPassword') }}</ULink>
+        <ULink
+          to="/forgot-password"
+          class="text-primary font-medium"
+        >
+          {{ $t('auth.forgotPassword') }}
+        </ULink>
       </template>
 
       <template #footer>
         <!-- By signing in, you agree to our -->
         {{ $t('auth.bySigningIn') }}
-        <ULink to="/" class="text-primary font-medium">{{ $t('auth.termsOfService') }}</ULink>.
+        <ULink
+          to="/"
+          class="text-primary font-medium"
+        >
+          {{ $t('auth.termsOfService') }}
+        </ULink>.
       </template>
     </UAuthForm>
   </UCard>

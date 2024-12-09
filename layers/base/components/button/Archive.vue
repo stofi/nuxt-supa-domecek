@@ -5,5 +5,7 @@ defineEmits<{
 </script>
 
 <template>
-  <UButton @click="$emit('click')">{{ $t('buttons.archive') }}</UButton>
+  <UButton @click="$emit('click')">
+    {{ $t('buttons.archive') }}
+  </UButton>
 </template>

@@ -11,13 +11,11 @@ useHead({
 
 <template>
   <UDashboardNavbar :title="$t('page.vacation.new.label')">
-    <template #right>
-
-    </template>
+    <template #right />
   </UDashboardNavbar>
   <UDashboardPanelContent :title="$t('page.vacation.new.vacationDetails')">
     <p class="mb-4 text-sm text-gray-500">
-        {{ $t('page.vacation.new.fillVacationDetails') }}
+      {{ $t('page.vacation.new.fillVacationDetails') }}
     </p>
 
     <VacationForm @submit="navigateTo('/app/vacation')" />

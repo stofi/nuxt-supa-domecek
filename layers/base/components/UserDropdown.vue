@@ -81,7 +81,10 @@ const items = computed(() => [
         </template>
 
         <template #trailing>
-          <UIcon name="i-heroicons-ellipsis-vertical" class="w-5 h-5 ml-auto" />
+          <UIcon
+            name="i-heroicons-ellipsis-vertical"
+            class="w-5 h-5 ml-auto"
+          />
         </template>
       </UButton>
     </template>
@@ -89,7 +92,7 @@ const items = computed(() => [
     <template #account>
       <div class="text-left">
         <div>
-          <p>{{$t('user.dropdown.signedInAs')}}</p>
+          <p>{{ $t('user.dropdown.signedInAs') }}</p>
           <p class="font-medium text-gray-900 truncate dark:text-white">
             {{ user?.email }}
           </p>

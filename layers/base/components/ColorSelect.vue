@@ -18,7 +18,11 @@ const color = defineModel<string>('color')
 </script>
 
 <template>
-  <USelectMenu v-model="color" :options="options" value-attribute="value">
+  <USelectMenu
+    v-model="color"
+    :options="options"
+    value-attribute="value"
+  >
     <template #option="{ option }">
       <div class="flex items-center gap-2">
         <ColorDot :color="option.value" />

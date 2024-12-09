@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { t, locale } = useI18n()
 
 const { data: page } = await useAsyncData('index',
@@ -38,25 +37,43 @@ const uiConfig = {
 
 <template>
   <div v-if="page">
-    <ULandingHero :title="page.hero.title" :description="page.hero.description" :links="page.hero.links" :ui="uiConfig">
+    <ULandingHero
+      :title="page.hero.title"
+      :description="page.hero.description"
+      :links="page.hero.links"
+      :ui="uiConfig"
+    >
       <div
-        class="absolute inset-0 landing-grid z-[-1] [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" />
+        class="absolute inset-0 landing-grid z-[-1] [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+      />
       <!--
       <img
         src="/images/hero.png"
         class="w-full rounded-md shadow-xl ring-1 ring-gray-300 dark:ring-gray-700"
       /> -->
-
     </ULandingHero>
 
-    <ULandingSection :ui="uiConfig" :title="page.features.title" :description="page.features.description">
+    <ULandingSection
+      :ui="uiConfig"
+      :title="page.features.title"
+      :description="page.features.description"
+    >
       <UPageGrid>
-        <ULandingCard v-for="(item, index) in page.features.items" :key="index" :ui="uiConfig" v-bind="item" />
+        <ULandingCard
+          v-for="(item, index) in page.features.items"
+          :key="index"
+          :ui="uiConfig"
+          v-bind="item"
+        />
       </UPageGrid>
     </ULandingSection>
 
     <ULandingSection>
-      <ULandingCTA :ui="uiConfig" v-bind="page.cta" class="bg-gray-100/50 dark:bg-gray-800/50" />
+      <ULandingCTA
+        :ui="uiConfig"
+        v-bind="page.cta"
+        class="bg-gray-100/50 dark:bg-gray-800/50"
+      />
     </ULandingSection>
   </div>
 </template>

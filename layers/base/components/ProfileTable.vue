@@ -16,14 +16,13 @@ const columns = computed<TableColumn[]>(() => [
     label: t('form.common.nameLabel')
   }
 ])
-
 </script>
 
 <template>
   <UTable
-  :columns="columns"
-  :rows="data"
-  sort-mode="manual"
-  class="w-full">
-  </UTable>
+    :columns="columns"
+    :rows="data"
+    sort-mode="manual"
+    class="w-full"
+  />
 </template>

@@ -57,25 +57,46 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UForm ref="form" :schema="createEmployeeSchema" :state="state" class="space-y-4" @submit="onSubmit">
-    <UFormGroup :label="$t('form.common.nameLabel')" name="name">
+  <UForm
+    ref="form"
+    :schema="createEmployeeSchema"
+    :state="state"
+    class="space-y-4"
+    @submit="onSubmit"
+  >
+    <UFormGroup
+      :label="$t('form.common.nameLabel')"
+      name="name"
+    >
       <UInput v-model="state.name" />
       <template #error="{ error }">
-      <span :class="[error ? 'text-red-500 dark:text-red-400' : 'text-primary-500 dark:text-primary-400']">
-        {{ handleErrorMessageI8n(error) }}
-      </span>
-    </template>
+        <span :class="[error ? 'text-red-500 dark:text-red-400' : 'text-primary-500 dark:text-primary-400']">
+          {{ handleErrorMessageI8n(error) }}
+        </span>
+      </template>
     </UFormGroup>
 
-    <UFormGroup :label="$t('form.employee.contractLabel')" name="contract">
-      <UInput v-model="state.contract" type="numeric" />
+    <UFormGroup
+      :label="$t('form.employee.contractLabel')"
+      name="contract"
+    >
+      <UInput
+        v-model="state.contract"
+        type="numeric"
+      />
     </UFormGroup>
 
-    <UFormGroup :label="$t('form.employee.roleLabel')" name="roleIds">
+    <UFormGroup
+      :label="$t('form.employee.roleLabel')"
+      name="roleIds"
+    >
       <RoleSelectMultiple v-model:roles="state.roleIds" />
     </UFormGroup>
 
-    <UButton type="submit" :loading="loading">
+    <UButton
+      type="submit"
+      :loading="loading"
+    >
       {{ $t('form.common.submitButton') }}
     </UButton>
   </UForm>

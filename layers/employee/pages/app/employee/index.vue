@@ -43,19 +43,24 @@ const onSelect = (row: Row) => {
 </script>
 
 <template>
-  <UDashboardNavbar :title="$t('page.employees.label')" :badge="data?.count ?? 0">
+  <UDashboardNavbar
+    :title="$t('page.employees.label')"
+    :badge="data?.count ?? 0"
+  >
     <template #right>
       <UButton
         :label="$t('buttons.refresh')"
         icon="i-heroicons-arrow-path"
         color="gray"
         :loading="status === 'pending'"
-        @click="refresh" />
+        @click="refresh"
+      />
       <UButton
         :label="$t('buttons.newEmployee')"
         trailing-icon="i-heroicons-plus"
         color="gray"
-        to="/app/employee/new" />
+        to="/app/employee/new"
+      />
     </template>
   </UDashboardNavbar>
 
@@ -65,10 +70,16 @@ const onSelect = (row: Row) => {
     :loading="status === 'pending'"
     sort-mode="manual"
     class="w-full"
-    @select="onSelect">
+    @select="onSelect"
+  >
     <template #role-data="{ row }: { row: Row }">
       <template v-if="row.role.length">
-        <ColorDot v-for="role in row.role" :key="role.id" :color="role.color" class="mr-1" />
+        <ColorDot
+          v-for="role in row.role"
+          :key="role.id"
+          :color="role.color"
+          class="mr-1"
+        />
       </template>
       <template v-else>
         <span>
@@ -79,6 +90,10 @@ const onSelect = (row: Row) => {
   </UTable>
 
   <UDashboardPanelContent>
-    <UDashboardSection v-if="error" :title="$t('errors.error')" :description="error.statusMessage" />
+    <UDashboardSection
+      v-if="error"
+      :title="$t('errors.error')"
+      :description="error.statusMessage"
+    />
   </UDashboardPanelContent>
 </template>

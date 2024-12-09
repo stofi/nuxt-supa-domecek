@@ -65,14 +65,11 @@ const deleteEmployee = async () => {
     deleting.value = false
   }
 }
-
 </script>
 
 <template>
   <UDashboardNavbar :title="`${$t('page.employee.label')} - ${data?.name}`">
-    <template #right>
-
-    </template>
+    <template #right />
   </UDashboardNavbar>
   <UDashboardPanelContent>
     <UDashboardSection :title="$t('page.employee.new.employeeDetails')">
@@ -80,8 +77,11 @@ const deleteEmployee = async () => {
         {{ $t('page.employee.new.fillEmployeeDetails') }}
       </p>
 
-      <EmployeeForm :id="data?.id" :initial-state="data" @submit="refresh" />
-
+      <EmployeeForm
+        :id="data?.id"
+        :initial-state="data"
+        @submit="refresh"
+      />
     </UDashboardSection>
     <UDashboardSection>
       <div class="flex gap-2">

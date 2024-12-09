@@ -19,7 +19,6 @@ const role = defineModel<number>('role')
 const selectedRole = computed<Role | undefined>(() =>
   data.value?.data.find((r: Role) => r.id === role.value)
 )
-
 </script>
 
 <template>

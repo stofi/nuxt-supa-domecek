@@ -67,24 +67,36 @@ const linksUi = {
 <template>
   <UDashboardLayout>
     <UDashboardPanel
-:width="250" :resizable="{ min: 200, max: 300 }" collapsible
-      :ui="{ wrapper: 'bg-gray-50 dark:bg-gray-950' }">
-      <UDashboardNavbar class="!border-transparent" :ui="{ left: 'flex-1' }" title="">
+      :width="250"
+      :resizable="{ min: 200, max: 300 }"
+      collapsible
+      :ui="{ wrapper: 'bg-gray-50 dark:bg-gray-950' }"
+    >
+      <UDashboardNavbar
+        class="!border-transparent"
+        :ui="{ left: 'flex-1' }"
+        title=""
+      >
         <template #left>
           <TeamDropdown />
         </template>
-
       </UDashboardNavbar>
       <UDashboardSidebar>
         <template #header>
           <UDashboardSearchButton :label="$t('app.layout.search')" />
         </template>
 
-        <UDashboardSidebarLinks :ui="linksUi" :links="links" />
+        <UDashboardSidebarLinks
+          :ui="linksUi"
+          :links="links"
+        />
 
         <UDivider />
 
-        <UDashboardSidebarLinks :ui="linksUi" :links="footerLinks" />
+        <UDashboardSidebarLinks
+          :ui="linksUi"
+          :links="footerLinks"
+        />
 
         <UDivider class="sticky bottom-0" />
 
@@ -109,7 +121,8 @@ const linksUi = {
 
     <ClientOnly>
       <LazyUDashboardSearch
-      :groups="groups" />
+        :groups="groups"
+      />
     </ClientOnly>
   </UDashboardLayout>
 </template>

@@ -82,11 +82,20 @@ function timeslotString(item: TimeslotWithData) {
 
 <template>
   <ul>
-    <li v-for="item in sortedSlots" :key="timeslotString(item)" class="flex">
-      <div class="flex-initial" :style="getStart(item)"></div>
+    <li
+      v-for="item in sortedSlots"
+      :key="timeslotString(item)"
+      class="flex"
+    >
+      <div
+        class="flex-initial"
+        :style="getStart(item)"
+      />
       <button
-class="mb-1 h-6 rounded-sm whitespace-nowrap px-1 flex items-center gap-1 flex-auto" :class="item.color"
-        @click="$emit('click', timeslotString(item))">
+        class="mb-1 h-6 rounded-sm whitespace-nowrap px-1 flex items-center gap-1 flex-auto"
+        :class="item.color"
+        @click="$emit('click', timeslotString(item))"
+      >
         <span class="text-gray-50 text-xs">
           {{ formatTime(item.start_time) }}
         </span>
@@ -97,7 +106,10 @@ class="mb-1 h-6 rounded-sm whitespace-nowrap px-1 flex items-center gap-1 flex-a
           {{ formatTime(item.end_time) }}
         </span>
       </button>
-      <div class="flex-initial" :style="getEnd(item)"></div>
+      <div
+        class="flex-initial"
+        :style="getEnd(item)"
+      />
     </li>
   </ul>
 </template>
