@@ -12,11 +12,14 @@ export class EmployeeService extends BaseService {
 
   // Get employees with query validation
   async getEmployees(query: EmployeeQuery, teamId: number) {
-    let employeesQuery = this.supabase.from('employee').select(
-      // `*, role(*), timeslot(*, role(*))`,
-      `*, role(*)`,
-      { count: 'estimated' }
-    ).eq('team_id', teamId)
+    let employeesQuery = this.supabase
+      .from('employee')
+      .select(
+        `*, role(*)`,
+        { count: 'estimated' }
+      )
+      .eq('team_id', teamId)
+      .eq('archived', false)
 
     if (query.q) {
       employeesQuery = employeesQuery.ilike('name', `%${query.q}%`)
@@ -136,6 +139,20 @@ export class EmployeeService extends BaseService {
     if (error) throw this.handlePostgrestError(error, 'Error deleting employees')
 
     return { success: true }
+  }
+
+  async archiveEmployee(id: number, teamId: number) {
+    const { data, error } = await this.supabase
+      .from('employee')
+      .update({ archived: true })
+      .eq('id', id)
+      .eq('team_id', teamId)
+      .select('*')
+      .single()
+
+    if (error) throw this.handlePostgrestError(error, 'Error archiving employee')
+
+    return data
   }
 
   async assignRoleToEmployee(employeeId: number, roleId: number) {

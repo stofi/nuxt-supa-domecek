@@ -83,7 +83,17 @@ const en = {
       new: {
         label: '@:general.new @:general.employee',
         employeeDetails: 'Employee details',
-        fillEmployeeDetails: 'Fill in the details of the new employee'
+        fillEmployeeDetails: 'Fill in the details of the employee'
+      },
+      archive: {
+        success: 'Employee archived successfully',
+        error: 'Error archiving employee'
+      },
+      delete: {
+        title: 'Delete Employee',
+        description: 'Are you sure you want to delete this employee? The employee will be deleted from all past shifts and vacations. This action is not reversible. Consider archiving the employee instead.',
+        success: 'Employee deleted successfully',
+        error: 'Error deleting employee'
       }
     },
     roles: {
@@ -383,7 +393,17 @@ const cs: Translations = {
       new: {
         label: '@:general.new @:general.employee',
         employeeDetails: 'Detaily zaměstnance',
-        fillEmployeeDetails: 'Vyplňte detaily nového zaměstnance'
+        fillEmployeeDetails: 'Vyplňte detaily zaměstnance'
+      },
+      archive: {
+        success: 'Zaměstnanec úspěšně archivován',
+        error: 'Chyba při archivaci zaměstnance'
+      },
+      delete: {
+        title: 'Smazat zaměstnance',
+        description: 'Opravdu chcete smazat tohoto zaměstnance? Zaměstnanec bude smazán ze všech minulých směn a dovolených. Tato akce je nevratná. Zvažte archivaci zaměstnance.',
+        success: 'Zaměstnanec úspěšně smazán',
+        error: 'Chyba při mazání zaměstnance'
       }
     },
     roles: {

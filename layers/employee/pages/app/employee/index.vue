@@ -36,19 +36,36 @@ const columns = computed<TableColumn[]>(() => [
     rowClass: 'text-right'
   }
 ])
+
+const onSelect = (row: Row) => {
+  navigateTo(`/app/employee/${row.id}`)
+}
 </script>
 
 <template>
   <UDashboardNavbar :title="$t('page.employees.label')" :badge="data?.count ?? 0">
     <template #right>
       <UButton
-:label="$t('buttons.refresh')" icon="i-heroicons-arrow-path" color="gray" :loading="status === 'pending'"
+        :label="$t('buttons.refresh')"
+        icon="i-heroicons-arrow-path"
+        color="gray"
+        :loading="status === 'pending'"
         @click="refresh" />
-      <UButton :label="$t('buttons.newEmployee')" trailing-icon="i-heroicons-plus" color="gray" to="/app/employee/new" />
+      <UButton
+        :label="$t('buttons.newEmployee')"
+        trailing-icon="i-heroicons-plus"
+        color="gray"
+        to="/app/employee/new" />
     </template>
   </UDashboardNavbar>
 
-  <UTable :columns="columns" :rows="data?.data" :loading="status === 'pending'" sort-mode="manual" class="w-full">
+  <UTable
+    :columns="columns"
+    :rows="data?.data"
+    :loading="status === 'pending'"
+    sort-mode="manual"
+    class="w-full"
+    @select="onSelect">
     <template #role-data="{ row }: { row: Row }">
       <template v-if="row.role.length">
         <ColorDot v-for="role in row.role" :key="role.id" :color="role.color" class="mr-1" />
