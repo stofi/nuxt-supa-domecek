@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-og-image',
     '@nuxt/test-utils/module',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/plausible'
   ],
 
   devtools: { enabled: true },
@@ -75,6 +76,10 @@ export default defineNuxtConfig({
     strategy: 'no_prefix',
     locales: ['en', 'cs'],
     vueI18n: './i18n.config.ts'
+  },
+
+  plausible: {
+    apiHost: 'https://plausible.letna.dev'
   },
 
   supabase: {
