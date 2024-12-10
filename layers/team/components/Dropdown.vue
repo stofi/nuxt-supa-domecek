@@ -8,7 +8,9 @@ defineExpose({
 const { t } = useI18n()
 const { data, status, error, refresh } = await useFetch(
   '/api/team', {
-    headers: useRequestHeaders(['cookie'])
+    headers: useRequestHeaders(['cookie']),
+    key: 'teamSelect',
+    dedupe: 'defer'
   }
 )
 const teamId = useCookie<number | undefined>('teamId')

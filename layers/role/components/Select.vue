@@ -10,7 +10,8 @@ defineExpose({
 const { data, status, error, refresh } = await useFetch(
   '/api/role', {
     headers: useRequestHeaders(['cookie']),
-    key: 'roleSelect'
+    key: 'roleSelect',
+    dedupe: 'defer'
   }
 )
 
