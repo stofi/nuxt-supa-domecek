@@ -2,12 +2,16 @@
 import type { FormSubmitEvent, Form } from '#ui/types'
 import { type CreateTimeslot, createTimeslotSchema } from '~timeslot/schemas'
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 type Schema = Partial<CreateTimeslot>
 
 const props = defineProps<{
   initialState?: Schema
   id?: string | number
   date?: Date
+  autosave?: boolean
+  deleteable?: boolean
 }>()
 
 const emits = defineEmits<{
@@ -23,6 +27,7 @@ const state = reactive<Schema>({
   break: false,
   date: props.date
 })
+const tmpState = reactive<Schema>({})
 
 const form = ref<Form<Schema>>()
 const loading = ref(false)
@@ -33,6 +38,10 @@ watch(() => props.initialState, () => {
 
     state.start_time = formatTime(state.start_time)
     state.end_time = formatTime(state.end_time)
+
+    if (props.autosave) {
+      Object.assign(tmpState, state)
+    }
   }
 }, { immediate: true })
 
@@ -54,6 +63,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         body: event.data
       })
     }
+    await delay(1000)
     emits('submit')
   } catch (err) {
     const wasZodError = handleZodError(err, form)
@@ -63,6 +73,33 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     loading.value = false
   }
 }
+
+async function handleDelete() {
+  if (!props.id || !props.deleteable) return
+  try {
+    await $fetch(`/api/timeslot/${props.id}`, {
+      method: 'DELETE'
+    })
+    emits('submit')
+  } catch (err) {
+    handleServerError(err, form, 'date')
+  }
+}
+
+watch(state,
+  async () => {
+    if (!props.autosave || !form.value) return
+    const newState = (JSON.stringify(state))
+    const oldState = (JSON.stringify(tmpState))
+    Object.assign(tmpState, state)
+    if (newState === oldState) return
+    await form.value.validate()
+    const errors = form.value.getErrors()
+    if (errors.length) return
+    await form.value.submit()
+  },
+  { deep: 1 }
+)
 </script>
 
 <template>
@@ -70,8 +107,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     ref="form"
     :schema="createTimeslotSchema"
     :state="state"
-    class="gap-2 grid md:grid-cols-3"
-    :validate-on="['submit']"
+    class="gap-2 md:gap-4 grid md:grid-cols-3"
+    :validate-on="['submit', 'change']"
     @submit="onSubmit"
   >
     <UFormGroup
@@ -116,18 +153,28 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     <UFormGroup
       :label="$t('form.timeslot.breakLabel')"
       name="break"
-      class="md:row-start-3"
+      class="md:row-start-3 md:col-span-2"
     >
-      <UCheckbox v-model="state.break" />
+      <UCheckbox
+        v-model="state.break"
+        :label="$t('form.timeslot.breakDetails')"
+      />
     </UFormGroup>
 
-    <div class="md:col-end-4 md:row-start-3 place-self-end">
+    <div class="md:col-end-4 md:row-start-3 place-self-end flex gap-2">
       <UButton
+        v-if="!props.autosave"
         type="submit"
         :loading="loading"
       >
         {{ $t('form.common.submitButton') }}
       </UButton>
+      <ButtonDelete
+        v-if="props.deleteable"
+        :title="$t('form.timeslot.deleteTitle')"
+        :description="$t('form.timeslot.deleteDescription')"
+        @delete="handleDelete"
+      />
     </div>
   </UForm>
 </template>

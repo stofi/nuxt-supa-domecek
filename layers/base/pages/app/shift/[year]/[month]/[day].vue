@@ -1,10 +1,14 @@
 <script lang="ts" setup>
+import type { ComponentInstance } from 'vue'
+import ShiftTimeline from '~base/components/ShiftTimeline.vue'
+
 definePageMeta({
   layout: 'app-layout'
 })
 
 const { t, locale } = useI18n()
 const route = useRoute()
+const shiftRef = ref<ComponentInstance<typeof ShiftTimeline>>()
 
 const changeKey = ref(0)
 
@@ -26,7 +30,7 @@ useHead({
 const { data, status, error, refresh } = await useFetch(
   '/api/timeslot', {
     query: {
-      date: date.value.toISOString().split('T')[0]
+      date: date.value?.toISOString().split('T')[0]
     },
     headers: useRequestHeaders(['cookie'])
   }
@@ -34,7 +38,14 @@ const { data, status, error, refresh } = await useFetch(
 
 const handleUpdate = async () => {
   await refresh()
-  changeKey.value++
+}
+
+const scrollToTimeslot = (timeslotId: number) => {
+  const id = `timeslot-id-${timeslotId}`
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
 }
 </script>
 
@@ -50,16 +61,24 @@ const handleUpdate = async () => {
     </template>
   </UDashboardNavbar>
   <UDashboardPanelContent>
-    <UDashboardSection :title="$t('page.shift.timelineLabel')">
+    <UDashboardSection
+      v-if="data?.count"
+      :title="$t('page.shift.timelineLabel')"
+    >
       <ShiftTimeline
-        :key="changeKey"
+        ref="shiftRef"
         :timeslots="data?.data"
+        @click="scrollToTimeslot"
       />
     </UDashboardSection>
-    <UDashboardSection :title="$t('page.shift.timeslotsLabel')">
+    <UDashboardSection
+      v-if="data?.count"
+      :title="$t('page.shift.timeslotsLabel')"
+    >
       <div class="flex flex-col gap-6">
         <UDashboardCard
           v-for="slot in data?.data"
+          :id="`timeslot-id-${slot.id}`"
           :key="`timeslot-id-${slot.id}`"
         >
           <TimeslotForm
@@ -71,7 +90,9 @@ const handleUpdate = async () => {
               role_id: slot.role_id ?? undefined,
               break: slot.break
             }"
-            :date="date"
+            :date="date ?? undefined"
+            autosave
+            deleteable
             @submit="handleUpdate"
           />
         </UDashboardCard>
@@ -81,7 +102,7 @@ const handleUpdate = async () => {
       <UDashboardCard>
         <TimeslotForm
           :key="`timeslot-${changeKey}`"
-          :date="date"
+          :date="date ?? undefined"
           @submit="handleUpdate"
         />
       </UDashboardCard>

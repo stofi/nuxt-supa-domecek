@@ -16,11 +16,15 @@ type TimeslotWithData = Timeslot & {
   role?: Role | null
 }
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   timeslots?: TimeslotWithData[]
-}>()
+}>(), {
+  timeslots: () => []
+})
 
-const timeslots = props.timeslots || []
+defineEmits<{
+  click: [number]
+}>()
 
 const TIME_OPTIONS = buildTimeArray(DEFAULT_START, DEFAULT_END, DEFAULT_STEP)
 
@@ -50,11 +54,11 @@ const getEmployeeName = (item: TimeslotWithData) =>
   item.employee?.name || ''
 
 const validSlots = computed(() => {
-  return timeslots.filter(item => item.start_time && item.end_time)
+  return props.timeslots.filter(item => item.start_time && item.end_time)
 })
 
 const invalidSlots = computed(() =>
-  timeslots.filter(item => !(item.start_time && item.end_time))
+  props.timeslots.filter(item => !(item.start_time && item.end_time))
 )
 
 const populatedSlots = computed(() =>
@@ -92,17 +96,17 @@ function timeslotString(item: TimeslotWithData) {
         :style="getStart(item)"
       />
       <button
-        class="mb-1 h-6 rounded-sm whitespace-nowrap px-1 flex items-center gap-1 flex-auto"
+        class="mb-1 h-8 rounded whitespace-nowrap px-2 flex items-center gap-1 flex-auto max-w-full"
         :class="item.color"
-        @click="$emit('click', timeslotString(item))"
+        @click="$emit('click', item.id)"
       >
-        <span class="text-gray-50 text-xs">
+        <span class="text-gray-50 text-sm">
           {{ formatTime(item.start_time) }}
         </span>
-        <span class="px-2 leading-none text-gray-900">
+        <span class="px-2 leading-loose dark:text-gray-900 text-gray-50 truncate font-bold drop-shadow-[0_0_1px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_1px_rgba(255,255,255,0.5)]">
           {{ getEmployeeName(item) }}
         </span>
-        <span class="ml-auto text-gray-50 text-xs">
+        <span class="ml-auto text-gray-50 text-sm">
           {{ formatTime(item.end_time) }}
         </span>
       </button>

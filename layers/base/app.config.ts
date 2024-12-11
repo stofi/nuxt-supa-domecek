@@ -15,7 +15,7 @@ export default defineAppConfig({
     },
     card: {
       rounded: 'rounded-xl',
-      background: 'bg-gray-50 dark:bg-gray-900'
+      background: 'bg-gray-50 dark:bg-gray-950'
     },
     footer: {
       top: {

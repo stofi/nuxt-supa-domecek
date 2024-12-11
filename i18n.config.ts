@@ -200,7 +200,10 @@ const en = {
       employeeLabel: '@:general.employee',
       startTimeLabel: 'Start time',
       endTimeLabel: 'End time',
-      breakLabel: 'Break'
+      breakLabel: 'Break',
+      breakDetails: 'Subtract half-hour break',
+      deleteTitle: 'Delete Shift',
+      deleteDescription: 'Are you sure you want to delete this shift?'
     },
     vacation: {
       employeeLabel: '@:general.employee',
@@ -510,7 +513,10 @@ const cs: Translations = {
       employeeLabel: '@:general.employee',
       startTimeLabel: 'Začátek',
       endTimeLabel: 'Konec',
-      breakLabel: 'Přestávka'
+      breakLabel: 'Přestávka',
+      breakDetails: 'Odečíst půlhodinovou přestavku',
+      deleteTitle: 'Smazat směnu',
+      deleteDescription: 'Opravdu chcete smazat tuto směnu?'
     },
     vacation: {
       employeeLabel: '@:general.employee',
