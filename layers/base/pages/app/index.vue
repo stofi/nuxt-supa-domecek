@@ -1,7 +1,15 @@
 <script lang="ts" setup>
 import { Calendar } from 'v-calendar'
 import { format, startOfMonth, endOfMonth } from 'date-fns'
-import { cs, enUS } from 'date-fns/locale'
+
+type DayContent = {
+  day: {
+    year: string
+    month: string
+    day: string
+    date: Date
+  }
+}
 
 format(new Date(2020, 1, 10), 'EEEE')
 
@@ -30,7 +38,7 @@ useHead({
   title: t('page.dashboard.label')
 })
 
-const getTimeslotsPerDay = ({ day, month, year }: { day: string, month: string, year: string }) => {
+const getTimeslotsPerDay = ({ day, month, year }: DayContent['day']) => {
   month = `${month}`.padStart(2, '0')
   day = `${day}`.padStart(2, '0')
   const date = new Date(`${year}-${month}-${day}`)
@@ -74,45 +82,17 @@ const handleUpdate = (pages) => {
         :locale="locale"
         @update:pages="handleUpdate"
       >
-        <template #day-content="x">
+        <template #day-content="{ day } : DayContent">
           <div
             class="h-full p-0.5 group"
             role="button"
             tabindex="0"
-            @click="navigateTo(`/app/shift/${x.day.year}/${x.day.month}/${x.day.day}`)"
+            @click="navigateTo(`/app/shift/${day.year}/${day.month}/${day.day}`)"
           >
-            <UDashboardCard
-              :ui="{
-                background: 'group-hover:bg-gray-100 dark:group-hover:bg-gray-800',
-                ring: 'dark:ring-0 group-focus:ring-2 group-focus:ring-primary-400',
-                rounded: 'rounded-sm',
-                base: 'h-full min-h-32',
-                body: { padding: 'px-2 sm:px-2 sm:py-1 py-1' }
-              }"
-            >
-              <div class="font-semi mb-1">
-                {{ format(x.day.date, 'EEEE', { locale: locale === 'cs' ? cs : enUS }) }} {{ x.day.day }}.
-              </div>
-
-              <div
-                v-if="getTimeslotsPerDay(x.day)"
-                class="space-y-1"
-              >
-                <div
-                  v-for="slot in getTimeslotsPerDay(x.day)?.timeslots"
-                  :key="slot.id"
-                  class="flex gap-1 items-center"
-                >
-                  <ColorDot :color="slot.role?.color" />
-                  <div
-                    :title="slot.employee?.name"
-                    class="truncate max-w-28 text-sm"
-                  >
-                    {{ slot.employee?.name }}
-                  </div>
-                </div>
-              </div>
-            </UDashboardCard>
+            <TimeslotDashboardCard
+              :date="day.date"
+              :timeslots="getTimeslotsPerDay(day)?.timeslots ?? []"
+            />
           </div>
         </template>
       </Calendar>

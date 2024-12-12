@@ -1,20 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import type { TimeslotWithData } from '~/types'
 import {
   DEFAULT_START,
   DEFAULT_END,
   DEFAULT_STEP
 } from '~~/consts'
-import type { Database } from '~~/types/supabase'
-
-type Timeslot = Database['public']['Tables']['timeslot']['Row']
-type Employee = Database['public']['Tables']['employee']['Row']
-type Role = Database['public']['Tables']['role']['Row']
-
-type TimeslotWithData = Timeslot & {
-  employee?: Employee | null
-  role?: Role | null
-}
 
 const props = withDefaults(defineProps<{
   timeslots?: TimeslotWithData[]
@@ -45,7 +36,7 @@ const getEnd = (item: TimeslotWithData) =>
   getWidthStyle(item.end_time, DEFAULT_END)
 
 const getColor = (item: TimeslotWithData) =>
-  (!item.role?.color) ? 'bg-gray-400' : `bg-${item.role.color}-500`
+  getColorClass(item.role?.color)
 
 const getPriority = (item: TimeslotWithData) =>
   !!item.role?.priority
@@ -103,7 +94,7 @@ function timeslotString(item: TimeslotWithData) {
         <span class="text-gray-50 text-sm">
           {{ formatTime(item.start_time) }}
         </span>
-        <span class="px-2 leading-loose dark:text-gray-900 text-gray-50 truncate font-bold drop-shadow-[0_0_1px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_1px_rgba(255,255,255,0.5)]">
+        <span class="px-1 leading-loose truncate font-semibold text-lg">
           {{ getEmployeeName(item) }}
         </span>
         <span class="ml-auto text-gray-50 text-sm">
