@@ -9,8 +9,6 @@ const user = useSupabaseUser()
 
 await client.auth.refreshSession()
 
-console.log(user.value)
-
 if (user.value) {
   navigateTo('/app')
 }
