@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { ComponentInstance } from 'vue'
+
 import ShiftTimeline from '~base/components/ShiftTimeline.vue'
+import { css } from '~base/printCss'
 
 definePageMeta({
   layout: 'app-layout'
@@ -11,7 +13,6 @@ const route = useRoute()
 const shiftRef = ref<ComponentInstance<typeof ShiftTimeline>>()
 
 const changeKey = ref(0)
-
 const date = computed(() => {
   const year = route.params.year
   let { month, day } = route.params
@@ -47,6 +48,25 @@ const scrollToTimeslot = (timeslotId: number) => {
     el.scrollIntoView({ behavior: 'smooth' })
   }
 }
+
+const dayPage = ref<HTMLElement | null>(null)
+
+let Printd: typeof import('printd').Printd | null = null
+
+if (window) {
+  Printd = await import('printd').then(module => module.Printd)
+}
+const printer = Printd ? new Printd() : null
+
+const printDay = async () => {
+  if (!printer) return
+  const $target = dayPage.value
+  if (!$target) return
+  printer.print($target, [css,
+    `@page{size: A4 landscape;margin:0;orientation: landscape}`
+  ])
+  console.log($target, printer)
+}
 </script>
 
 <template>
@@ -56,7 +76,7 @@ const scrollToTimeslot = (timeslotId: number) => {
         :label="$t('buttons.print')"
         trailing-icon="i-heroicons-printer"
         color="gray"
-        to="/app"
+        @click="printDay"
       />
     </template>
   </UDashboardNavbar>
@@ -108,4 +128,18 @@ const scrollToTimeslot = (timeslotId: number) => {
       </UDashboardCard>
     </UDashboardSection>
   </UDashboardPanelContent>
+  <div
+    v-show="false"
+    class="absolute top-0"
+  >
+    <div
+      ref="dayPage"
+    >
+      <DayPrint
+        v-if="data?.data"
+        :timeslots="data.data"
+        :title="title"
+      />
+    </div>
+  </div>
 </template>

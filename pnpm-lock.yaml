@@ -80,6 +80,9 @@ importers:
       nuxt-og-image:
         specifier: ^3.1.1
         version: 3.1.1(magicast@0.3.5)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.1)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
+      printd:
+        specifier: ^1.6.0
+        version: 1.6.0
       v-calendar:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.13(typescript@5.7.2))
@@ -4998,6 +5001,10 @@ packages:
   pretty-ms@9.2.0:
     resolution: {integrity: sha512-4yf0QO/sllf/1zbZWYnvWw3NxCQwLXKzIj0G849LSufP15BXKM0rbD2Z3wVnkMfjdn/CB0Dpp444gYAACdsplg==}
     engines: {node: '>=18'}
+
+  printd@1.6.0:
+    resolution: {integrity: sha512-/w99P870SbE4MjVXJbWBvrK/HtVOcTEcmzUXcPYzfIaxgyPUGw8lmbhM3JHYbiZ18BCj+qwVEVshf2MLRoAh0Q==}
+    engines: {node: '>= 4'}
 
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -12452,6 +12459,8 @@ snapshots:
   pretty-ms@9.2.0:
     dependencies:
       parse-ms: 4.0.0
+
+  printd@1.6.0: {}
 
   process-nextick-args@2.0.1: {}
 
