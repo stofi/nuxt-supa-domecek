@@ -3,7 +3,6 @@ import { computed, defineProps } from 'vue'
 import { DEFAULT_END, DEFAULT_START, DEFAULT_STEP } from '~/consts'
 import type { TimeslotWithData, Employee, Role } from '~/types'
 
-// ---- Types ----
 interface GroupedEmployee {
   employee: Employee
   role: Role | null
@@ -18,7 +17,6 @@ interface HourIncrement {
   span: number
 }
 
-// ---- Props ----
 const props = defineProps<{
   timeslots: TimeslotWithData[]
   title: string
